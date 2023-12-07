@@ -9,7 +9,7 @@
 /* ///////////..utility classes../////////// */
 
 .container {
-    max-width: 1200px;
+    /* max-width: 1200px; */
     width: 90%;
     margin: auto;
 }
@@ -72,7 +72,7 @@
     list-style: none;
     margin-left: 1.5rem;
     margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+    /* font-size: 1.2rem; */
 }
 
 .menuItems a {
@@ -94,6 +94,25 @@
 }
 
 /* ......../ media query /.......... */
+
+/* @media (max-width: 500px) {
+    .navbar .menuItems li {
+        font-size: 1.6rem;
+    }
+
+    .logo {
+        position: absolute;
+        top: 06px;
+        right: 15px;
+        font-size: 3rem;
+    }
+
+    .navbar .menu-items li {
+        margin-bottom: 2.5rem;
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+} */
 
 @media (max-width: 768px) {
     .navbar {
@@ -180,9 +199,18 @@
     .logo {
         position: absolute;
         top: 5px;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        width: 180px; /* Need a specific value to work */
+    }
+    /* .logo {
+        position: absolute;
+        top: 5px;
         right: 15px;
         font-size: 2rem;
-    }
+    } */
 
     .navbarContainer input[type='checkbox']:checked ~ .menuItems {
         transform: translateX(0);
@@ -210,7 +238,7 @@
         position: absolute;
         top: 06px;
         right: 15px;
-        font-size: 3rem;
+        /* font-size: 3rem; */
     }
 
     .navbar .menu-items li {

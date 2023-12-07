@@ -20,19 +20,27 @@ export function Navbar() {
                         <a href="#home">Home</a>
                     </li>
                     <li>
-                        <a href="#about">About</a>
+                        <a href="#about">Consultation</a>
                     </li>
                     <li>
-                        <a href="#food">Category</a>
+                        <a href="#food">Training</a>
                     </li>
                     <li>
-                        <a href="#food-menu">Menu</a>
-                    </li>
-                    <li>
-                        <a href="#testimonials">Testimonial</a>
+                        <a href="#food-menu">Learn</a>
                     </li>
                     <li>
                         <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <ul className={styles.menuItems}>
+                    <li>
+                        <a href="#home">English</a>
+                    </li>
+                    <li>
+                        <a href="#about">Sign In</a>
+                    </li>
+                    <li>
+                        <a href="#food">Create Account</a>
                     </li>
                 </ul>
                 <div className={styles.logo}>
