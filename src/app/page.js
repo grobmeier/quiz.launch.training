@@ -1,16 +1,18 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import { Button } from '@/app/ui/button'
+import { Card } from '@/app/ui/card'
 
 export default function Home() {
     return (
         <main className={styles.main}>
+            <Button text="Create Account" link="training-list" />
+            <Card />
             <div className={styles.description}>
                 <p>
                     Get started by editing&nbsp;
                     <code className={styles.code}>src/app/page.js</code>
                 </p>
-                <Button text="Create Account" link="training-list" />
                 <div>
                     <a
                         href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
