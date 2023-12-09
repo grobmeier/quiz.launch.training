@@ -23,3 +23,9 @@
 .container > div {
     padding-left: 16px;
 }
+
+@media (max-width: 768px) {
+    .card {
+        margin: 10px 0;
+    }
+}

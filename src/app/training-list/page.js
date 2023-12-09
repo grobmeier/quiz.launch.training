@@ -1,4 +1,18 @@
-// `app/dashboard/page.tsx` is the UI for the `/training-lists` URL
+// `app/training-list/page.tsx` is the UI for the `/training-lists` URL
+
+import styles from './training.module.css'
+import { Card } from '@/app/ui/card'
+
 export default function Page() {
-    return <h1>Hello, Traning Page!</h1>
+    return (
+        <main className={styles.main}>
+            <h1>Hello, Traning Page!</h1>
+            <div className={styles.grid}>
+                <Card />
+                <Card />
+                <Card />
+                <Card />
+            </div>
+        </main>
+    )
 }

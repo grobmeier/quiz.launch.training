@@ -1,0 +1,27 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 6rem;
+    min-height: 100vh;
+    gap: 20px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    /* grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+    width: var(--max-width); */
+}
+
+/* tablet breakpoint */
+@media (max-width: 768px) {
+    .grid {
+        display: block;
+    }
+    .main {
+        padding: 2rem;
+    }
+}
