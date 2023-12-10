@@ -46,10 +46,10 @@ export function Navbar() {
                 <div className={styles.logo}>
                     <Link href="/">
                         <Image
-                            src="/next.svg"
-                            alt="Next.js Logo"
-                            width={180}
-                            height={37}
+                            src="/icons/launch-training-logo.png"
+                            alt="Launch Training Logo"
+                            width={188}
+                            height={48}
                             priority
                         />
                     </Link>
