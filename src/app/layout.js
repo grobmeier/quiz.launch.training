@@ -1,5 +1,6 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
+import '@smastrom/react-rating/style.css'
 import { Navbar } from '@/app/ui/navbar'
 
 const inter = Inter({ subsets: ['latin'] })
