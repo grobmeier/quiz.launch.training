@@ -4,7 +4,7 @@
     max-width: 312px;
     border-radius: 10px;
     background: white;
-    padding: 24px 12px;
+    padding: 12px 10px;
 }
 
 .card:hover {
@@ -17,12 +17,20 @@
     align-items: center;
 }
 .container h4 {
-    font-size: 24px;
+    font-size: 16px;
     padding-bottom: 12px;
 }
-.container > div {
-    padding-left: 16px;
+.container h6 {
+    font-weight: 400;
+    font-size: 16px;
+    padding: 12px 0;
 }
+.container p {
+    text-align: justify;
+}
+/* .container > div {
+    padding-left: 16px;
+} */
 
 @media (max-width: 768px) {
     .card {

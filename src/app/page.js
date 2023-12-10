@@ -6,7 +6,7 @@ import { Card } from '@/app/ui/Card'
 export default function Home() {
     return (
         <main className={styles.main}>
-            <Button text="Create Account" link="training-list" />
+            <Button text={'Create Account'} link={'training-list'} />
             <Card />
             <div className={styles.description}>
                 <p>
