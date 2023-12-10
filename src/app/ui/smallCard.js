@@ -1,4 +1,4 @@
-import styles from './small-card.module.css'
+import styles from './SmallCard.module.css'
 import Image from 'next/image'
 import { Rating } from '@smastrom/react-rating'
 

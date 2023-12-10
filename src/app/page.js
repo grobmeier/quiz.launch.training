@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
-import { Button } from '@/app/ui/button'
-import { Card } from '@/app/ui/card'
+import { Button } from '@/app/ui/Button'
+import { Card } from '@/app/ui/Card'
 
 export default function Home() {
     return (
