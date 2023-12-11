@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './Navbar.module.css'
+import { Button } from '@/app/ui/Button'
 
 // import Logo from './Logo'
-// import Button from './Button'
 
 export function Navbar() {
     return (
@@ -17,16 +17,22 @@ export function Navbar() {
                 </div>
                 <ul className={styles.menuItems}>
                     <li>
-                        <a href="#home">Home</a>
+                        <Link href="/">
+                            <p>Home</p>
+                        </Link>
                     </li>
                     <li>
                         <a href="#about">Consultation</a>
                     </li>
                     <li>
-                        <a href="#food">Training</a>
+                        <Link href="/training-list">
+                            <p>Training</p>
+                        </Link>
                     </li>
                     <li>
-                        <a href="#food-menu">Learn</a>
+                        <Link href="/tests-list">
+                            <p>Learn</p>
+                        </Link>
                     </li>
                     <li>
                         <a href="#contact">Contact</a>
@@ -39,14 +45,17 @@ export function Navbar() {
                     <li>
                         <a href="#about">Sign In</a>
                     </li>
-                    <li>
+                    {/* <li>
                         <a href="#food">Create Account</a>
+                    </li> */}
+                    <li>
+                        <Button link={'training-list'}>Create Account</Button>
                     </li>
                 </ul>
                 <div className={styles.logo}>
                     <Link href="/">
                         <Image
-                            src="/icons/launch-training-logo.png"
+                            src="/icons/launch-training-logo.svg"
                             alt="Launch Training Logo"
                             width={188}
                             height={48}
@@ -54,23 +63,6 @@ export function Navbar() {
                         />
                     </Link>
                 </div>
-                {/* <ul className="">
-                        <li>
-                            <Link href="/">
-                                <p>About Us</p>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/training-list">
-                                <p>Services</p>
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/">
-                                <p>Contacts</p>
-                            </Link>
-                        </li>
-                    </ul> */}
                 {/* <h1 className="logo">RS</h1> */}
             </div>
         </nav>
