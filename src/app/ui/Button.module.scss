@@ -1,15 +1,15 @@
-$primary-color: #0075b4;
+@import '@/app/variables.scss';
 
 .button {
-    background: $primary-color;
+    background: $btnPrimary;
     border: none;
     color: white;
     padding: 10px 22px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: $standardSize;
     margin: 4px 2px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: $standardRadius;
 }

@@ -1,0 +1,42 @@
+@import '@/app/variables.scss';
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    max-width: 312px;
+    border-radius: $standardRadius;
+    background: white;
+    padding: 12px 10px;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    padding: 2px 16px;
+    display: flex;
+    align-items: center;
+    h4 {
+        font-size: $standardSize;
+        padding-bottom: 12px;
+    }
+    h6 {
+        font-weight: $thinFont;
+        font-size: $standardSize;
+        padding: 12px 0;
+    }
+    p {
+        text-align: justify;
+    }
+}
+
+.containerBtn {
+    float: right;
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin: 10px 0;
+    }
+}

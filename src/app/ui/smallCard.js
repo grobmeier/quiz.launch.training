@@ -1,4 +1,5 @@
-import styles from './SmallCard.module.css'
+// import styles from './SmallCard.module.css'
+import styles from './SmallCard.module.scss'
 import Image from 'next/image'
 import { Rating } from '@smastrom/react-rating'
 import { Button } from '@/app/ui/Button'
