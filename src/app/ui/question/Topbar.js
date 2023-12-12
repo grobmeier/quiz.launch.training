@@ -1,4 +1,4 @@
-import styles from './Tobbar.module.css'
+import styles from './Topbar.module.css'
 
 export function Topbar({ counter }) {
     return (
