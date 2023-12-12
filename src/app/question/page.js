@@ -3,7 +3,7 @@
 import styles from './question.module.css'
 import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
-import { CopyBlock, dracula } from 'react-code-blocks'
+import { CopyBlock, CodeBlock, dracula } from 'react-code-blocks'
 
 export default function Page() {
     const CodeSnippetJava = `
@@ -22,7 +22,7 @@ export default function Page() {
     return (
         <main className={styles.main}>
             <Topbar />
-            <CopyBlock
+            <CodeBlock
                 text={CodeSnippetJava}
                 language="java"
                 showLineNumbers="true"

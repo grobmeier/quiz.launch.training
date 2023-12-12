@@ -35,8 +35,26 @@
     float: right;
 }
 
+.level {
+    display: none;
+}
+
 @media (max-width: 768px) {
     .card {
         margin: 10px 0;
+    }
+    .containerBtn {
+        display: none;
+    }
+    .container p {
+        display: none;
+    }
+    .stars {
+        display: none;
+    }
+    .level {
+        display: inline;
+        font-weight: 700;
+        float: right;
     }
 }

@@ -14,8 +14,14 @@ export function SmallCard({ link }) {
                     <h4>
                         <b>Programming Languages and Their Differences</b>
                     </h4>
-                    <Rating style={{ maxWidth: 100 }} value={4.3} readOnly />
-                    <h6>15:00 min</h6>
+                    <Rating
+                        style={{ maxWidth: 100 }}
+                        className={styles.stars}
+                        value={4.3}
+                        readOnly
+                    />
+                    <span>15:00 min</span>{' '}
+                    <span className={styles.level}> HARD </span>
                     <p>
                         Programming languages are the backbone of the digital
                         world, serving as the communication bridge between
