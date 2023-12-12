@@ -1,17 +1,18 @@
 import styles from './question.module.css'
-import { SmallCard } from '@/app/ui/SmallCard'
 import { Topbar } from '@/app/ui/question/Topbar'
+import { SingleOption } from '@/app/ui/question/SingleOption'
 
 export default function Page() {
     return (
         <main className={styles.main}>
-            <h1>QUESTION</h1>
             <Topbar />
-            <div className={styles.grid}>
+            <h3>What language do you see in the picture?</h3>
+            <SingleOption />
+            {/* <div className={styles.grid}>
                 <SmallCard />
                 <SmallCard />
                 <SmallCard />
-            </div>
+            </div> */}
         </main>
     )
 }
