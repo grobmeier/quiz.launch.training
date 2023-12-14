@@ -3,7 +3,7 @@
 import styles from './question.module.css'
 import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
-import { CopyBlock, CodeBlock, dracula } from 'react-code-blocks'
+import { CodeBlock, dracula } from 'react-code-blocks'
 
 export default function Page() {
     const CodeSnippetJava = `
@@ -28,15 +28,15 @@ export default function Page() {
                 showLineNumbers="true"
                 // wrapLines
                 theme={dracula}
-                codeBlock
+                // codeBlock={true}
             />
-            <CopyBlock
+            <CodeBlock
                 text={CodeSnippetHTML}
                 language="html"
                 showLineNumbers="true"
                 // wrapLines
                 theme={dracula}
-                codeBlock
+                // codeBlock={true}
             />
             <h3>What language do you see in the picture?</h3>
             <SingleOption />
