@@ -22,12 +22,11 @@ export function getDataById(id) {
 }
 
 export default function Page({ params }) {
-    const { id } = getDataById(params.question)
+    const questionInfo = getDataById(params.question)
     return (
         <main className={styles.main}>
             <h1>Details about the Question</h1>
-            <h4>{id}</h4>
-            <Question />
+            <Question questionInfo={questionInfo} />
         </main>
     )
 }

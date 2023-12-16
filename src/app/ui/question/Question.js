@@ -5,40 +5,21 @@ import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
 import { CodeBlock, dracula } from 'react-code-blocks'
 
-export default function Question() {
-    const CodeSnippetJava = `
-    class HelloWorld { 
-        static public void main( String args[] ) {
-            System.out.println( "Hello World!");
-        }
-    }
-    `
-    const CodeSnippetHTML = `<ul>
-        <li>Coffee</li>
-        <li>Tea</li>
-        <li>Milk</li>
-</ul>`
+export default function Question({ questionInfo }) {
+    const { id, content, language, text, answers } = questionInfo
 
     return (
         <main className={styles.main}>
             <Topbar />
             <CodeBlock
-                text={CodeSnippetJava}
-                language="java"
+                text={content}
+                language={language}
                 showLineNumbers="true"
                 // wrapLines
                 theme={dracula}
                 // codeBlock={true}
             />
-            <CodeBlock
-                text={CodeSnippetHTML}
-                language="html"
-                showLineNumbers="true"
-                // wrapLines
-                theme={dracula}
-                // codeBlock={true}
-            />
-            <h3>What language do you see in the picture?</h3>
+            <h3>{text}</h3>
             <SingleOption />
             <SingleOption />
             {/* <div className={styles.grid}>

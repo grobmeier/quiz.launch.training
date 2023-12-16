@@ -1,6 +1,7 @@
 export const languagesExam = [
     {
         id: '5',
+        text: 'What is the output of the following Java code snippet?',
         content: `  
     class HelloWorld {
             static public void main( String args[] ) {
@@ -8,6 +9,7 @@ export const languagesExam = [
             }
    }
     `,
+        language: 'java',
         answers: [
             {
                 text: '1',
@@ -29,12 +31,14 @@ export const languagesExam = [
     },
     {
         id: '1',
+        text: 'What language do you see in the picture?',
         content: `
     <ul>
         <li>Coffee</li>
         <li>Tea</li>
         <li>Milk</li>
     </ul>`,
+        language: 'html',
         answers: [
             {
                 text: 'HTML',
