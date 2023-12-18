@@ -20,8 +20,17 @@ export default function Question({ questionInfo }) {
                 // codeBlock={true}
             />
             <h3>{text}</h3>
-            <SingleOption />
-            <SingleOption />
+            {answers.map((item, index) => (
+                <>
+                    <SingleOption
+                        key={item.text}
+                        qtnIndex={index}
+                        text={item.text}
+                        correct={item.correct}
+                    />
+                </>
+            ))}
+
             {/* <div className={styles.grid}>
                 <SmallCard />
                 <SmallCard />
