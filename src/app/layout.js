@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import '@smastrom/react-rating/style.css'
 import { Navbar } from '@/app/ui/Navbar'
+import { QuestionProvider } from '@/app/lib/QuestionProvider.js'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body className={inter.className}>
                 <Navbar />
-                {children}
+                <QuestionProvider>{children}</QuestionProvider>
             </body>
         </html>
     )
