@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './question.module.css'
+import styles from './Question.module.css'
 import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
 import { Button } from '@/app/ui/Button'
@@ -52,15 +52,22 @@ export function Question({ questionInfo }) {
                     correct={item.correct}
                 />
             ))}
-            <div>
-                <button
-                    onClick={handlePrevious}
-                    disabled={currentIndex === 0 ? true : false}
-                >
-                    PREV
-                </button>
-                <button onClick={handleNext}>NEXT</button>
-                {allQtns[2]}
+            <div className={styles.btnsContainer}>
+                <div>
+                    <button
+                        className={styles.prevBtn}
+                        onClick={handlePrevious}
+                        disabled={currentIndex === 0 ? true : false}
+                    >
+                        PREV
+                    </button>
+                </div>
+                <div>
+                    <button className={styles.nextBtn} onClick={handleNext}>
+                        NEXT
+                    </button>
+                </div>
+                {/* {allQtns[2]} */}
             </div>
 
             {/* <div className={styles.grid}>

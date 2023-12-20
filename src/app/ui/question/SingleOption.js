@@ -28,9 +28,13 @@ export function SingleOption({ text, correct, qtnIndex }) {
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']
 
     return (
-        <div onClick={handleClick} type="button" className={styles.container}>
+        <button
+            onClick={handleClick}
+            type="button"
+            className={styles.container}
+        >
             <span>{indexToCharacter[qtnIndex]}</span>
             <span>{text}</span>
-        </div>
+        </button>
     )
 }
