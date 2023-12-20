@@ -25,7 +25,9 @@
         padding: 2rem;
     }
 }
-
+.text {
+    max-width: 668px;
+}
 .btnsContainer {
     display: flex;
     width: 668px;

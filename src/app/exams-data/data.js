@@ -2,6 +2,7 @@ export const languagesExam = [
     {
         id: '5',
         text: 'What is the output of the following Java code snippet?',
+        type: 'code',
         content: `  
     class HelloWorld {
             static public void main( String args[] ) {
@@ -32,6 +33,7 @@ export const languagesExam = [
     {
         id: '1',
         text: 'What language do you see in the picture?',
+        type: 'code',
         content: `
     <ul>
         <li>Coffee</li>
@@ -61,6 +63,7 @@ export const languagesExam = [
     {
         id: '3',
         text: 'What language do you see in ......?',
+        type: 'code',
         content: `
     <ul>
         <li>Coffee</li>
@@ -80,6 +83,55 @@ export const languagesExam = [
             {
                 text: 'JS',
                 correct: false,
+            },
+            {
+                text: '6',
+                correct: false,
+            },
+        ],
+    },
+    {
+        id: '10',
+        text: 'What image do you see in ......?',
+        type: 'image',
+        content: '/images/languages/languages-10.png',
+        answers: [
+            {
+                text: 'HTML',
+                correct: true,
+            },
+            {
+                text: 'CSS',
+                correct: false,
+            },
+            {
+                text: 'JS',
+                correct: true,
+            },
+            {
+                text: '6',
+                correct: false,
+            },
+        ],
+    },
+    {
+        id: '23',
+        text: 'What text do you see in ......?',
+        type: 'text',
+        content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        answers: [
+            {
+                text: 'HTML',
+                correct: true,
+            },
+            {
+                text: 'CSS',
+                correct: false,
+            },
+            {
+                text: 'JS',
+                correct: true,
             },
             {
                 text: '6',

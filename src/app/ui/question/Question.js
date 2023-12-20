@@ -3,14 +3,14 @@
 import styles from './Question.module.css'
 import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
-import { Button } from '@/app/ui/Button'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import { useContext } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider.js'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 
 export function Question({ questionInfo }) {
-    const { id, content, language, text, answers } = questionInfo
+    const { id, content, language, text, answers, type } = questionInfo
     let { rightAnswers, allQtns, currentIndex, setCurrentIndex } =
         useContext(ProgressContext)
     const router = useRouter()
@@ -32,17 +32,23 @@ export function Question({ questionInfo }) {
 
     return (
         <main className={styles.main}>
-            <h5>{rightAnswers}</h5>
+            <h5>Right answers: {rightAnswers}</h5>
             <h5>Index: {currentIndex}</h5>
             <Topbar />
-            <CodeBlock
-                text={content}
-                language={language}
-                showLineNumbers="true"
-                // wrapLines
-                theme={dracula}
-                // codeBlock={true}
-            />
+            {type === 'code' && (
+                <CodeBlock
+                    text={content}
+                    language={language}
+                    showLineNumbers="true"
+                    // wrapLines
+                    theme={dracula}
+                    // codeBlock={true}
+                />
+            )}
+            {type === 'image' && (
+                <Image src={content} width={680} height={340} alt="" />
+            )}
+            {type === 'text' && <p className={styles.text}>{content}</p>}
             <h3>{text}</h3>
             {answers.map((item, index) => (
                 <SingleOption
@@ -67,7 +73,6 @@ export function Question({ questionInfo }) {
                         NEXT
                     </button>
                 </div>
-                {/* {allQtns[2]} */}
             </div>
 
             {/* <div className={styles.grid}>
