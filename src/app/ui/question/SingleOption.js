@@ -4,15 +4,25 @@ import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { useRouter } from 'next/navigation'
 
 export function SingleOption({ text, correct, qtnIndex }) {
-    let { rightAnswers, setRightAnswers } = useContext(ProgressContext)
+    let {
+        rightAnswers,
+        setRightAnswers,
+        allQtns,
+        currentIndex,
+        setCurrentIndex,
+    } = useContext(ProgressContext)
     const router = useRouter()
+    let nextQtn = allQtns[currentIndex + 1]
+
+    console.log('state', allQtns)
 
     function handleClick(event) {
         event.preventDefault()
         if (correct) {
             setRightAnswers(rightAnswers + 1)
-            router.push('/questions/1')
         }
+        setCurrentIndex(currentIndex + 1)
+        router.push(`/questions/${nextQtn}`)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']

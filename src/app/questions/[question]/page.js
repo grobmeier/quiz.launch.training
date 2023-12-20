@@ -1,6 +1,5 @@
 import { languagesExam } from '../../exams-data/data.js'
 import { Question } from '@/app/ui/question/Question.js'
-import { QuestionProvider } from '@/app/lib/QuestionProvider.js'
 import styles from './question-detail.module.css'
 
 export const dynamicParams = false
@@ -27,9 +26,7 @@ export default function Page({ params }) {
     return (
         <main className={styles.main}>
             <h1>Details about the Question</h1>
-            <div>
-                <Question questionInfo={questionInfo} />
-            </div>
+            <Question questionInfo={questionInfo} />
         </main>
     )
 }

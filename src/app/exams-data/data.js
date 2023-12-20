@@ -58,4 +58,33 @@ export const languagesExam = [
             },
         ],
     },
+    {
+        id: '3',
+        text: 'What language do you see in ......?',
+        content: `
+    <ul>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>`,
+        language: 'html',
+        answers: [
+            {
+                text: 'HTML',
+                correct: true,
+            },
+            {
+                text: 'CSS',
+                correct: false,
+            },
+            {
+                text: 'JS',
+                correct: false,
+            },
+            {
+                text: '6',
+                correct: false,
+            },
+        ],
+    },
 ]
