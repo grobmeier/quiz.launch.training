@@ -29,6 +29,7 @@ export const languagesExam = [
                 correct: true,
             },
         ],
+        correctAnswers: 1,
     },
     {
         id: '1',
@@ -59,6 +60,7 @@ export const languagesExam = [
                 correct: false,
             },
         ],
+        correctAnswers: 1,
     },
     {
         id: '3',
@@ -89,6 +91,7 @@ export const languagesExam = [
                 correct: false,
             },
         ],
+        correctAnswers: 1,
     },
     {
         id: '10',
@@ -113,6 +116,7 @@ export const languagesExam = [
                 correct: false,
             },
         ],
+        correctAnswers: 2,
     },
     {
         id: '23',
@@ -135,8 +139,9 @@ export const languagesExam = [
             },
             {
                 text: '6',
-                correct: false,
+                correct: true,
             },
         ],
+        correctAnswers: 3,
     },
 ]

@@ -3,6 +3,7 @@
 import styles from './Question.module.css'
 import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
+import { MultiChoice } from '@/app/ui/question/MultiChoice'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import { useContext } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider.js'
@@ -10,7 +11,8 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export function Question({ questionInfo }) {
-    const { id, content, language, text, answers, type } = questionInfo
+    const { id, content, language, text, answers, type, correctAnswers } =
+        questionInfo
     let { rightAnswers, allQtns, currentIndex, setCurrentIndex } =
         useContext(ProgressContext)
     const router = useRouter()
@@ -34,6 +36,7 @@ export function Question({ questionInfo }) {
         <main className={styles.main}>
             <h5>Right answers: {rightAnswers}</h5>
             <h5>Index: {currentIndex}</h5>
+            <h5>Multichoice: {correctAnswers.toString()}</h5>
             <Topbar />
             {type === 'code' && (
                 <CodeBlock
@@ -50,14 +53,18 @@ export function Question({ questionInfo }) {
             )}
             {type === 'text' && <p className={styles.text}>{content}</p>}
             <h3>{text}</h3>
-            {answers.map((item, index) => (
-                <SingleOption
-                    key={item.text}
-                    qtnIndex={index}
-                    text={item.text}
-                    correct={item.correct}
-                />
-            ))}
+            {correctAnswers === 1 &&
+                answers.map((item, index) => (
+                    <SingleOption
+                        key={item.text}
+                        qtnIndex={index}
+                        text={item.text}
+                        correct={item.correct}
+                    />
+                ))}
+            {correctAnswers > 1 && (
+                <MultiChoice options={correctAnswers} answers={answers} />
+            )}
             <div className={styles.btnsContainer}>
                 <div>
                     <button
