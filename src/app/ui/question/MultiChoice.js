@@ -33,7 +33,14 @@ export function MultiChoice({ answers, options }) {
     function handleClick(event, item, index) {
         event.preventDefault()
         setClicked(!clicked)
-        console.log('index', index)
+        if (
+            currentSelected.length >= maxSelects &&
+            !currentSelected.includes(item.text)
+        ) {
+            alert('You reached maximum allowed answers')
+            return
+        }
+        // console.log('index', index)
         let optionToCheck = currentSelected.indexOf(item.text)
         if (optionToCheck === -1) {
             currentSelected.push(item.text)
@@ -66,6 +73,7 @@ export function MultiChoice({ answers, options }) {
             <h3>Correct: {correctChoices}</h3>
             {/* <h3>Selected: {selectedAnswers}</h3> */}
             <h3>Currently selected: {currentSelected}</h3>
+            <span>You may pick {maxSelects} answers</span>
             {answers.map((item, index) => (
                 <button
                     key={index}
