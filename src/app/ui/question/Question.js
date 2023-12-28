@@ -63,7 +63,11 @@ export function Question({ questionInfo }) {
                     />
                 ))}
             {correctAnswers > 1 && (
-                <MultiChoice options={correctAnswers} answers={answers} />
+                <MultiChoice
+                    options={correctAnswers}
+                    answers={answers}
+                    id={id}
+                />
             )}
             <div className={styles.btnsContainer}>
                 <div>
