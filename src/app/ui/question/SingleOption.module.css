@@ -13,3 +13,8 @@
     background: #17b76d;
     color: white;
 }
+
+.selectedBtn {
+    color: white;
+    background: #e83d43;
+}

@@ -53,15 +53,7 @@ export function Question({ questionInfo }) {
             )}
             {type === 'text' && <p className={styles.text}>{content}</p>}
             <h3>{text}</h3>
-            {correctAnswers === 1 &&
-                answers.map((item, index) => (
-                    <SingleOption
-                        key={item.text}
-                        qtnIndex={index}
-                        text={item.text}
-                        correct={item.correct}
-                    />
-                ))}
+            {correctAnswers === 1 && <SingleOption answers={answers} id={id} />}
             {correctAnswers > 1 && (
                 <MultiChoice
                     options={correctAnswers}
