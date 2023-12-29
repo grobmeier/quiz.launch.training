@@ -17,6 +17,7 @@ export function Question({ questionInfo }) {
         useContext(ProgressContext)
     const router = useRouter()
 
+    let totalQtns = allQtns.length
     let previousQtn = allQtns[currentIndex - 1]
     let nextQtn = allQtns[currentIndex + 1]
 
@@ -37,7 +38,7 @@ export function Question({ questionInfo }) {
             <h5>Right answers: {rightAnswers}</h5>
             <h5>Index: {currentIndex}</h5>
             <h5>Multichoice: {correctAnswers.toString()}</h5>
-            <Topbar />
+            <Topbar currentIndex={currentIndex + 1} totalQtns={totalQtns} />
             {type === 'code' && (
                 <CodeBlock
                     text={content}

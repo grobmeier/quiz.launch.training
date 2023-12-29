@@ -1,6 +1,6 @@
 import styles from './Topbar.module.css'
 
-export function Topbar({ counter }) {
+export function Topbar({ currentIndex, totalQtns }) {
     return (
         // <Link href={`/${link}`}>
         //     <button className={styles.button} type="button">
@@ -10,7 +10,9 @@ export function Topbar({ counter }) {
         <div className={styles.container}>
             <span>Cancel</span>
             <span>
-                <strong>13 of 43</strong>
+                <strong>
+                    {currentIndex} of {totalQtns}
+                </strong>
             </span>
             <span>13:31</span>
         </div>
