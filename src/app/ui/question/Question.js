@@ -20,6 +20,7 @@ export function Question({ questionInfo }) {
     let totalQtns = allQtns.length
     let previousQtn = allQtns[currentIndex - 1]
     let nextQtn = allQtns[currentIndex + 1]
+    let isFinalQtn = false
 
     function handlePrevious() {
         // needs to lower the index
@@ -29,7 +30,11 @@ export function Question({ questionInfo }) {
     }
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
-        router.push(`/questions/${nextQtn}`)
+        if (currentIndex < totalQtns - 1) {
+            router.push(`/questions/${nextQtn}`)
+        } else {
+            router.push('/results')
+        }
     }
     console.log(rightAnswers)
 
@@ -78,12 +83,6 @@ export function Question({ questionInfo }) {
                     </button>
                 </div>
             </div>
-
-            {/* <div className={styles.grid}>
-                <SmallCard />
-                <SmallCard />
-                <SmallCard />
-            </div> */}
         </main>
     )
 }
