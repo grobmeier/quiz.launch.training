@@ -6,7 +6,7 @@ import { ResultBox } from '@/app/ui/result/ResultBox'
 export default function Page() {
     return (
         <main className={styles.main}>
-            <h3>Results Page</h3>
+            <h3>Congratulations</h3>
             <ResultBox />
         </main>
     )

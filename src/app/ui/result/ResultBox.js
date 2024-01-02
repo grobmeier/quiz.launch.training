@@ -31,12 +31,33 @@ export function ResultBox() {
         }
     })
 
+    function showAnswers() {
+        console.log('Trigger iframe')
+    }
+
     return (
         <main className={styles.main}>
-            <h3>Results Page Inner</h3>
-            <p>correct: {correctAnswers}</p>
-            <p>incorrect: {incorrectAnswers}</p>
-            <p>unanswered: {noAnswer}</p>
+            <div className={styles.infoArea}>
+                <div>
+                    <h3>Result</h3>
+                    <p>Correct: </p>
+                    <p>Incorrect: </p>
+                    <p>No answer: </p>
+                </div>
+                <div>
+                    <h3>
+                        {correctAnswers} / {allQtns.length}
+                    </h3>
+                    <p>{correctAnswers}</p>
+                    <p>{incorrectAnswers}</p>
+                    <p>{noAnswer}</p>
+                </div>
+            </div>
+            <div>
+                <button className={styles.nextBtn} onClick={showAnswers}>
+                    Show Answers
+                </button>
+            </div>
         </main>
     )
 }
