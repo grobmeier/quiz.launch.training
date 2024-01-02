@@ -55,9 +55,19 @@ export function MultiChoice({ answers, options, id }) {
         if (optionToCheck === -1) {
             currentSelected.push(item.text)
             // setSelectedAnswers(currentSelected.length)
+            if (item.correct) {
+                userAnswers[currentIndex].calculatedPoints =
+                    parseFloat(userAnswers[currentIndex].calculatedPoints) +
+                    parseFloat(calculateAnswerWeight)
+            }
             setCurrentSelected(currentSelected)
             console.log(`New index collection is: ${currentSelected}`)
         } else {
+            if (item.correct) {
+                userAnswers[currentIndex].calculatedPoints =
+                    parseFloat(userAnswers[currentIndex].calculatedPoints) -
+                    parseFloat(calculateAnswerWeight)
+            }
             currentSelected.splice(optionToCheck, 1)
             // setSelectedAnswers(currentSelected.length)
             setCurrentSelected(currentSelected)
@@ -69,6 +79,7 @@ export function MultiChoice({ answers, options, id }) {
                 ? {
                       ...item,
                       answered: currentSelected,
+                      //   calculatedPoints: Math.round(calculatedPoints),
                   }
                 : { ...item },
         )

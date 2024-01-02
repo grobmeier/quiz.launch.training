@@ -37,17 +37,25 @@ export function SingleOption({ answers, id }) {
 
     function handleClick(event, item) {
         event.preventDefault()
-        console.log('intial selected', currentSelected)
+        // console.log('intial selected', currentSelected)
 
         setClicked(!clicked)
         let tempSelected = []
 
         if (currentSelected.includes(item.text)) {
+            if (item.correct) {
+                userAnswers[currentIndex].calculatedPoints = 0
+            }
             currentSelected[0] = ''
             setCurrentSelected(currentSelected)
             console.log(`New single choice:  ${currentSelected}`)
         } else {
             currentSelected[0] = item.text
+            if (item.correct) {
+                userAnswers[currentIndex].calculatedPoints = 1
+            } else {
+                userAnswers[currentIndex].calculatedPoints = 0
+            }
             console.log(`New single option: ${currentSelected}`)
             setCurrentSelected(currentSelected)
         }
