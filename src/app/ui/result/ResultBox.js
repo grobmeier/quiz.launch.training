@@ -1,3 +1,11 @@
+'use client'
+
+/**
+ * Note the dynamic array should be passed by the page / initial loading
+ * of the question. TBD - temporary solution mimic the existing qtns for
+ * inserting the answers
+ */
+
 import styles from './Result.module.css'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
