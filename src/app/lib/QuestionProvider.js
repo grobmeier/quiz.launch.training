@@ -27,11 +27,26 @@ export function QuestionProvider({ children }) {
 
     const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
 
+    //Provide the structure and the questions with initial empty answers
+    function setInitialValues() {
+        localStorage.setItem('userAnswers', JSON.stringify(userTmpAnswers))
+        localStorage.setItem('currentIndex', JSON.stringify(0))
+    }
+
+    useEffect(() => {
+        if (
+            localStorage.getItem('userAnswers') === null &&
+            localStorage.getItem('currentIndex') === null
+        )
+            setInitialValues()
+    }, [])
+
     useEffect(() => {
         let progress = localStorage.getItem('currentIndex')
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
         setUserAnswers(JSON.parse(qtnsAnswers))
+        console.log(userAnswers)
     }, [currentIndex])
 
     return (

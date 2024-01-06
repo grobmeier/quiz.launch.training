@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation'
 
 export function SingleOption({ answers, id }) {
     let {
-        rightAnswers,
-        setRightAnswers,
         allQtns,
         currentIndex,
         setCurrentIndex,
@@ -25,7 +23,11 @@ export function SingleOption({ answers, id }) {
         const progress = localStorage.getItem('userAnswers')
         const progressParsed = JSON.parse(progress)
         // console.log('parsed', progressParsed)
-        if (progressParsed[currentIndex].answered) {
+        if (
+            progressParsed &&
+            progressParsed[currentIndex] &&
+            progressParsed[currentIndex].answered
+        ) {
             setCurrentSelected(progressParsed[currentIndex].answered)
         }
     }, [userAnswers])

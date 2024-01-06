@@ -5,8 +5,6 @@ import { useRouter } from 'next/navigation'
 
 export function MultiChoice({ answers, options, id }) {
     let {
-        rightAnswers,
-        setRightAnswers,
         allQtns,
         currentIndex,
         setCurrentIndex,
@@ -31,14 +29,12 @@ export function MultiChoice({ answers, options, id }) {
         const progress = localStorage.getItem('userAnswers')
         const progressParsed = JSON.parse(progress)
         // console.log('parsed', progressParsed)
-        if (progressParsed[currentIndex].answered) {
+        if (progressParsed && progressParsed[currentIndex].answered) {
             setCurrentSelected(progressParsed[currentIndex].answered)
         }
     }, [userAnswers])
 
     useEffect(() => {
-        // tempSelected.push
-        // if (userAnswers) setCurrentSelected(userAnswers)
         console.log('user answers', userAnswers)
         console.log('current', currentSelected)
     }, [clicked])
@@ -88,7 +84,7 @@ export function MultiChoice({ answers, options, id }) {
         )
 
         localStorage.setItem('userAnswers', JSON.stringify(temp))
-        setUserAnswers(temp)
+        // setUserAnswers(temp)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']
