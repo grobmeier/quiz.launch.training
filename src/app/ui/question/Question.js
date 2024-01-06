@@ -13,8 +13,7 @@ import Image from 'next/image'
 export function Question({ questionInfo }) {
     const { id, content, language, text, answers, type, correctAnswers } =
         questionInfo
-    let { rightAnswers, allQtns, currentIndex, setCurrentIndex } =
-        useContext(ProgressContext)
+    let { allQtns, currentIndex, setCurrentIndex } = useContext(ProgressContext)
     const router = useRouter()
 
     let totalQtns = allQtns.length
@@ -26,21 +25,24 @@ export function Question({ questionInfo }) {
         // needs to lower the index
         if (currentIndex === 0) return
         setCurrentIndex(currentIndex - 1)
+        localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
         router.push(`/questions/${previousQtn}`)
     }
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
         if (currentIndex < totalQtns - 1) {
+            localStorage.setItem(
+                'currentIndex',
+                JSON.stringify(currentIndex + 1),
+            )
             router.push(`/questions/${nextQtn}`)
         } else {
             router.push('/results')
         }
     }
-    console.log(rightAnswers)
 
     return (
         <main className={styles.main}>
-            <h5>Right answers: {rightAnswers}</h5>
             <h5>Index: {currentIndex}</h5>
             <h5>Multichoice: {correctAnswers.toString()}</h5>
             <Topbar currentIndex={currentIndex + 1} totalQtns={totalQtns} />

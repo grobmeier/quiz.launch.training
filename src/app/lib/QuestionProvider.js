@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useState } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import { languagesExam } from '../exams-data/data.js'
 
 /**
@@ -12,7 +12,11 @@ import { languagesExam } from '../exams-data/data.js'
 export const ProgressContext = createContext()
 
 export function QuestionProvider({ children }) {
-    const [rightAnswers, setRightAnswers] = useState(0)
+    // const getInitialState = () => {
+    //     let progress = localStorage.getItem('currentIndex')
+    //     return progress ? JSON.parse(progress) : 0
+    // }
+
     const [currentIndex, setCurrentIndex] = useState(0)
     const allQtns = languagesExam.map((p) => p.id)
     const userTmpAnswers = languagesExam.map(({ id }) => ({
@@ -22,13 +26,17 @@ export function QuestionProvider({ children }) {
     }))
 
     const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
-    console.log(userTmpAnswers)
+
+    useEffect(() => {
+        let progress = localStorage.getItem('currentIndex')
+        let qtnsAnswers = localStorage.getItem('userAnswers')
+        setCurrentIndex(JSON.parse(progress))
+        setUserAnswers(JSON.parse(qtnsAnswers))
+    }, [currentIndex])
 
     return (
         <ProgressContext.Provider
             value={{
-                rightAnswers,
-                setRightAnswers,
                 allQtns,
                 currentIndex,
                 setCurrentIndex,

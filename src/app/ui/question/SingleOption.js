@@ -22,10 +22,13 @@ export function SingleOption({ answers, id }) {
     // console.log('state', allQtns)
 
     useEffect(() => {
-        if (userAnswers[currentIndex].answered) {
-            setCurrentSelected(userAnswers[currentIndex].answered)
+        const progress = localStorage.getItem('userAnswers')
+        const progressParsed = JSON.parse(progress)
+        // console.log('parsed', progressParsed)
+        if (progressParsed[currentIndex].answered) {
+            setCurrentSelected(progressParsed[currentIndex].answered)
         }
-    }, [])
+    }, [userAnswers])
 
     useEffect(() => {
         // userAnswers[currentIndex].answered = currentSelected
@@ -60,11 +63,7 @@ export function SingleOption({ answers, id }) {
             setCurrentSelected(currentSelected)
         }
 
-        // if (correct) {
-        //     setRightAnswers(rightAnswers + 1)
-        // }
-
-        // inserts the selected answers into the global state
+        // inserts the selected answers into the global state (local storage)
         let temp = userAnswers.map((item) =>
             item.id === id
                 ? {
@@ -73,8 +72,8 @@ export function SingleOption({ answers, id }) {
                   }
                 : { ...item },
         )
-
-        setUserAnswers(temp)
+        localStorage.setItem('userAnswers', JSON.stringify(temp))
+        // setUserAnswers(temp)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']

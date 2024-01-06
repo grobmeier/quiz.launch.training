@@ -28,10 +28,13 @@ export function MultiChoice({ answers, options, id }) {
     let correctChoices = 0
 
     useEffect(() => {
-        if (userAnswers[currentIndex].answered) {
-            setCurrentSelected(userAnswers[currentIndex].answered)
+        const progress = localStorage.getItem('userAnswers')
+        const progressParsed = JSON.parse(progress)
+        // console.log('parsed', progressParsed)
+        if (progressParsed[currentIndex].answered) {
+            setCurrentSelected(progressParsed[currentIndex].answered)
         }
-    }, [])
+    }, [userAnswers])
 
     useEffect(() => {
         // tempSelected.push
@@ -84,22 +87,8 @@ export function MultiChoice({ answers, options, id }) {
                 : { ...item },
         )
 
-        // let temp = userAnswers.map((item) => ({
-        //     ...item,
-        //     answered: currentSelected,
-        // }))
-        // newObj = obj.map((item, i)=>({...item, Data: data[i]}));
+        localStorage.setItem('userAnswers', JSON.stringify(temp))
         setUserAnswers(temp)
-        // if (item.correct) {
-        //     correctChoices += parseFloat(calculateAnswerWeight)
-        // }
-        // console.log(correctChoices)
-        // if (correct) {
-        //     setRightAnswers(rightAnswers + 1)
-        // }
-        // setCurrentSelected(currentSelected)
-        // setSelectedAnswers(currentSelected.length)
-        // router.push(`/questions/${nextQtn}`)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']
