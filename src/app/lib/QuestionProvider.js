@@ -46,7 +46,7 @@ export function QuestionProvider({ children }) {
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
         setUserAnswers(JSON.parse(qtnsAnswers))
-        console.log(userAnswers)
+        // console.log(userAnswers)
     }, [currentIndex])
 
     return (

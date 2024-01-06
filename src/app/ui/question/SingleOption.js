@@ -1,23 +1,11 @@
 import styles from './SingleOption.module.css'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { useRouter } from 'next/navigation'
 
 export function SingleOption({ answers, id }) {
-    let {
-        allQtns,
-        currentIndex,
-        setCurrentIndex,
-        userAnswers,
-        setUserAnswers,
-    } = useContext(ProgressContext)
-    const router = useRouter()
-    let nextQtn = allQtns[currentIndex + 1]
-
+    let { currentIndex, userAnswers } = useContext(ProgressContext)
     const [currentSelected, setCurrentSelected] = useState([])
     const [clicked, setClicked] = useState(false)
-
-    // console.log('state', allQtns)
 
     useEffect(() => {
         const progress = localStorage.getItem('userAnswers')
@@ -30,22 +18,13 @@ export function SingleOption({ answers, id }) {
         ) {
             setCurrentSelected(progressParsed[currentIndex].answered)
         }
-    }, [userAnswers])
-
-    useEffect(() => {
-        // userAnswers[currentIndex].answered = currentSelected
-        // setUserAnswers(userAnswers)
-
-        console.log('user answers', userAnswers)
-        console.log('current', currentSelected)
-    }, [clicked])
+    }, [userAnswers, clicked])
 
     function handleClick(event, item) {
         event.preventDefault()
         // console.log('intial selected', currentSelected)
 
         setClicked(!clicked)
-        let tempSelected = []
 
         if (currentSelected.includes(item.text)) {
             if (item.correct) {
