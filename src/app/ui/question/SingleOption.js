@@ -32,7 +32,7 @@ export function SingleOption({ answers, id }) {
             }
             currentSelected[0] = ''
             setCurrentSelected(currentSelected)
-            console.log(`New single choice:  ${currentSelected}`)
+            // console.log(`New single choice:  ${currentSelected}`)
         } else {
             currentSelected[0] = item.text
             if (item.correct) {
@@ -40,7 +40,7 @@ export function SingleOption({ answers, id }) {
             } else {
                 userAnswers[currentIndex].calculatedPoints = 0
             }
-            console.log(`New single option: ${currentSelected}`)
+            // console.log(`New single option: ${currentSelected}`)
             setCurrentSelected(currentSelected)
         }
 

@@ -42,7 +42,7 @@ export function MultiChoice({ answers, options, id }) {
                     parseFloat(calculateAnswerWeight)
             }
             setCurrentSelected(currentSelected)
-            console.log(`New index collection is: ${currentSelected}`)
+            // console.log(`New index collection is: ${currentSelected}`)
         } else {
             if (item.correct) {
                 userAnswers[currentIndex].calculatedPoints =
@@ -51,7 +51,7 @@ export function MultiChoice({ answers, options, id }) {
             }
             currentSelected.splice(optionToCheck, 1)
             setCurrentSelected(currentSelected)
-            console.log(`New index collection is: ${currentSelected}`)
+            // console.log(`New index collection is: ${currentSelected}`)
         }
         // inserts the selected answers into the global state
         let temp = userAnswers.map((item) =>
