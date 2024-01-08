@@ -8,10 +8,10 @@ export default function Page() {
         <main className={styles.main}>
             <h1>Hello, Tests Page!</h1>
             <div className={styles.grid}>
-                <SmallCard />
-                <SmallCard />
-                <SmallCard />
-                <SmallCard />
+                <SmallCard link={'exam-single'} />
+                <SmallCard link={'training-list'} />
+                <SmallCard link={'training-list'} />
+                <SmallCard link={'training-list'} />
             </div>
         </main>
     )

@@ -29,7 +29,7 @@ export function SmallCard({ link }) {
                         fascinating ...
                     </p>
                     <div className={styles.containerBtn}>
-                        <Button link={'training-list'}>More</Button>
+                        <Button link={link}>More</Button>
                     </div>
                 </div>
             </div>
