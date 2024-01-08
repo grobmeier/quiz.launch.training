@@ -9,17 +9,12 @@
 import styles from './Result.module.css'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
+import { AllAnswers } from '@/app/ui/result/AllAnswers'
 
 export function ResultBox() {
-    let {
-        rightAnswers,
-        setRightAnswers,
-        allQtns,
-        currentIndex,
-        setCurrentIndex,
-        userAnswers,
-        setUserAnswers,
-    } = useContext(ProgressContext)
+    let { allQtns, userAnswers } = useContext(ProgressContext)
+
+    const [showResult, setShowResult] = useState(false)
 
     console.log('answers', userAnswers)
 
@@ -40,32 +35,35 @@ export function ResultBox() {
     })
 
     function showAnswers() {
-        console.log('Trigger iframe')
+        setShowResult(!showResult)
     }
 
     return (
-        <main className={styles.main}>
-            <div className={styles.infoArea}>
-                <div>
-                    <h3>Result</h3>
-                    <p>Correct: </p>
-                    <p>Incorrect: </p>
-                    <p>No answer: </p>
+        <>
+            <main className={styles.main}>
+                <div className={styles.infoArea}>
+                    <div>
+                        <h3>Result</h3>
+                        <p>Correct: </p>
+                        <p>Incorrect: </p>
+                        <p>No answer: </p>
+                    </div>
+                    <div>
+                        <h3>
+                            {correctAnswers} / {allQtns.length}
+                        </h3>
+                        <p>{correctAnswers}</p>
+                        <p>{incorrectAnswers}</p>
+                        <p>{noAnswer}</p>
+                    </div>
                 </div>
-                <div>
-                    <h3>
-                        {correctAnswers} / {allQtns.length}
-                    </h3>
-                    <p>{correctAnswers}</p>
-                    <p>{incorrectAnswers}</p>
-                    <p>{noAnswer}</p>
+                <div className={styles.btnArea}>
+                    <button className={styles.showBtn} onClick={showAnswers}>
+                        Show Answers
+                    </button>
                 </div>
-            </div>
-            <div>
-                <button className={styles.nextBtn} onClick={showAnswers}>
-                    Show Answers
-                </button>
-            </div>
-        </main>
+            </main>
+            {showResult && <AllAnswers />}
+        </>
     )
 }
