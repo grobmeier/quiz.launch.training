@@ -30,6 +30,8 @@ export const languagesExam = [
             },
         ],
         correctAnswers: 1,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in sapien elementum, lacinia tortor non, euismod enim.',
     },
     {
         id: '1',
@@ -61,6 +63,8 @@ export const languagesExam = [
             },
         ],
         correctAnswers: 1,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in sapien elementum, lacinia tortor non, euismod enim.',
     },
     {
         id: '3',
@@ -92,6 +96,8 @@ export const languagesExam = [
             },
         ],
         correctAnswers: 1,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in sapien elementum, lacinia tortor non, euismod enim.',
     },
     {
         id: '10',
@@ -117,6 +123,8 @@ export const languagesExam = [
             },
         ],
         correctAnswers: 2,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in sapien elementum, lacinia tortor non, euismod enim.',
     },
     {
         id: '23',
@@ -143,5 +151,7 @@ export const languagesExam = [
             },
         ],
         correctAnswers: 3,
+        explanation:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris in sapien elementum, lacinia tortor non, euismod enim.',
     },
 ]

@@ -6,6 +6,13 @@
     padding: 6rem;
     gap: 20px;
 }
+.explanationBox {
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.25);
+    background: #ffd400;
+    width: 668px;
+    padding: 16px 31px;
+}
 .text {
     max-width: 668px;
 }
