@@ -1,4 +1,5 @@
 import styles from './exam.module.css'
+import { StartButton } from '@/app/ui/StartButton'
 
 export default function Page() {
     return (
@@ -45,7 +46,7 @@ export default function Page() {
                     software creation.
                 </p>
             </div>
-            <button className={styles.examBtn}>Start</button>
+            <StartButton> Start </StartButton>
         </main>
     )
 }
