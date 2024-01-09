@@ -1,6 +1,6 @@
 // `app/tests-list/page.tsx` is the UI for the `/tests-lists` URL
 
-import styles from './tests.module.css'
+import styles from './tests.module.scss'
 import { SmallCard } from '@/app/ui/SmallCard'
 
 export default function Page() {
