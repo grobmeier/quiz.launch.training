@@ -15,8 +15,6 @@
 
 .container {
     padding: 2px 16px;
-    display: flex;
-    align-items: center;
     h4 {
         font-size: $standardSize;
         padding-bottom: 12px;
@@ -27,8 +25,13 @@
         padding: 12px 0;
     }
     p {
+        margin: 12px 0;
         text-align: justify;
     }
+}
+
+.stars {
+    padding-bottom: 12px;
 }
 
 .containerBtn {
