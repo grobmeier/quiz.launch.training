@@ -1,19 +1,20 @@
+@import '@/app/variables.scss';
+
 .main {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     align-items: center;
     padding: 6rem;
     min-height: 100vh;
     gap: 20px;
+    h1 {
+        font-size: $headingPage;
+    }
 }
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 14px;
-    /* grid-template-columns: repeat(2, 1fr);
-    max-width: 100%;
-    width: var(--max-width); */
 }
 
 /* tablet breakpoint */
@@ -22,6 +23,7 @@
         display: block;
     }
     .main {
+        margin-top: 4rem;
         padding: 2rem;
     }
 }
