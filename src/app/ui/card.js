@@ -1,16 +1,16 @@
-import styles from './Card.module.css'
+import styles from './Card.module.scss'
 import Image from 'next/image'
 
 import Link from 'next/link'
 
-export function Card({ link }) {
+export function Card({ icon, link, title, text }) {
     return (
         <Link href={`/${link}`}>
             <div className={styles.card}>
                 <div className={styles.container}>
                     <Image
-                        src="/icons/html.png"
-                        alt="HTML Logo"
+                        src={icon}
+                        alt=""
                         // className={styles.vercelLogo}
                         width={64}
                         height={64}
@@ -18,12 +18,9 @@ export function Card({ link }) {
                     />
                     <div>
                         <h4>
-                            <b>HTML</b>
+                            <b>{title}</b>
                         </h4>
-                        <p>
-                            HTML is the standard markup language for Web pages.
-                            With HTML you can create your own Website
-                        </p>
+                        <p>{text}</p>
                     </div>
                 </div>
             </div>

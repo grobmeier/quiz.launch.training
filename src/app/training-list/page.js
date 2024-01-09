@@ -8,10 +8,34 @@ export default function Page() {
         <main className={styles.main}>
             <h1>Training List</h1>
             <div className={styles.grid}>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                <Card
+                    icon={`/icons/html.png`}
+                    link="tests-list"
+                    title="HTML"
+                    text={`HTML is the standard markup language for Web pages.
+                    With HTML you can create your own Website`}
+                />
+                <Card
+                    icon={`/icons/html.png`}
+                    link="training-list"
+                    title="React"
+                    text={`HTML is the standard markup language for Web pages.
+                    With HTML you can create your own Website`}
+                />
+                <Card
+                    icon={`/icons/html.png`}
+                    link="training-list"
+                    title="Git"
+                    text={`HTML is the standard markup language for Web pages.
+                    With HTML you can create your own Website`}
+                />
+                <Card
+                    icon={`/icons/html.png`}
+                    link="training-list"
+                    title="Spring"
+                    text={`HTML is the standard markup language for Web pages.
+                    With HTML you can create your own Website`}
+                />
             </div>
         </main>
     )
