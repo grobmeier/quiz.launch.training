@@ -7,6 +7,10 @@
     min-height: 100vh;
     gap: 20px;
 }
+.topArea {
+    display: flex;
+    align-items: center;
+}
 .examBox {
     max-width: 620px;
     height: 446px;
@@ -39,5 +43,8 @@
     }
     .main {
         padding: 2rem;
+    }
+    .examBtn {
+        width: 100%;
     }
 }

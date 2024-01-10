@@ -1,10 +1,22 @@
 import styles from './exam.module.css'
 import { StartButton } from '@/app/ui/StartButton'
+import { Rating } from '@smastrom/react-rating'
 
 export default function Page() {
     return (
         <main className={styles.main}>
             <h1>Programming Languages and Their Differences</h1>
+            <div className={styles.topArea}>
+                <div>Difficulty: </div>
+                <div>
+                    <Rating
+                        style={{ maxWidth: 100 }}
+                        className={styles.stars}
+                        value={4.5}
+                        readOnly
+                    />
+                </div>
+            </div>
             <div className={styles.examBox}>
                 <p>
                     Programming languages are the backbone of the digital world,
