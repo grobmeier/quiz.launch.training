@@ -6,13 +6,12 @@ import { useContext, useState } from 'react'
 
 export function TryAgainButton() {
     const router = useRouter()
-    let { setIsTaken, setCurrentIndex } = useContext(ProgressContext)
+    let { setCurrentIndex, userInitialAnswers } = useContext(ProgressContext)
 
     function handleTryAgain() {
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
-        // localStorage.setItem('userAnswers', JSON.stringify(0))
-        setIsTaken(true)
+        localStorage.setItem('userAnswers', JSON.stringify(userInitialAnswers))
         setCurrentIndex(0)
         router.push(`/exam-single`)
     }

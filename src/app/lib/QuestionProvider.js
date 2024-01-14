@@ -26,7 +26,8 @@ export function QuestionProvider({ children }) {
         answered: [],
     }))
 
-    const [userAnswers, setUserAnswers] = useState()
+    const [userInitialAnswers, setUserInitialAnswers] = useState(userTmpAnswers)
+    const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
 
     //Provide the structure and the questions with initial empty answers
     function setInitialValues() {
@@ -37,16 +38,19 @@ export function QuestionProvider({ children }) {
 
     useEffect(() => {
         if (
-            (localStorage.getItem('userAnswers') === null &&
-                localStorage.getItem('currentIndex') === null) ||
-            isTaken === true
+            JSON.parse(localStorage.getItem('userAnswers')) === null &&
+            JSON.parse(localStorage.getItem('currentIndex')) === null
+            // JSON.parse(localStorage.getItem('examTaken')) === 0
         ) {
             console.log('is Triggered')
             setInitialValues()
         }
-    }, [isTaken])
+    }, [])
 
     useEffect(() => {
+        if (JSON.parse(localStorage.getItem('userAnswers')) === null) {
+            setInitialValues()
+        }
         let progress = localStorage.getItem('currentIndex')
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
@@ -64,6 +68,7 @@ export function QuestionProvider({ children }) {
                 setUserAnswers,
                 isTaken,
                 setIsTaken,
+                userInitialAnswers,
             }}
         >
             {children}
