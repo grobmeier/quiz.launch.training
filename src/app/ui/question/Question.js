@@ -37,6 +37,8 @@ export function Question({ questionInfo }) {
             )
             router.push(`/questions/${nextQtn}`)
         } else {
+            localStorage.setItem('examTaken', JSON.stringify(1))
+            setCurrentIndex(0)
             router.push('/results')
         }
     }

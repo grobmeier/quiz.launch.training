@@ -16,23 +16,25 @@ export function ResultBox() {
 
     const [showResult, setShowResult] = useState(false)
 
-    console.log('answers', userAnswers)
+    // console.log('answers', userAnswers)
 
     let correctAnswers = 0
     let incorrectAnswers = 0
     let noAnswer = 0
 
-    const estimatedResult = userAnswers.map((qtn) => {
-        if (qtn.calculatedPoints < 0.99) {
-            if (!qtn.answered[0]) {
-                noAnswer += 1
+    const estimatedResult =
+        userAnswers &&
+        userAnswers.map((qtn) => {
+            if (qtn.calculatedPoints < 0.99) {
+                if (!qtn.answered[0]) {
+                    noAnswer += 1
+                } else {
+                    incorrectAnswers += 1
+                }
             } else {
-                incorrectAnswers += 1
+                correctAnswers += 1
             }
-        } else {
-            correctAnswers += 1
-        }
-    })
+        })
 
     function showAnswers() {
         setShowResult(!showResult)

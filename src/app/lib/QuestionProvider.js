@@ -18,6 +18,7 @@ export function QuestionProvider({ children }) {
     // }
 
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [isTaken, setIsTaken] = useState(false)
     const allQtns = languagesExam.map((p) => p.id)
     const userTmpAnswers = languagesExam.map(({ id }) => ({
         id,
@@ -25,21 +26,25 @@ export function QuestionProvider({ children }) {
         answered: [],
     }))
 
-    const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
+    const [userAnswers, setUserAnswers] = useState()
 
     //Provide the structure and the questions with initial empty answers
     function setInitialValues() {
         localStorage.setItem('userAnswers', JSON.stringify(userTmpAnswers))
         localStorage.setItem('currentIndex', JSON.stringify(0))
+        localStorage.setItem('examTaken', JSON.stringify(0))
     }
 
     useEffect(() => {
         if (
-            localStorage.getItem('userAnswers') === null &&
-            localStorage.getItem('currentIndex') === null
-        )
+            (localStorage.getItem('userAnswers') === null &&
+                localStorage.getItem('currentIndex') === null) ||
+            isTaken === true
+        ) {
+            console.log('is Triggered')
             setInitialValues()
-    }, [])
+        }
+    }, [isTaken])
 
     useEffect(() => {
         let progress = localStorage.getItem('currentIndex')
@@ -57,6 +62,8 @@ export function QuestionProvider({ children }) {
                 setCurrentIndex,
                 userAnswers,
                 setUserAnswers,
+                isTaken,
+                setIsTaken,
             }}
         >
             {children}
