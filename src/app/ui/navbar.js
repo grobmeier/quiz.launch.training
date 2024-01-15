@@ -22,7 +22,7 @@ export function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <a href="#about">Consultation</a>
+                        <a href="#">Consultation</a>
                     </li>
                     <li>
                         <Link href="/training-list">
@@ -35,15 +35,15 @@ export function Navbar() {
                         </Link>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#">Contact</a>
                     </li>
                 </ul>
                 <ul className={styles.menuItems}>
                     <li>
-                        <a href="#home">English</a>
+                        <a href="#">English</a>
                     </li>
                     <li>
-                        <a href="#about">Sign In</a>
+                        <a href="#">Sign In</a>
                     </li>
                     {/* <li>
                         <a href="#food">Create Account</a>

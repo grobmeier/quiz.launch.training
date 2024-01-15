@@ -59,7 +59,14 @@ export function Question({ questionInfo }) {
                 />
             )}
             {type === 'image' && (
-                <Image src={content} width={680} height={340} alt="" />
+                <Image
+                    src={content}
+                    width={680}
+                    height={340}
+                    alt=""
+                    placeholder="blur"
+                    blurDataURL={content}
+                />
             )}
             {type === 'text' && <p className={styles.text}>{content}</p>}
             <h3>{text}</h3>
