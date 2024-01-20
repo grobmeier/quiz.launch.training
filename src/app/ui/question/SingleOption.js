@@ -1,4 +1,4 @@
-import styles from './SingleOption.module.css'
+import styles from './SingleOption.module.scss'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 

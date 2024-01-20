@@ -1,6 +1,6 @@
 'use client'
 
-import styles from './Question.module.css'
+import styles from './Question.module.scss'
 import { Topbar } from '@/app/ui/question/Topbar'
 import { SingleOption } from '@/app/ui/question/SingleOption'
 import { MultiChoice } from '@/app/ui/question/MultiChoice'
@@ -19,10 +19,8 @@ export function Question({ questionInfo }) {
     let totalQtns = allQtns.length
     let previousQtn = allQtns[currentIndex - 1]
     let nextQtn = allQtns[currentIndex + 1]
-    let isFinalQtn = false
 
     function handlePrevious() {
-        // needs to lower the index
         if (currentIndex === 0) return
         setCurrentIndex(currentIndex - 1)
         localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
@@ -49,14 +47,16 @@ export function Question({ questionInfo }) {
             <h5>Multichoice: {correctAnswers.toString()}</h5>
             <Topbar currentIndex={currentIndex + 1} totalQtns={totalQtns} />
             {type === 'code' && (
-                <CodeBlock
-                    text={content}
-                    language={language}
-                    showLineNumbers="true"
-                    // wrapLines
-                    theme={dracula}
-                    // codeBlock={true}
-                />
+                <div className={styles.codeContainer}>
+                    <CodeBlock
+                        text={content}
+                        language={language}
+                        showLineNumbers="true"
+                        // wrapLines
+                        theme={dracula}
+                        // codeBlock={true}
+                    />
+                </div>
             )}
             {type === 'image' && (
                 <Image
