@@ -1,10 +1,12 @@
+@import '@/app/variables.scss';
+
 .container {
     display: flex;
-    width: 668px;
+    width: $questionElement;
     padding: 16px 31px;
     align-items: center;
     gap: 16px;
-    border-radius: 8px;
+    border-radius: $standardRadius;
     border: 0;
     background: #fff;
     box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.25);
@@ -12,9 +14,9 @@
 
 .selectedBtn {
     color: white;
-    background: #e83d43;
+    background: $chosenOption;
 }
 .container:hover {
-    background: #17b76d;
+    background: $hoverOption;
     color: white;
 }

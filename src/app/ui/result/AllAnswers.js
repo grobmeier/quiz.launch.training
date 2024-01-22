@@ -5,7 +5,7 @@
  */
 
 import { useEffect, useContext, useState } from 'react'
-import styles from './AllAnswers.module.css'
+import styles from './AllAnswers.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { languagesExam } from '../../exams-data/data.js'
 import { CodeBlock, dracula } from 'react-code-blocks'

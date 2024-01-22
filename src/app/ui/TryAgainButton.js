@@ -1,5 +1,5 @@
 'use client'
-import styles from './result/Result.module.css'
+import styles from './result/Result.module.scss'
 import { useRouter } from 'next/navigation'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { useContext, useState } from 'react'

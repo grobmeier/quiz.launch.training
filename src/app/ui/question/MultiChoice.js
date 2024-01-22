@@ -1,4 +1,4 @@
-import styles from './MultiChoice.module.css'
+import styles from './MultiChoice.module.scss'
 import { useContext, useState, useEffect } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 

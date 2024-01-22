@@ -6,7 +6,7 @@
  * inserting the answers
  */
 
-import styles from './Result.module.css'
+import styles from './Result.module.scss'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { AllAnswers } from '@/app/ui/result/AllAnswers'

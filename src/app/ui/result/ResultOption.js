@@ -1,4 +1,4 @@
-import styles from './ResultOption.module.css'
+import styles from './ResultOption.module.scss'
 import { useEffect, useContext, useState } from 'react'
 
 export function ResultOption({ answers, id }) {
