@@ -9,8 +9,8 @@ export default function Page() {
             <h1>HTML (exams page)</h1>
             <div className={styles.grid}>
                 <SmallCard
-                    link={'exam-single'}
-                    title="Programming Languages and Their Differences"
+                    link={'exam-java'}
+                    title="JAVA Basics"
                     rating={4.3}
                     level="HARD"
                     duration={`15:00`}

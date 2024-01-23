@@ -24,7 +24,7 @@ export function Question({ questionInfo }) {
         if (currentIndex === 0) return
         setCurrentIndex(currentIndex - 1)
         localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
-        router.push(`/questions/${previousQtn}`)
+        router.push(`/questions/java-${previousQtn}`)
     }
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
@@ -33,7 +33,7 @@ export function Question({ questionInfo }) {
                 'currentIndex',
                 JSON.stringify(currentIndex + 1),
             )
-            router.push(`/questions/${nextQtn}`)
+            router.push(`/questions/java-${nextQtn}`)
         } else {
             localStorage.setItem('examTaken', JSON.stringify(1))
             setCurrentIndex(0)

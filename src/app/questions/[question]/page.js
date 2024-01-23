@@ -1,15 +1,16 @@
-import { languagesExam } from '../../exams-data/data.js'
+import { javaExam } from '../../exams-data/java.js'
 import { Question } from '@/app/ui/question/Question.js'
 import styles from './question-detail.module.css'
 
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-    return languagesExam.map((p) => ({ question: p.id }))
+    console.log(javaExam.map((p) => ({ question: 'java-' + p.id })))
+    return javaExam.map((p) => ({ question: 'java-' + p.id }))
 }
 
 export function getDataById(id) {
-    let dataFiltered = languagesExam.filter(function (el) {
+    let dataFiltered = javaExam.filter(function (el) {
         return el.id === id
     })
 
@@ -22,7 +23,8 @@ export function getDataById(id) {
 }
 
 export default function Page({ params }) {
-    const questionInfo = getDataById(params.question)
+    console.log(params)
+    const questionInfo = getDataById(params.question.replace('java-', ''))
     return (
         <main className={styles.main}>
             <h1>Details about the Question</h1>

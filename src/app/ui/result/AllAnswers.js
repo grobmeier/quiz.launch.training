@@ -7,7 +7,7 @@
 import { useEffect, useContext, useState } from 'react'
 import styles from './AllAnswers.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { languagesExam } from '../../exams-data/data.js'
+import { javaExam } from '../../exams-data/java.js'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
@@ -15,7 +15,9 @@ import { ResultOption } from '@/app/ui/result/ResultOption'
 export function AllAnswers() {
     let { allQtns } = useContext(ProgressContext)
 
-    let takenQtns = languagesExam.filter((item) => allQtns.includes(item.id))
+    // Have to duplicate the logic from Provider to see which is the current exam evaluated
+
+    let takenQtns = javaExam.filter((item) => allQtns.includes(item.id))
     // console.log(userAnswers)
 
     return (

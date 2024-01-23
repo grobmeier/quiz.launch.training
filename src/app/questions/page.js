@@ -1,5 +1,5 @@
 'use client'
-import { question1 } from '../exams-data/data.js'
+import { question1 } from '../exams-data/java.js'
 import styles from './questions.module.css'
 import { CodeBlock, dracula } from 'react-code-blocks'
 

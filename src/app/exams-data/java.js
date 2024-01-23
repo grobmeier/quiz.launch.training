@@ -1,4 +1,4 @@
-export const languagesExam = [
+export const javaExam = [
     {
         id: '1',
         difficulty: 1,
@@ -29,11 +29,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'In Java, array indices start from 0. Therefore, `numbers[1]` accesses the second element of the array `numbers`, which is 6.'
+            'In Java, array indices start from 0. Therefore, `numbers[1]` accesses the second element of the array `numbers`, which is 6.',
     },
     {
         id: '2',
@@ -76,11 +76,11 @@ export const languagesExam = [
             {
                 text: 'An unknown runtime error occurs',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'This code results in an ArrayIndexOutOfBoundsException. The second for-loop attempts to access array indices from 0 to 4 inclusive, but the array\'s last index is 3. Attempting to access array[4] causes the exception.'
+            "This code results in an ArrayIndexOutOfBoundsException. The second for-loop attempts to access array indices from 0 to 4 inclusive, but the array's last index is 3. Attempting to access array[4] causes the exception.",
     },
     {
         id: '3',
@@ -120,11 +120,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'The do...while loop increments `i` before checking the condition. Since all numbers in the array are even, the loop continues until `i` reaches 4, which is out of bounds for the array, causing the loop to break and print 4.'
+            'The do...while loop increments `i` before checking the condition. Since all numbers in the array are even, the loop continues until `i` reaches 4, which is out of bounds for the array, causing the loop to break and print 4.',
     },
     {
         id: '4',
@@ -164,11 +164,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'The for-each loop iterates over each element in the array `numbers`, adding them to `sum`. The sum of the numbers 1, 2, 3, 4, and 5 is 15.'
+            'The for-each loop iterates over each element in the array `numbers`, adding them to `sum`. The sum of the numbers 1, 2, 3, 4, and 5 is 15.',
     },
     {
         id: '5',
@@ -211,11 +211,11 @@ export const languagesExam = [
             {
                 text: 'NullPointerException is thrown',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'The array `words` is initialized with a length of 3, but only one element (at index 1) is assigned a value ("Java"). The other two elements are null by default. The loop counts how many elements are null, which is 2.'
+            'The array `words` is initialized with a length of 3, but only one element (at index 1) is assigned a value ("Java"). The other two elements are null by default. The loop counts how many elements are null, which is 2.',
     },
     {
         id: '6',
@@ -247,11 +247,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'The `length` property of an array gives the total number of elements in the array, which is 3 in this case.'
+            'The `length` property of an array gives the total number of elements in the array, which is 3 in this case.',
     },
     {
         id: '7',
@@ -286,11 +286,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'Each element in the array `numbers` is assigned twice its index value. Therefore, numbers[4] is 4*2, which is 8.'
+            'Each element in the array `numbers` is assigned twice its index value. Therefore, numbers[4] is 4*2, which is 8.',
     },
     {
         id: '8',
@@ -322,11 +322,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'Attempting to call a method (like `length()`) on a null object will result in a NullPointerException.'
+            'Attempting to call a method (like `length()`) on a null object will result in a NullPointerException.',
     },
     {
         id: '9',
@@ -360,11 +360,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'The loop tries to access an index equal to the array\'s length (`numbers.length`), which is out of bounds, resulting in an ArrayIndexOutOfBoundsException.'
+            "The loop tries to access an index equal to the array's length (`numbers.length`), which is out of bounds, resulting in an ArrayIndexOutOfBoundsException.",
     },
     {
         id: '10',
@@ -406,11 +406,11 @@ export const languagesExam = [
             {
                 text: 'None of the above',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 1,
         explanation:
-            'The loop counts the number of even numbers in the `numbers` array. There are two even numbers (2 and 4), so the output is 2.'
+            'The loop counts the number of even numbers in the `numbers` array. There are two even numbers (2 and 4), so the output is 2.',
     },
     {
         id: '11',
@@ -438,11 +438,11 @@ export const languagesExam = [
             {
                 text: 'Java arrays are implemented as a type of Collection.',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 3,
         explanation:
-            'In Java, once an array is created, its size cannot be changed (it\'s not dynamically resizable). Arrays can store both primitive data types and objects and can be multi-dimensional. They are not a type of Collection.'
+            "In Java, once an array is created, its size cannot be changed (it's not dynamically resizable). Arrays can store both primitive data types and objects and can be multi-dimensional. They are not a type of Collection.",
     },
     {
         id: '12',
@@ -470,11 +470,11 @@ export const languagesExam = [
             {
                 text: 'int[] arr = new int[5]{1, 2, 3, 4, 5};',
                 correct: false,
-            }
+            },
         ],
         correctAnswers: 4,
         explanation:
-            'Java allows several ways to initialize arrays. The last option is incorrect because it attempts to both specify the size of the array and initialize it with specific values simultaneously, which is not allowed in Java.'
+            'Java allows several ways to initialize arrays. The last option is incorrect because it attempts to both specify the size of the array and initialize it with specific values simultaneously, which is not allowed in Java.',
     },
     {
         id: '13',
@@ -502,10 +502,10 @@ export const languagesExam = [
             {
                 text: 'Accessing an element in a multi-dimensional array requires multiple index values.',
                 correct: true,
-            }
+            },
         ],
         correctAnswers: 3,
         explanation:
-            'Multi-dimensional arrays in Java are indeed arrays of arrays, and each sub-array can have different lengths (thus, they can be non-rectangular). Accessing elements requires multiple indices, one for each dimension of the array.'
-    }
+            'Multi-dimensional arrays in Java are indeed arrays of arrays, and each sub-array can have different lengths (thus, they can be non-rectangular). Accessing elements requires multiple indices, one for each dimension of the array.',
+    },
 ]

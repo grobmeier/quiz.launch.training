@@ -3,13 +3,14 @@ import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 
 export function SingleOption({ answers, id }) {
-    let { currentIndex, userAnswers } = useContext(ProgressContext)
+    let { currentIndex, userAnswers, examInProgress } =
+        useContext(ProgressContext)
     const [currentSelected, setCurrentSelected] = useState([])
     const [clicked, setClicked] = useState(false)
 
     useEffect(() => {
         const progress = localStorage.getItem('userAnswers')
-        const progressParsed = JSON.parse(progress)
+        const progressParsed = progress && JSON.parse(progress)
         // console.log('parsed', progressParsed)
         if (
             progressParsed &&
@@ -46,7 +47,7 @@ export function SingleOption({ answers, id }) {
 
         // inserts the selected answers into the global state (local storage)
         let temp = userAnswers.map((item) =>
-            item.id === id
+            item.id === `${examInProgress}-` + id
                 ? {
                       ...item,
                       answered: currentSelected,
