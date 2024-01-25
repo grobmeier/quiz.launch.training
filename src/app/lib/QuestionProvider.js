@@ -61,8 +61,10 @@ export function QuestionProvider({ children }) {
     }
     useEffect(() => {
         if (
+            typeof window !== 'undefined' &&
             localStorage['userAnswers'] &&
             JSON.parse(localStorage.getItem('userAnswers')) === null &&
+            typeof window !== 'undefined' &&
             localStorage['currentIndex'] &&
             JSON.parse(localStorage.getItem('currentIndex')) === null
             // JSON.parse(localStorage.getItem('examTaken')) === 0
