@@ -45,7 +45,7 @@ export function Question({ questionInfo }) {
         <main className={styles.main}>
             <h5>Index: {currentIndex}</h5>
             <h5>Multichoice: {correctAnswers.toString()}</h5>
-            <Topbar currentIndex={currentIndex + 1} totalQtns={totalQtns} />
+            <Topbar />
             {type === 'code' && (
                 <div className={styles.codeContainer}>
                     <CodeBlock

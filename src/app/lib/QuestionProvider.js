@@ -20,11 +20,13 @@ export function QuestionProvider({ children }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
-    const maxQtns = 5
+    const maxQtns = 13
     let allQtns = []
     let userTmpAnswers = ''
 
-    const examName = JSON.parse(localStorage.getItem('currentExam'))
+    const examName =
+        typeof window !== 'undefined' &&
+        JSON.parse(localStorage.getItem('currentExam'))
     // console.log('here' + examName)
 
     // Load all exams questions
@@ -61,14 +63,16 @@ export function QuestionProvider({ children }) {
         if (
             localStorage['userAnswers'] &&
             JSON.parse(localStorage.getItem('userAnswers')) === null &&
+            localStorage['currentIndex'] &&
             JSON.parse(localStorage.getItem('currentIndex')) === null
             // JSON.parse(localStorage.getItem('examTaken')) === 0
         ) {
-            console.log('is Triggered')
+            // console.log('is Triggered')
             setInitialValues()
         }
     }, [])
 
+    // Persist the state by checking the localstorage userAnswers value
     useEffect(() => {
         if (localStorage.getItem('userAnswers') === null) {
             setInitialValues()

@@ -4,9 +4,11 @@ import { useRouter } from 'next/navigation'
 
 export function StartButton({ children, examName, variant }) {
     const router = useRouter()
-    const isExamTaken = localStorage.getItem('examTaken')
+    const isExamTaken =
+        typeof window !== 'undefined' && localStorage.getItem('examTaken')
     const checkExam = JSON.parse(isExamTaken) === 1 ? true : false
-    localStorage.setItem('currentExam', JSON.stringify(examName))
+    typeof window !== 'undefined' &&
+        localStorage.setItem('currentExam', JSON.stringify(examName))
 
     function handleStart() {
         if (checkExam) {

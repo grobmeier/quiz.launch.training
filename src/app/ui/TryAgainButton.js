@@ -9,11 +9,11 @@ export function TryAgainButton() {
     let { setCurrentIndex, userInitialAnswers } = useContext(ProgressContext)
 
     function handleTryAgain() {
-        router.push(`/exam-java`, { shallow: true })
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
         localStorage.setItem('userAnswers', userInitialAnswers)
         setCurrentIndex(0)
+        router.push(`/exam-java`, { shallow: true })
     }
     return (
         <button

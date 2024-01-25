@@ -13,6 +13,10 @@ export function MultiChoice({ answers, options, id }) {
     const calculateAnswerWeight = (1 / options).toFixed(2)
     let correctChoices = 0
 
+    const tmpUsers =
+        typeof window !== 'undefined' && localStorage.getItem('userAnswers')
+    const tmpUsersFormatted = tmpUsers && JSON.parse(tmpUsers)
+
     useEffect(() => {
         const progress = localStorage.getItem('userAnswers')
         const progressParsed = JSON.parse(progress)
@@ -54,7 +58,7 @@ export function MultiChoice({ answers, options, id }) {
             // console.log(`New index collection is: ${currentSelected}`)
         }
         // inserts the selected answers into the global state
-        let temp = userAnswers.map((item) =>
+        let temp = tmpUsersFormatted.map((item) =>
             item.id === id
                 ? {
                       ...item,
