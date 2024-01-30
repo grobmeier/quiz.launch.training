@@ -2,11 +2,12 @@
 
 import { createContext, useState, useEffect } from 'react'
 import { javaExam } from '../exams-data/java.js'
+import { htmlExam } from '../exams-data/html.js'
 
 /**
  * Note the dynamic array should be passed by the page / initial loading
  * of the question. TBD - temporary solution mimic the existing qtns for
- * inserting the answers
+ * inserting the answers. May come from database
  */
 
 export const ProgressContext = createContext()
@@ -20,7 +21,7 @@ export function QuestionProvider({ children }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
-    const maxQtns = 13
+    const maxQtns = 3
     let allQtns = []
     let userTmpAnswers = ''
 
@@ -39,6 +40,14 @@ export function QuestionProvider({ children }) {
         answered: [],
     }))
 
+    const firstHtmlQtns = htmlExam.slice(0, maxQtns)
+    const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
+    const htmlTmpAnswers = firstJavaQtns.map(({ id }) => ({
+        id: 'html-' + id,
+        calculatedPoints: 0,
+        answered: [],
+    }))
+
     /**
      * Load all Qtsn and matrix of the calculated answers based on the currentExam
      * value (Java / HTML) form localstorage.
@@ -47,6 +56,11 @@ export function QuestionProvider({ children }) {
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
         allQtns = allJavaQtns
         userTmpAnswers = JSON.stringify(javaTmpAnswers)
+    }
+
+    if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
+        allQtns = allHtmlQtns
+        userTmpAnswers = JSON.stringify(htmlTmpAnswers)
     }
 
     // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
@@ -88,7 +102,13 @@ export function QuestionProvider({ children }) {
 
     useEffect(() => {
         setExamInProgress(examName)
-        if (!localStorage['userAnswers']) {
+        let currentVersion = JSON.parse(
+            localStorage.getItem('userAnswers'),
+        )[0].id.includes(examName)
+
+        // Note passing of the below value to update the current initial version of the Exam matrix
+        setUserInitialAnswers(userTmpAnswers)
+        if (!localStorage['userAnswers'] || !currentVersion) {
             localStorage.setItem('userAnswers', userTmpAnswers)
         }
     }, [examName])

@@ -22,8 +22,8 @@ export default function Page() {
                     `}
                 />
                 <SmallCard
-                    link={'training-list'}
-                    title="Programming Languages and Their Differences 1"
+                    link={'exam-html'}
+                    title="HTML Test"
                     rating={2.3}
                     level="EASY"
                     duration={`25:00`}
