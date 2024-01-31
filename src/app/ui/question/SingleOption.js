@@ -3,7 +3,7 @@ import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 
 export function SingleOption({ answers, id }) {
-    let { currentIndex, userAnswers, examInProgress } =
+    let { currentIndex, userAnswers, examInProgress, setUserAnswers } =
         useContext(ProgressContext)
 
     let currentCalculatedPoints = '0'
@@ -18,12 +18,13 @@ export function SingleOption({ answers, id }) {
         const progress = localStorage.getItem('userAnswers')
         const progressParsed = progress && JSON.parse(progress)
         // console.log('parsed', progressParsed)
-        // if (
-        //     progressParsed &&
-        //     progressParsed[currentIndex] &&
-        //     progressParsed[currentIndex].answered
-        // ) {
-        setCurrentSelected(progressParsed[currentIndex].answered)
+        if (
+            progressParsed &&
+            progressParsed[currentIndex] &&
+            progressParsed[currentIndex].answered
+        ) {
+            setCurrentSelected(progressParsed[currentIndex].answered)
+        }
     }, [userAnswers, clicked])
 
     function handleClick(event, item) {
@@ -61,6 +62,7 @@ export function SingleOption({ answers, id }) {
                 : { ...item },
         )
         localStorage.setItem('userAnswers', JSON.stringify(temp))
+        // setUserAnswers(temp)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']

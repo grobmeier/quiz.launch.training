@@ -12,7 +12,7 @@ export function TryAgainButton() {
     function handleTryAgain() {
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
-        localStorage.setItem('userAnswers', userInitialAnswers)
+        // localStorage.setItem('userAnswers', userInitialAnswers)
         setCurrentIndex(0)
         router.push(`/exam-${examInProgress}`, { shallow: true })
     }

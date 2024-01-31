@@ -3,6 +3,7 @@
 import { createContext, useState, useEffect } from 'react'
 import { javaExam } from '../exams-data/java.js'
 import { htmlExam } from '../exams-data/html.js'
+import { usePathname } from 'next/navigation'
 
 /**
  * Note the dynamic array should be passed by the page / initial loading
@@ -13,11 +14,7 @@ import { htmlExam } from '../exams-data/html.js'
 export const ProgressContext = createContext()
 
 export function QuestionProvider({ children }) {
-    // const getInitialState = () => {
-    //     let progress = localStorage.getItem('currentIndex')
-    //     return progress ? JSON.parse(progress) : 0
-    // }
-
+    const pathname = usePathname()
     const [currentIndex, setCurrentIndex] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
@@ -69,16 +66,16 @@ export function QuestionProvider({ children }) {
 
     //Provide the structure and the questions with initial empty answers
     function setInitialValues() {
-        localStorage.setItem('userAnswers', userTmpAnswers)
+        localStorage.setItem('userAnswers', JSON.stringify(userTmpAnswers))
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
     }
+
     useEffect(() => {
         if (
             typeof window !== 'undefined' &&
             localStorage['userAnswers'] &&
             JSON.parse(localStorage.getItem('userAnswers')) === null &&
-            typeof window !== 'undefined' &&
             localStorage['currentIndex'] &&
             JSON.parse(localStorage.getItem('currentIndex')) === null
             // JSON.parse(localStorage.getItem('examTaken')) === 0
@@ -88,7 +85,19 @@ export function QuestionProvider({ children }) {
         }
     }, [])
 
-    // Persist the state by checking the localstorage userAnswers value
+    // Responsible for proper initial matrix based on exam value coming from Start Button
+    useEffect(() => {
+        // Is NOT triggered when under question dynamic path only outside - start button
+        if (!pathname.includes('question')) {
+            typeof window !== 'undefined' &&
+                localStorage.setItem('userAnswers', userTmpAnswers)
+        }
+    }, [examInProgress])
+
+    /**
+     * Persist the state on refresh by checking the localstorage userAnswers value
+     */
+
     useEffect(() => {
         if (localStorage.getItem('userAnswers') === null) {
             setInitialValues()
@@ -97,21 +106,10 @@ export function QuestionProvider({ children }) {
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
-        // console.log(userAnswers)
+        let persistedExam = localStorage.getItem('currentExam')
+        setExamInProgress(JSON.parse(persistedExam))
+        console.log('not here')
     }, [currentIndex])
-
-    useEffect(() => {
-        setExamInProgress(examName)
-        let currentVersion = JSON.parse(
-            localStorage.getItem('userAnswers'),
-        )[0].id.includes(examName)
-
-        // Note passing of the below value to update the current initial version of the Exam matrix
-        setUserInitialAnswers(userTmpAnswers)
-        if (!localStorage['userAnswers'] || !currentVersion) {
-            localStorage.setItem('userAnswers', userTmpAnswers)
-        }
-    }, [examName])
 
     return (
         <ProgressContext.Provider
@@ -125,6 +123,7 @@ export function QuestionProvider({ children }) {
                 setIsTaken,
                 userInitialAnswers,
                 examInProgress,
+                setExamInProgress,
             }}
         >
             {children}

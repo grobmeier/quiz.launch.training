@@ -59,7 +59,7 @@ export function Question({ questionInfo }) {
                     />
                 </div>
             )}
-            {type === 'image' && (
+            {type === 'image' && content && (
                 <Image
                     src={content}
                     width={680}

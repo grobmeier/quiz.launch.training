@@ -13,13 +13,14 @@ export function Topbar() {
         setIsClient(true)
     }, [])
     return (
-        // <Link href={`/${link}`}>
-        //     <button className={styles.button} type="button">
-        //         {children}
-        //     </button>
-        // </Link>
         <div className={styles.container}>
             <span>Cancel</span>
+            <button
+            // type="button"
+            // onClick={handleTryAgain}
+            >
+                Try Again
+            </button>
             <span>
                 <strong>
                     <p>
