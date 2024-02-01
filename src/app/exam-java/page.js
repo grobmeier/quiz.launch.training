@@ -43,7 +43,7 @@ export default function Page() {
                 </p>
                 <p>
                     Explore the nuances of syntax, paradigms, and the impact of
-                    each language on software development. Whether you're a
+                    each language on software development. Whether you&apos;re a
                     seasoned developer or just embarking on your coding journey,
                     this topic will shed light on the distinctive features that
                     make each programming language a unique tool in the world of
@@ -51,7 +51,7 @@ export default function Page() {
                 </p>
                 <p>
                     Explore the nuances of syntax, paradigms, and the impact of
-                    each language on software development. Whether you're a
+                    each language on software development. Whether you&apos;re a
                     seasoned developer or just embarking on your coding journey,
                     this topic will shed light on the distinctive features that
                     make each programming language a unique tool in the world of
