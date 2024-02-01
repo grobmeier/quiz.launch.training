@@ -9,7 +9,6 @@ export async function generateStaticParams() {
     let allExamData = []
     javaExam.map((p) => allExamData.push({ question: 'java-' + p.id }))
     htmlExam.map((p) => allExamData.push({ question: 'html-' + p.id }))
-    console.log(allExamData)
     return allExamData
 }
 

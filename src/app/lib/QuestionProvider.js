@@ -53,12 +53,10 @@ export function QuestionProvider({ children }) {
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
         allQtns = allJavaQtns
         userTmpAnswers = JSON.stringify(javaTmpAnswers)
-        console.log('IS IT 1')
     }
     if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
         allQtns = allHtmlQtns
         userTmpAnswers = JSON.stringify(htmlTmpAnswers)
-        console.log('IS IT 2')
     }
 
     // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
@@ -86,32 +84,24 @@ export function QuestionProvider({ children }) {
         }
     }, [])
 
-    // Responsible for proper initial matrix based on exam value coming from Start Button
+    /**
+     * Responsible for proper initial matrix based on exam value coming from Start Button
+     * or from Try Again Button
+     */
     useEffect(() => {
         // Is NOT triggered when under question dynamic path only outside - start button
         if (!pathname.includes('question')) {
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
-
-            // if (Object.keys({ javaExam })[0] === examName + 'Exam') {
-            //     allQtns = allJavaQtns
-            //     // userTmpAnswers = JSON.stringify(javaTmpAnswers)
-            //     console.log('IS IT 1 inside')
-            // }
-            // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
-            //     allQtns = allHtmlQtns
-            //     // userTmpAnswers = JSON.stringify(htmlTmpAnswers)
-            //     console.log('IS IT 2 insied')
-            // }
         }
-    }, [examInProgress])
+    }, [examInProgress, isTaken])
 
     /**
      * Persist the state on refresh by checking the localstorage userAnswers value
      */
 
     useEffect(() => {
-        console.log(userTmpAnswers + 'check')
+        // console.log(userTmpAnswers + 'check')
         if (localStorage.getItem('userAnswers') === null) {
             setInitialValues()
         }
