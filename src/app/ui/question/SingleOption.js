@@ -29,7 +29,7 @@ export function SingleOption({ answers, id }) {
 
     function handleClick(event, item) {
         event.preventDefault()
-        console.log('intial selected', userAnswers)
+        // console.log('intial selected', userAnswers)
 
         setClicked(!clicked)
 

@@ -42,7 +42,6 @@ export default function Page({ params }) {
     const questionInfo = getDataByIdAndExam(idQtn, examQtn)
     return (
         <main className={styles.main}>
-            <h1>Details about the Question</h1>
             <Question questionInfo={questionInfo} />
         </main>
     )
