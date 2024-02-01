@@ -18,7 +18,7 @@ export function QuestionProvider({ children }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
-    const maxQtns = 3
+    const maxQtns = 13
     let allQtns = []
     let userTmpAnswers = ''
 

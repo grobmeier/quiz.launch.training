@@ -12,7 +12,6 @@ export function MultiChoice({ answers, options, id }) {
     const maxSelects = options
 
     const calculateAnswerWeight = (1 / options).toFixed(2)
-    let correctChoices = 0
 
     const tmpUsers =
         typeof window !== 'undefined' && localStorage.getItem('userAnswers')
@@ -79,7 +78,6 @@ export function MultiChoice({ answers, options, id }) {
     return (
         <>
             <h3>Single Correct Weight: {calculateAnswerWeight}</h3>
-            <h3>Correct: {correctChoices}</h3>
             <h3>Currently selected: {currentSelected}</h3>
             <span>You may pick {maxSelects} answers</span>
             {answers.map((item, index) => (

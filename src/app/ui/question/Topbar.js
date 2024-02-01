@@ -7,10 +7,13 @@ import { useState, useEffect } from 'react'
 export function Topbar() {
     const router = useRouter()
     const [isClient, setIsClient] = useState(false)
-    let { allQtns, currentIndex } = useContext(ProgressContext)
+    let { allQtns, currentIndex, setCurrentIndex } = useContext(ProgressContext)
     let totalQtns = allQtns.length
 
     function handleCancel() {
+        localStorage.setItem('currentIndex', JSON.stringify(0))
+        localStorage.setItem('examTaken', JSON.stringify(0))
+        setCurrentIndex(0)
         router.push('/tests-list')
     }
 
