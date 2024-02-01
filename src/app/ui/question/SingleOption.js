@@ -3,13 +3,20 @@ import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 
 export function SingleOption({ answers, id }) {
-    let { currentIndex, userAnswers } = useContext(ProgressContext)
+    let { currentIndex, userAnswers, examInProgress, setUserAnswers } =
+        useContext(ProgressContext)
+
+    let currentCalculatedPoints = '0'
     const [currentSelected, setCurrentSelected] = useState([])
     const [clicked, setClicked] = useState(false)
 
+    const tmpUsers =
+        typeof window !== 'undefined' && localStorage.getItem('userAnswers')
+    const tmpUsersFormatted = tmpUsers && JSON.parse(tmpUsers)
+
     useEffect(() => {
         const progress = localStorage.getItem('userAnswers')
-        const progressParsed = JSON.parse(progress)
+        const progressParsed = progress && JSON.parse(progress)
         // console.log('parsed', progressParsed)
         if (
             progressParsed &&
@@ -22,34 +29,35 @@ export function SingleOption({ answers, id }) {
 
     function handleClick(event, item) {
         event.preventDefault()
-        // console.log('intial selected', currentSelected)
+        // console.log('intial selected', userAnswers)
 
         setClicked(!clicked)
 
         if (currentSelected.includes(item.text)) {
             if (item.correct) {
-                userAnswers[currentIndex].calculatedPoints = 0
+                currentCalculatedPoints = '0'
             }
             currentSelected[0] = ''
             setCurrentSelected(currentSelected)
-            // console.log(`New single choice:  ${currentSelected}`)
         } else {
             currentSelected[0] = item.text
             if (item.correct) {
-                userAnswers[currentIndex].calculatedPoints = 1
+                currentCalculatedPoints = '1'
             } else {
-                userAnswers[currentIndex].calculatedPoints = 0
+                currentCalculatedPoints = '0'
             }
             // console.log(`New single option: ${currentSelected}`)
             setCurrentSelected(currentSelected)
         }
 
-        // inserts the selected answers into the global state (local storage)
-        let temp = userAnswers.map((item) =>
-            item.id === id
+        // inserts the selected answers and calculated points into the global state (local storage)
+
+        let temp = tmpUsersFormatted.map((item) =>
+            item.id === `${examInProgress}-` + id
                 ? {
                       ...item,
                       answered: currentSelected,
+                      calculatedPoints: currentCalculatedPoints,
                   }
                 : { ...item },
         )

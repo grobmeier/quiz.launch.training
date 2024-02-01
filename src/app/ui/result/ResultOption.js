@@ -1,5 +1,5 @@
 import styles from './ResultOption.module.scss'
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useContext, useState, Fragment } from 'react'
 
 export function ResultOption({ answers, id }) {
     const [allAnswers, setAllAnswers] = useState([])
@@ -9,7 +9,6 @@ export function ResultOption({ answers, id }) {
     useEffect(() => {
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setAllAnswers(JSON.parse(qtnsAnswers))
-        console.log(allAnswers)
     }, [])
 
     const isAnswered =
@@ -19,18 +18,26 @@ export function ResultOption({ answers, id }) {
     return (
         <>
             {answers.map((item, index) => (
-                <button
-                    key={index}
-                    type="button"
-                    className={`${styles.container} ${
-                        isAnswered && isAnswered.includes(item.text)
-                            ? styles.selectedBtn
-                            : ''
-                    }`}
-                >
-                    <span>{indexToCharacter[index]}</span>
-                    <span>{item.text}</span>
-                </button>
+                <Fragment key={index}>
+                    <button
+                        type="button"
+                        className={`${styles.container} ${
+                            isAnswered && isAnswered.includes(item.text)
+                                ? styles.selectedBtn
+                                : ''
+                        }`}
+                    >
+                        <span>{indexToCharacter[index]}</span>
+                        <span>{item.text}</span>
+                    </button>
+                    {isAnswered &&
+                        isAnswered.includes(item.text) &&
+                        item.correct && (
+                            <span>
+                                <small>Right Answer</small>
+                            </span>
+                        )}
+                </Fragment>
             ))}
         </>
     )

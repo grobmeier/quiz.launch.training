@@ -2,18 +2,21 @@
 import styles from './result/Result.module.scss'
 import { useRouter } from 'next/navigation'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 
 export function TryAgainButton() {
     const router = useRouter()
-    let { setCurrentIndex, userInitialAnswers } = useContext(ProgressContext)
+    let { setCurrentIndex, examInProgress, setIsTaken, isTaken } =
+        useContext(ProgressContext)
 
     function handleTryAgain() {
+        // console.log(userInitialAnswers)
         localStorage.setItem('currentIndex', JSON.stringify(0))
+        // localStorage.setItem('userAnswers', userInitialAnswers)
         localStorage.setItem('examTaken', JSON.stringify(0))
-        localStorage.setItem('userAnswers', JSON.stringify(userInitialAnswers))
+        setIsTaken(!isTaken)
         setCurrentIndex(0)
-        router.push(`/exam-single`)
+        router.push(`/exam-${examInProgress}`, { shallow: true })
     }
     return (
         <button

@@ -13,7 +13,8 @@ import Image from 'next/image'
 export function Question({ questionInfo }) {
     const { id, content, language, text, answers, type, correctAnswers } =
         questionInfo
-    let { allQtns, currentIndex, setCurrentIndex } = useContext(ProgressContext)
+    let { allQtns, currentIndex, setCurrentIndex, examInProgress } =
+        useContext(ProgressContext)
     const router = useRouter()
 
     let totalQtns = allQtns.length
@@ -24,7 +25,7 @@ export function Question({ questionInfo }) {
         if (currentIndex === 0) return
         setCurrentIndex(currentIndex - 1)
         localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
-        router.push(`/questions/${previousQtn}`)
+        router.push(`/questions/${examInProgress}-${previousQtn}`)
     }
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
@@ -33,7 +34,7 @@ export function Question({ questionInfo }) {
                 'currentIndex',
                 JSON.stringify(currentIndex + 1),
             )
-            router.push(`/questions/${nextQtn}`)
+            router.push(`/questions/${examInProgress}-${nextQtn}`)
         } else {
             localStorage.setItem('examTaken', JSON.stringify(1))
             setCurrentIndex(0)
@@ -45,7 +46,7 @@ export function Question({ questionInfo }) {
         <main className={styles.main}>
             <h5>Index: {currentIndex}</h5>
             <h5>Multichoice: {correctAnswers.toString()}</h5>
-            <Topbar currentIndex={currentIndex + 1} totalQtns={totalQtns} />
+            <Topbar />
             {type === 'code' && (
                 <div className={styles.codeContainer}>
                     <CodeBlock
@@ -58,7 +59,7 @@ export function Question({ questionInfo }) {
                     />
                 </div>
             )}
-            {type === 'image' && (
+            {type === 'image' && content && (
                 <Image
                     src={content}
                     width={680}

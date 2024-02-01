@@ -14,7 +14,16 @@ import { AllAnswers } from '@/app/ui/result/AllAnswers'
 export function ResultBox() {
     let { allQtns, userAnswers } = useContext(ProgressContext)
 
+    const tmpUsers =
+        typeof window !== 'undefined' && localStorage.getItem('userAnswers')
+    const tmpUserAnswers = tmpUsers && JSON.parse(tmpUsers)
+
     const [showResult, setShowResult] = useState(false)
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
 
     // console.log('answers', userAnswers)
 
@@ -22,9 +31,10 @@ export function ResultBox() {
     let incorrectAnswers = 0
     let noAnswer = 0
 
-    const estimatedResult =
-        userAnswers &&
-        userAnswers.map((qtn) => {
+    // console.log(userAnswers)
+
+    Array.isArray(tmpUserAnswers) &&
+        tmpUserAnswers.map((qtn) => {
             if (qtn.calculatedPoints < 0.99) {
                 if (!qtn.answered[0]) {
                     noAnswer += 1
@@ -51,12 +61,16 @@ export function ResultBox() {
                         <p>No answer: </p>
                     </div>
                     <div>
-                        <h3>
-                            {correctAnswers} / {allQtns.length}
-                        </h3>
-                        <p>{correctAnswers}</p>
-                        <p>{incorrectAnswers}</p>
-                        <p>{noAnswer}</p>
+                        {isClient && (
+                            <>
+                                <h3>
+                                    {correctAnswers} / {allQtns.length}
+                                </h3>
+                                <p>{correctAnswers}</p>
+                                <p>{incorrectAnswers}</p>
+                                <p>{noAnswer}</p>
+                            </>
+                        )}
                     </div>
                 </div>
                 <div className={styles.btnArea}>

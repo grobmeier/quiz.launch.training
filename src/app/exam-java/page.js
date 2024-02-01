@@ -5,7 +5,7 @@ import { Rating } from '@smastrom/react-rating'
 export default function Page() {
     return (
         <main className={styles.main}>
-            <h1>Programming Languages and Their Differences</h1>
+            <h1>JAVA</h1>
             <div className={styles.topArea}>
                 <div>Difficulty: </div>
                 <div>
@@ -58,7 +58,7 @@ export default function Page() {
                     software creation.
                 </p>
             </div>
-            <StartButton> Start </StartButton>
+            <StartButton examName={'java'}> Start </StartButton>
         </main>
     )
 }
