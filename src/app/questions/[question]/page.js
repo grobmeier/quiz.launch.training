@@ -13,16 +13,22 @@ export async function generateStaticParams() {
     return allExamData
 }
 
-export function getDataById(id) {
-    let dataFiltered = javaExam.filter(function (el) {
-        return el.id === id
-    })
-
+export function getDataByIdAndExam(id, exam) {
+    let dataFiltered = []
+    if (exam === 'java') {
+        dataFiltered = javaExam.filter(function (el) {
+            return el.id === id
+        })
+    }
+    if (exam === 'html') {
+        dataFiltered = htmlExam.filter(function (el) {
+            return el.id === id
+        })
+    }
     if (!dataFiltered) {
         throw new Error('Failed to fetch data')
     }
     const data = dataFiltered[0]
-
     return data
 }
 
@@ -31,9 +37,10 @@ export default function Page({ params }) {
 
     const delimiter = '-'
     const substrings = params.question.split(delimiter)
+    const examQtn = substrings[0]
     const idQtn = substrings[1]
 
-    const questionInfo = getDataById(idQtn)
+    const questionInfo = getDataByIdAndExam(idQtn, examQtn)
     return (
         <main className={styles.main}>
             <h1>Details about the Question</h1>

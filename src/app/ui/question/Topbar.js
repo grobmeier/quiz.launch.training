@@ -1,26 +1,28 @@
 import styles from './Topbar.module.scss'
 import { useContext } from 'react'
+import { useRouter } from 'next/navigation'
 import { ProgressContext } from '@/app/lib/QuestionProvider.js'
 import { useState, useEffect } from 'react'
 
 export function Topbar() {
+    const router = useRouter()
     const [isClient, setIsClient] = useState(false)
-
     let { allQtns, currentIndex } = useContext(ProgressContext)
-
     let totalQtns = allQtns.length
+
+    function handleCancel() {
+        router.push('/tests-list')
+    }
+
     useEffect(() => {
         setIsClient(true)
     }, [])
+
     return (
         <div className={styles.container}>
-            <span>Cancel</span>
-            <button
-            // type="button"
-            // onClick={handleTryAgain}
-            >
-                Try Again
-            </button>
+            <span type="button" onClick={handleCancel}>
+                Cancel
+            </span>
             <span>
                 <strong>
                     <p>

@@ -12,10 +12,12 @@ export function StartButton({ children, examName, variant }) {
         typeof window !== 'undefined' && localStorage.getItem('examTaken')
     const checkExam = JSON.parse(isExamTaken) === 1 ? true : false
 
-    // Properly reinstantiate the initial data
+    // Properly reinstantiate the prestine initial data
     useEffect(() => {
         typeof window !== 'undefined' &&
             localStorage.setItem('currentExam', JSON.stringify(examName))
+        typeof window !== 'undefined' &&
+            localStorage.setItem('currentIndex', JSON.stringify(0))
         typeof window !== 'undefined' &&
             localStorage.setItem('userAnswers', userInitialAnswers)
         setExamInProgress(examName)

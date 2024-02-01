@@ -12,18 +12,18 @@ export const htmlExam = [
         answers: [
             {
                 text: '3',
-                correct: false,
+                correct: true,
             },
             {
                 text: '6',
-                correct: true,
+                correct: false,
             },
             {
                 text: '9',
                 correct: false,
             },
             {
-                text: 'This code does not compile',
+                text: 'This HTML code does not compile',
                 correct: false,
             },
             {
@@ -33,7 +33,7 @@ export const htmlExam = [
         ],
         correctAnswers: 1,
         explanation:
-            'In Java, array indices start from 0. Therefore, `numbers[1]` accesses the second element of the array `numbers`, which is 6.',
+            'In HTML indices start from 0. Therefore, `numbers[1]` accesses the second element of the array `numbers`, which is 6.',
     },
     {
         id: '2',
@@ -59,7 +59,7 @@ export const htmlExam = [
         answers: [
             {
                 text: '10',
-                correct: false,
+                correct: true,
             },
             {
                 text: 'This code does not compile',
@@ -67,7 +67,7 @@ export const htmlExam = [
             },
             {
                 text: 'ArrayIndexOutOfBoundsException is thrown',
-                correct: true,
+                correct: false,
             },
             {
                 text: 'None of the above',
@@ -80,7 +80,7 @@ export const htmlExam = [
         ],
         correctAnswers: 1,
         explanation:
-            "This code results in an ArrayIndexOutOfBoundsException. The second for-loop attempts to access array indices from 0 to 4 inclusive, but the array's last index is 3. Attempting to access array[4] causes the exception.",
+            "This HTML code results in an ArrayIndexOutOfBoundsException. The second for-loop attempts to access array indices from 0 to 4 inclusive, but the array's last index is 3. Attempting to access array[4] causes the exception.",
     },
     {
         id: '3',

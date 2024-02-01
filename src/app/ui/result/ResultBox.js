@@ -22,10 +22,8 @@ export function ResultBox() {
     let incorrectAnswers = 0
     let noAnswer = 0
 
-    console.log(userAnswers)
+    // console.log(userAnswers)
 
-    // const estimatedResult =
-    //     userAnswers !== null &&
     Array.isArray(userAnswers) &&
         userAnswers.map((qtn) => {
             if (qtn.calculatedPoints < 0.99) {

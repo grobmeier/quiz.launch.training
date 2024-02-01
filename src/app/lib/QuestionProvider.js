@@ -39,7 +39,7 @@ export function QuestionProvider({ children }) {
 
     const firstHtmlQtns = htmlExam.slice(0, maxQtns)
     const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
-    const htmlTmpAnswers = firstJavaQtns.map(({ id }) => ({
+    const htmlTmpAnswers = firstHtmlQtns.map(({ id }) => ({
         id: 'html-' + id,
         calculatedPoints: 0,
         answered: [],
@@ -53,11 +53,12 @@ export function QuestionProvider({ children }) {
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
         allQtns = allJavaQtns
         userTmpAnswers = JSON.stringify(javaTmpAnswers)
+        console.log('IS IT 1')
     }
-
     if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
         allQtns = allHtmlQtns
         userTmpAnswers = JSON.stringify(htmlTmpAnswers)
+        console.log('IS IT 2')
     }
 
     // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
@@ -91,6 +92,17 @@ export function QuestionProvider({ children }) {
         if (!pathname.includes('question')) {
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
+
+            // if (Object.keys({ javaExam })[0] === examName + 'Exam') {
+            //     allQtns = allJavaQtns
+            //     // userTmpAnswers = JSON.stringify(javaTmpAnswers)
+            //     console.log('IS IT 1 inside')
+            // }
+            // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
+            //     allQtns = allHtmlQtns
+            //     // userTmpAnswers = JSON.stringify(htmlTmpAnswers)
+            //     console.log('IS IT 2 insied')
+            // }
         }
     }, [examInProgress])
 
@@ -99,6 +111,7 @@ export function QuestionProvider({ children }) {
      */
 
     useEffect(() => {
+        console.log(userTmpAnswers + 'check')
         if (localStorage.getItem('userAnswers') === null) {
             setInitialValues()
         }
@@ -108,7 +121,6 @@ export function QuestionProvider({ children }) {
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
         let persistedExam = localStorage.getItem('currentExam')
         setExamInProgress(JSON.parse(persistedExam))
-        console.log('not here')
     }, [currentIndex])
 
     return (
