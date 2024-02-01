@@ -6,10 +6,11 @@ import { useContext, useEffect } from 'react'
 
 export function StartButton({ children, examName }) {
     const router = useRouter()
-    let { userInitialAnswers, setExamInProgress } = useContext(ProgressContext)
+    let { userInitialAnswers, setExamInProgress, setIsTaken, isTaken } =
+        useContext(ProgressContext)
 
-    const isExamTaken =
-        typeof window !== 'undefined' && localStorage.getItem('examTaken')
+    // const isExamTaken =
+    //     typeof window !== 'undefined' && localStorage.getItem('examTaken')
 
     // const checkExam = JSON.parse(isExamTaken) === 1 ? true : false
 
@@ -28,6 +29,7 @@ export function StartButton({ children, examName }) {
         // if (checkExam) {
         //     router.push('/results')
         // } else {
+        setIsTaken(!isTaken)
         router.push(`/questions/${examName}-1`)
         // }
     }

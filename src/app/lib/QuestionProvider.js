@@ -89,8 +89,8 @@ export function QuestionProvider({ children }) {
      * or from Try Again Button
      */
     useEffect(() => {
-        // Is NOT triggered when under question dynamic path only outside - start button
-        if (!pathname.includes('question')) {
+        // Is NOT triggered when under question dynamic path only outside
+        if (!pathname.includes('question') && !pathname.includes('results')) {
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
         }
