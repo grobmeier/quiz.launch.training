@@ -16,7 +16,7 @@ export function ResultBox() {
 
     const tmpUsers =
         typeof window !== 'undefined' && localStorage.getItem('userAnswers')
-    const tmpUsersFormatted = tmpUsers && JSON.parse(tmpUsers)
+    const tmpUserAnswers = tmpUsers && JSON.parse(tmpUsers)
 
     const [showResult, setShowResult] = useState(false)
     const [isClient, setIsClient] = useState(false)
@@ -33,8 +33,8 @@ export function ResultBox() {
 
     // console.log(userAnswers)
 
-    Array.isArray(tmpUsersFormatted) &&
-        tmpUsersFormatted.map((qtn) => {
+    Array.isArray(tmpUserAnswers) &&
+        tmpUserAnswers.map((qtn) => {
             if (qtn.calculatedPoints < 0.99) {
                 if (!qtn.answered[0]) {
                     noAnswer += 1

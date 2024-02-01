@@ -2,17 +2,12 @@
 import styles from './result/Result.module.scss'
 import { useRouter } from 'next/navigation'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 
 export function TryAgainButton() {
     const router = useRouter()
-    let {
-        setCurrentIndex,
-        userInitialAnswers,
-        examInProgress,
-        setIsTaken,
-        isTaken,
-    } = useContext(ProgressContext)
+    let { setCurrentIndex, examInProgress, setIsTaken, isTaken } =
+        useContext(ProgressContext)
 
     function handleTryAgain() {
         // console.log(userInitialAnswers)
