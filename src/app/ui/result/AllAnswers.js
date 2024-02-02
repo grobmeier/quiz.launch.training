@@ -4,7 +4,7 @@
  * Checking the answers by ID so that in the future this is dynamic
  */
 
-import { useEffect, useContext, useState } from 'react'
+import { useContext } from 'react'
 import styles from './AllAnswers.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { javaExam } from '../../exams-data/java.js'
@@ -32,17 +32,19 @@ export function AllAnswers() {
     return (
         <main className={styles.main}>
             {takenQtns.map((item, index) => (
-                <div key={item.id}>
+                <div key={item.id} className={styles.answerContainer}>
                     <h3>Question {index + 1}</h3>
                     {item.type === 'code' && (
-                        <CodeBlock
-                            text={item.content}
-                            language={item.language}
-                            showLineNumbers="true"
-                            // wrapLines
-                            theme={dracula}
-                            // codeBlock={true}
-                        />
+                        <div className={styles.codeContainer}>
+                            <CodeBlock
+                                text={item.content}
+                                language={item.language}
+                                showLineNumbers="true"
+                                // wrapLines
+                                theme={dracula}
+                                // codeBlock={true}
+                            />
+                        </div>
                     )}
                     {item.type === 'image' && (
                         <Image
