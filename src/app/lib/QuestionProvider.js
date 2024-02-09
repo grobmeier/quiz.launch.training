@@ -2,7 +2,8 @@
 
 import { createContext, useState, useEffect } from 'react'
 import { javaExam } from '../exams-data/java.js'
-import { htmlExam } from '../exams-data/html.js'
+import { restExam } from '../exams-data/rest.js'
+// import { htmlExam } from '../exams-data/html.js'
 import { usePathname } from 'next/navigation'
 
 /**
@@ -18,7 +19,7 @@ export function QuestionProvider({ children }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
-    const maxQtns = 13
+    const maxQtns = 5
     let allQtns = []
     let userTmpAnswers = ''
 
@@ -37,13 +38,21 @@ export function QuestionProvider({ children }) {
         answered: [],
     }))
 
-    const firstHtmlQtns = htmlExam.slice(0, maxQtns)
-    const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
-    const htmlTmpAnswers = firstHtmlQtns.map(({ id }) => ({
-        id: 'html-' + id,
+    const firstRestQtns = restExam.slice(0, maxQtns)
+    const allRestQtns = firstRestQtns.map((p) => p.id)
+    const restTmpAnswers = firstRestQtns.map(({ id }) => ({
+        id: 'rest-' + id,
         calculatedPoints: 0,
         answered: [],
     }))
+
+    // const firstHtmlQtns = htmlExam.slice(0, maxQtns)
+    // const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
+    // const htmlTmpAnswers = firstHtmlQtns.map(({ id }) => ({
+    //     id: 'html-' + id,
+    //     calculatedPoints: 0,
+    //     answered: [],
+    // }))
 
     /**
      * Load all Qtsn and matrix of the calculated answers based on the currentExam
@@ -54,10 +63,14 @@ export function QuestionProvider({ children }) {
         allQtns = allJavaQtns
         userTmpAnswers = JSON.stringify(javaTmpAnswers)
     }
-    if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
-        allQtns = allHtmlQtns
-        userTmpAnswers = JSON.stringify(htmlTmpAnswers)
+    if (Object.keys({ restExam })[0] === examName + 'Exam') {
+        allQtns = allRestQtns
+        userTmpAnswers = JSON.stringify(restTmpAnswers)
     }
+    // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
+    //     allQtns = allHtmlQtns
+    //     userTmpAnswers = JSON.stringify(htmlTmpAnswers)
+    // }
 
     // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
     const [userInitialAnswers, setUserInitialAnswers] = useState(userTmpAnswers)

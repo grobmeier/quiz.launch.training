@@ -5,7 +5,7 @@ import { Rating } from '@smastrom/react-rating'
 export default function Page() {
     return (
         <main className={styles.main}>
-            <h1>HTML</h1>
+            <h1>REST</h1>
             <div className={styles.topArea}>
                 <div>Difficulty: </div>
                 <div>
@@ -19,7 +19,7 @@ export default function Page() {
             </div>
             <div className={styles.examBox}>
                 <p>
-                    HTML VERSION. Programming languages are the backbone of the
+                    REST VERSION. Programming languages are the backbone of the
                     digital world, serving as the communication bridge between
                     humans and computers. This topic delves into the fascinating
                     realm of programming languages, exploring their various
@@ -58,7 +58,7 @@ export default function Page() {
                     software creation.
                 </p>
             </div>
-            <StartButton examName={'html'}> Start </StartButton>
+            <StartButton examName={'rest'}> Start </StartButton>
         </main>
     )
 }

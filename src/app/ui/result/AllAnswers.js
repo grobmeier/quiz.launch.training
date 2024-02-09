@@ -8,7 +8,7 @@ import { useContext } from 'react'
 import styles from './AllAnswers.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { javaExam } from '../../exams-data/java.js'
-import { htmlExam } from '../../exams-data/html.js'
+import { restExam } from '../../exams-data/rest.js'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
@@ -23,8 +23,8 @@ export function AllAnswers() {
     if (examInProgress === 'java') {
         takenQtns = javaExam.filter((item) => allQtns.includes(item.id))
     }
-    if (examInProgress === 'html') {
-        takenQtns = htmlExam.filter((item) => allQtns.includes(item.id))
+    if (examInProgress === 'rest') {
+        takenQtns = restExam.filter((item) => allQtns.includes(item.id))
     }
 
     // console.log(userAnswers)

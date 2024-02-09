@@ -1,5 +1,6 @@
 import { javaExam } from '../../exams-data/java.js'
-import { htmlExam } from '../../exams-data/html.js'
+import { restExam } from '../../exams-data/rest.js'
+// import { restExam } from '../../exams-data/rest.js'
 import { Question } from '@/app/ui/question/Question.js'
 import styles from './question-detail.module.css'
 
@@ -8,7 +9,7 @@ export const dynamicParams = false
 export async function generateStaticParams() {
     let allExamData = []
     javaExam.map((p) => allExamData.push({ question: 'java-' + p.id }))
-    htmlExam.map((p) => allExamData.push({ question: 'html-' + p.id }))
+    restExam.map((p) => allExamData.push({ question: 'rest-' + p.id }))
     return allExamData
 }
 
@@ -19,8 +20,8 @@ export function getDataByIdAndExam(id, exam) {
             return el.id === id
         })
     }
-    if (exam === 'html') {
-        dataFiltered = htmlExam.filter(function (el) {
+    if (exam === 'rest') {
+        dataFiltered = restExam.filter(function (el) {
             return el.id === id
         })
     }

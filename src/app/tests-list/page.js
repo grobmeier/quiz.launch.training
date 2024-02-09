@@ -22,13 +22,13 @@ export default function Page() {
                     `}
                 />
                 <SmallCard
-                    link={'exam-html'}
-                    title="HTML Test"
+                    link={'exam-rest'}
+                    title="REST Test"
                     rating={2.3}
                     level="EASY"
                     duration={`25:00`}
                     text={`
-                    Programming languages are the backbone of the digital
+                    REST Programming languages are the backbone of the digital
                     world, serving as the communication bridge between
                     humans and computers. This topic delves into the
                     fascinating ...
