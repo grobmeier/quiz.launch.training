@@ -6,29 +6,9 @@ import { Card } from '@/app/ui/Card'
 export default function Home() {
     return (
         <main className={styles.main}>
-            <Button link={'training-list'}>Create Account</Button>
-            <Card />
             <div className={styles.description}>
-                <p>
-                    Get started by editing&nbsp;
-                    <code className={styles.code}>src/app/page.js</code>
-                </p>
                 <div>
-                    <a
-                        href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        By{' '}
-                        <Image
-                            src="/vercel.svg"
-                            alt="Vercel Logo"
-                            className={styles.vercelLogo}
-                            width={100}
-                            height={24}
-                            priority
-                        />
-                    </a>
+                    <h4>To be filled</h4>
                 </div>
             </div>
 
