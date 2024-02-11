@@ -44,8 +44,8 @@ export function Question({ questionInfo }) {
 
     return (
         <main className={styles.main}>
-            <h5>Index: {currentIndex}</h5>
-            <h5>Multichoice: {correctAnswers.toString()}</h5>
+            {/* <h5>Index: {currentIndex}</h5>
+            <h5>Multichoice: {correctAnswers.toString()}</h5> */}
             <Topbar />
             {type === 'code' && (
                 <div className={styles.codeContainer}>

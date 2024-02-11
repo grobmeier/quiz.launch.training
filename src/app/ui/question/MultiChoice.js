@@ -77,8 +77,8 @@ export function MultiChoice({ answers, options, id }) {
 
     return (
         <>
-            <h3>Single Correct Weight: {calculateAnswerWeight}</h3>
-            <h3>Currently selected: {currentSelected}</h3>
+            {/* <h3>Single Correct Weight: {calculateAnswerWeight}</h3>
+            <h3>Currently selected: {currentSelected}</h3> */}
             <span>You may pick {maxSelects} answers</span>
             {answers.map((item, index) => (
                 <button
@@ -97,7 +97,7 @@ export function MultiChoice({ answers, options, id }) {
                     <span>{item.text}</span>
                 </button>
             ))}
-            <ul>
+            {/* <ul>
                 {currentSelected.map((item, index) => {
                     let isCorrect = answers.find(
                         (el) => el.text === item && el.correct === true,
@@ -109,7 +109,7 @@ export function MultiChoice({ answers, options, id }) {
                         </li>
                     )
                 })}
-            </ul>
+            </ul> */}
         </>
     )
 }
