@@ -16,9 +16,6 @@ jobs:
 #            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
 #            aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
 #            aws-region: eu-west-1
-#        - name: Login to GitHub Packages
-#          run: |
-#            echo ${{ secrets.GITHUB_TOKEN }} | docker login docker.pkg.github.com -u grobmeier --password-stdin
         - name: Build, tag, and push image to Github Packages
           id: build-image-production
           env:
