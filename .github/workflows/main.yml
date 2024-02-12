@@ -17,5 +17,5 @@ jobs:
             IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
             TARGET_IMAGE_NAME: grobmeier_de:${{ github.sha }}
           run: |
-            docker build -t $IMAGE_NAME -f Dockerfile-Deploy .
+            docker build -t $IMAGE_NAME -f Dockerfile .
             docker run $IMAGE_NAME
