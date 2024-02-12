@@ -1,7 +1,7 @@
 // `app/training-list/page.tsx` is the UI for the `/training-lists` URL
 
 import styles from './training.module.scss'
-import { Card } from '@/app/ui/Card'
+import { Card } from '@/app/ui/card'
 
 export default function Page() {
     return (

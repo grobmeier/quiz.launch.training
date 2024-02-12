@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import styles from './Navbar.module.css'
-import { Button } from '@/app/ui/Button'
+import styles from './navbar.module.css'
+import { Button } from '@/app/ui/button'
 
 // import Logo from './Logo'
 
