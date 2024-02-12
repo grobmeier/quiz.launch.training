@@ -1,5 +1,7 @@
 FROM node:alpine3.18 as dependencies
 
+RUN apk --no-cache add aws-cli
+
 WORKDIR /root/build
 
 COPY . .
