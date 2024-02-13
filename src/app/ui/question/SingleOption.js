@@ -53,7 +53,7 @@ export function SingleOption({ answers, id }) {
         // inserts the selected answers and calculated points into the global state (local storage)
 
         let temp = tmpUsersFormatted.map((item) =>
-            item.id === `${examInProgress}-` + id
+            item.id === id
                 ? {
                       ...item,
                       answered: currentSelected,

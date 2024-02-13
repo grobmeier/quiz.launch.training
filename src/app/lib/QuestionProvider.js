@@ -24,17 +24,25 @@ export function QuestionProvider({ children }) {
     let allExamQtns = []
     let userTmpAnswers = ''
 
-    const examName =
-        typeof window !== 'undefined' &&
-        JSON.parse(localStorage.getItem('currentExam'))
+    let examName = ''
+    // const examName =
+    //     typeof window !== 'undefined' &&
+    //     JSON.parse(localStorage.getItem('currentExam'))
     // console.log('here' + examName)
+
+    if (pathname.includes('java')) {
+        examName = 'java'
+    }
+    if (pathname.includes('rest')) {
+        examName = 'rest'
+    }
 
     // Load all exams questions
 
     const firstJavaQtns = javaExam.slice(0, maxQtns)
     const allJavaQtns = firstJavaQtns.map((p) => p.id)
     const javaTmpAnswers = firstJavaQtns.map(({ id }) => ({
-        id: 'java-' + id,
+        id: id,
         calculatedPoints: 0,
         answered: [],
     }))
@@ -42,7 +50,7 @@ export function QuestionProvider({ children }) {
     const firstRestQtns = restExam.slice(0, maxQtns)
     const allRestQtns = firstRestQtns.map((p) => p.id)
     const restTmpAnswers = firstRestQtns.map(({ id }) => ({
-        id: 'rest-' + id,
+        id: id,
         calculatedPoints: 0,
         answered: [],
     }))
@@ -84,7 +92,7 @@ export function QuestionProvider({ children }) {
 
     //Provide the structure and the questions with initial empty answers
     function setInitialValues() {
-        localStorage.setItem('userAnswers', JSON.stringify(userTmpAnswers))
+        localStorage.setItem('userAnswers', userTmpAnswers)
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
     }
@@ -107,13 +115,17 @@ export function QuestionProvider({ children }) {
      * Responsible for proper initial matrix based on exam value coming from Start Button
      * or from Try Again Button
      */
-    // useEffect(() => {
-    //     // Is NOT triggered when under question dynamic path only outside
-    //     if (!pathname.includes('question') && !pathname.includes('results')) {
-    //         typeof window !== 'undefined' &&
-    //             localStorage.setItem('userAnswers', userTmpAnswers)
-    //     }
-    // }, [examInProgress, isTaken])
+    useEffect(() => {
+        // Is NOT triggered when under question dynamic path only outside
+        let persistedExam = JSON.parse(localStorage.getItem('currentExam'))
+        if (!persistedExam) {
+            typeof window !== 'undefined' &&
+                localStorage.setItem(
+                    'currentExam',
+                    JSON.stringify(examInProgress),
+                )
+        }
+    }, [examInProgress])
 
     /**
      * Persist the state on refresh by checking the localstorage userAnswers value
@@ -129,8 +141,8 @@ export function QuestionProvider({ children }) {
         setCurrentIndex(JSON.parse(progress))
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
         //NOTE this is removed to properly load initial Screen - ExamMainScreen
-        // let persistedExam = localStorage.getItem('currentExam')
-        // setExamInProgress(JSON.parse(persistedExam))
+        let persistedExam = localStorage.getItem('currentExam')
+        setExamInProgress(JSON.parse(persistedExam))
     }, [currentIndex])
 
     return (

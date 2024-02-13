@@ -6,22 +6,35 @@ import { useContext, useEffect } from 'react'
 
 export function StartButton({ children, examName }) {
     const router = useRouter()
-    let { userInitialAnswers, setExamInProgress, setIsTaken, isTaken } =
-        useContext(ProgressContext)
+    let {
+        userInitialAnswers,
+        setExamInProgress,
+        examInProgress,
+        setIsTaken,
+        isTaken,
+        currentIndex,
+    } = useContext(ProgressContext)
 
     // const isExamTaken =
     //     typeof window !== 'undefined' && localStorage.getItem('examTaken')
 
     // const checkExam = JSON.parse(isExamTaken) === 1 ? true : false
 
-    // Properly reinstantiate the prestine initial data
+    // Properly initialize the matrix of answers
+
+    let progress = JSON.parse(localStorage.getItem('currentIndex'))
+
     useEffect(() => {
+        let persistedExam = JSON.parse(localStorage.getItem('currentExam'))
+        if (persistedExam !== '') {
+            return
+        }
         typeof window !== 'undefined' &&
-            localStorage.setItem('currentExam', JSON.stringify(examName))
+            localStorage.setItem('userAnswers', userInitialAnswers)
         typeof window !== 'undefined' &&
             localStorage.setItem('currentIndex', JSON.stringify(0))
-        // typeof window !== 'undefined' &&
-        //     localStorage.setItem('userAnswers', userInitialAnswers)
+        typeof window !== 'undefined' &&
+            localStorage.setItem('examTaken', JSON.stringify(0))
         // setExamInProgress(examName)
     }, [examName])
 

@@ -61,7 +61,7 @@ export function MultiChoice({ answers, options, id }) {
         }
         // inserts the selected answers into the global state
         let temp = userAnswers.map((item) =>
-            item.id === `${examInProgress}-` + id
+            item.id === id
                 ? {
                       ...item,
                       answered: currentSelected,

@@ -27,7 +27,7 @@ export function ExamWrapper() {
         fullExam,
         currentIndex,
     } = useContext(ProgressContext)
-
+    console.log(examInProgress)
     if (examInProgress === '') {
         return <ExamMainScreen />
     } else {
