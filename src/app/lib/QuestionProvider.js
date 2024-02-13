@@ -122,8 +122,9 @@ export function QuestionProvider({ children }) {
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
-        let persistedExam = localStorage.getItem('currentExam')
-        setExamInProgress(JSON.parse(persistedExam))
+        //NOTE this is removed to properly load initial Screen - ExamMainScreen
+        // let persistedExam = localStorage.getItem('currentExam')
+        // setExamInProgress(JSON.parse(persistedExam))
     }, [currentIndex])
 
     return (

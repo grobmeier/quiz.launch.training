@@ -22,16 +22,17 @@ export function StartButton({ children, examName }) {
             localStorage.setItem('currentIndex', JSON.stringify(0))
         // typeof window !== 'undefined' &&
         //     localStorage.setItem('userAnswers', userInitialAnswers)
-        setExamInProgress(examName)
+        // setExamInProgress(examName)
     }, [examName])
 
     function handleStart() {
         // if (checkExam) {
         //     router.push('/results')
         // } else {
-        setIsTaken(!isTaken)
-        router.push(`/questions/${examName}-1`)
+        // setIsTaken(!isTaken)
+        // router.push(`/questions/${examName}-1`)
         // }
+        setExamInProgress(examName)
     }
     return (
         <button className={styles.examBtn} type="button" onClick={handleStart}>
