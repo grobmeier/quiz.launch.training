@@ -1,4 +1,4 @@
-import styles from './exam.module.css'
+import styles from './exam.module.scss'
 import { StartButton } from '@/app/ui/StartButton'
 import { Rating } from '@smastrom/react-rating'
 

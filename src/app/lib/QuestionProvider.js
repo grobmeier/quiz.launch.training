@@ -21,6 +21,7 @@ export function QuestionProvider({ children }) {
     const [isTaken, setIsTaken] = useState(false)
     const maxQtns = 30
     let allQtns = []
+    let allExamQtns = []
     let userTmpAnswers = ''
 
     const examName =
@@ -62,10 +63,12 @@ export function QuestionProvider({ children }) {
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
         allQtns = allJavaQtns
         userTmpAnswers = JSON.stringify(javaTmpAnswers)
+        allExamQtns = firstJavaQtns
     }
     if (Object.keys({ restExam })[0] === examName + 'Exam') {
         allQtns = allRestQtns
         userTmpAnswers = JSON.stringify(restTmpAnswers)
+        allExamQtns = firstRestQtns
     }
     // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
     //     allQtns = allHtmlQtns
@@ -75,6 +78,9 @@ export function QuestionProvider({ children }) {
     // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
     const [userInitialAnswers, setUserInitialAnswers] = useState(userTmpAnswers)
     const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
+
+    // All Current Exam Questions
+    const [fullExam, setFullExam] = useState(allExamQtns)
 
     //Provide the structure and the questions with initial empty answers
     function setInitialValues() {
@@ -101,13 +107,13 @@ export function QuestionProvider({ children }) {
      * Responsible for proper initial matrix based on exam value coming from Start Button
      * or from Try Again Button
      */
-    useEffect(() => {
-        // Is NOT triggered when under question dynamic path only outside
-        if (!pathname.includes('question') && !pathname.includes('results')) {
-            typeof window !== 'undefined' &&
-                localStorage.setItem('userAnswers', userTmpAnswers)
-        }
-    }, [examInProgress, isTaken])
+    // useEffect(() => {
+    //     // Is NOT triggered when under question dynamic path only outside
+    //     if (!pathname.includes('question') && !pathname.includes('results')) {
+    //         typeof window !== 'undefined' &&
+    //             localStorage.setItem('userAnswers', userTmpAnswers)
+    //     }
+    // }, [examInProgress, isTaken])
 
     /**
      * Persist the state on refresh by checking the localstorage userAnswers value
@@ -140,6 +146,7 @@ export function QuestionProvider({ children }) {
                 userInitialAnswers,
                 examInProgress,
                 setExamInProgress,
+                fullExam,
             }}
         >
             {children}

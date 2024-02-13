@@ -13,7 +13,7 @@ export function DoneButton() {
         localStorage.setItem('examTaken', JSON.stringify(0))
         setIsTaken(!isTaken)
         setCurrentIndex(0)
-        router.push('/tests-list')
+        router.push('/exams')
     }
     return (
         <button className={styles.doneBtn} type="button" onClick={handleDone}>

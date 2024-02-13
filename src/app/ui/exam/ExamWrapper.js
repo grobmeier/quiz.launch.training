@@ -1,11 +1,15 @@
 'use client'
 
-import styles from './exam.module.css'
+import styles from './exam.module.scss'
 import { StartButton } from '@/app/ui/StartButton'
 import { Rating } from '@smastrom/react-rating'
 import { ExamMainScreen } from '@/app/ui/exam/ExamMainScreen'
 import React, { useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
+import { Question } from '@/app/ui/question/Question.js'
+import { ResultBox } from '@/app/ui/result/ResultBox'
+import { TryAgainButton } from '@/app/ui/TryAgainButton'
+import { DoneButton } from '@/app/ui/DoneButton'
 import { useContext, useEffect } from 'react'
 
 /**
@@ -15,12 +19,34 @@ import { useContext, useEffect } from 'react'
  */
 
 export function ExamWrapper() {
-    let { userInitialAnswers, examInProgress, setIsTaken, isTaken } =
-        useContext(ProgressContext)
+    let {
+        userInitialAnswers,
+        examInProgress,
+        setIsTaken,
+        isTaken,
+        fullExam,
+        currentIndex,
+    } = useContext(ProgressContext)
 
     if (examInProgress === '') {
         return <ExamMainScreen />
     } else {
-        return <div>Initial Load</div>
+        if (isTaken) {
+            return (
+                <main className={styles.main}>
+                    <h3>Congratulations</h3>
+                    <ResultBox />
+                    <div className={styles.btnsArea}>
+                        <TryAgainButton />
+                        <DoneButton />
+                    </div>
+                </main>
+            )
+        }
+        return (
+            <main className={styles.main}>
+                <Question questionInfo={fullExam[currentIndex]} />
+            </main>
+        )
     }
 }

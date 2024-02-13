@@ -1,3 +1,5 @@
+@import '@/app/variables.scss';
+
 .main {
     display: flex;
     flex-direction: column;
@@ -36,6 +38,13 @@
     padding: 20px;
 }
 
+.btnsArea {
+    display: flex;
+    flex-direction: row;
+    width: $questionElement;
+    gap: 14px;
+}
+
 /* tablet breakpoint */
 @media (max-width: 768px) {
     .grid {
@@ -47,5 +56,8 @@
     }
     .examBtn {
         width: 100%;
+    }
+    .btnsArea {
+        width: 90vw;
     }
 }
