@@ -13,13 +13,18 @@ import Image from 'next/image'
 export function Question({ questionInfo }) {
     const { id, content, language, text, answers, type, correctAnswers } =
         questionInfo
-    let { allQtns, currentIndex, setCurrentIndex, examInProgress, setIsTaken } =
-        useContext(ProgressContext)
+    let {
+        userAnswers,
+        currentIndex,
+        setCurrentIndex,
+        examInProgress,
+        setIsTaken,
+    } = useContext(ProgressContext)
     const router = useRouter()
 
-    let totalQtns = allQtns.length
-    let previousQtn = allQtns[currentIndex - 1]
-    let nextQtn = allQtns[currentIndex + 1]
+    let totalQtns = userAnswers.length
+    let previousQtn = userAnswers[currentIndex - 1]
+    let nextQtn = userAnswers[currentIndex + 1]
 
     function handlePrevious() {
         if (currentIndex === 0) return

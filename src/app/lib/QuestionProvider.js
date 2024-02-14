@@ -25,11 +25,6 @@ export function QuestionProvider({ children }) {
     let userTmpAnswers = ''
 
     let examName = ''
-    // const examName =
-    //     typeof window !== 'undefined' &&
-    //     JSON.parse(localStorage.getItem('currentExam'))
-    // console.log('here' + examName)
-
     if (pathname.includes('java')) {
         examName = 'java'
     }
@@ -87,30 +82,6 @@ export function QuestionProvider({ children }) {
     const [userInitialAnswers, setUserInitialAnswers] = useState(userTmpAnswers)
     const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
 
-    // All Current Exam Questions
-    const [fullExam, setFullExam] = useState(allExamQtns)
-
-    //Provide the structure and the questions with initial empty answers
-    // function setInitialValues() {
-    //     localStorage.setItem('userAnswers', userTmpAnswers)
-    //     localStorage.setItem('currentIndex', JSON.stringify(0))
-    //     localStorage.setItem('examTaken', JSON.stringify(0))
-    // }
-
-    // useEffect(() => {
-    //     if (
-    //         typeof window !== 'undefined' &&
-    //         localStorage['userAnswers'] &&
-    //         JSON.parse(localStorage.getItem('userAnswers')) === null &&
-    //         localStorage['currentIndex'] &&
-    //         JSON.parse(localStorage.getItem('currentIndex')) === null
-    //         // JSON.parse(localStorage.getItem('examTaken')) === 0
-    //     ) {
-    //         // console.log('is Triggered')
-    //         setInitialValues()
-    //     }
-    // }, [])
-
     /**
      * Responsible for proper initial matrix based on exam value coming from Start Button
      * or from Try Again Button
@@ -132,10 +103,6 @@ export function QuestionProvider({ children }) {
      */
 
     useEffect(() => {
-        // console.log(userTmpAnswers + 'check')
-        // if (localStorage.getItem('userAnswers') === null) {
-        //     setInitialValues()
-        // }
         let progress = localStorage.getItem('currentIndex')
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
@@ -158,7 +125,6 @@ export function QuestionProvider({ children }) {
                 userInitialAnswers,
                 examInProgress,
                 setExamInProgress,
-                fullExam,
             }}
         >
             {children}

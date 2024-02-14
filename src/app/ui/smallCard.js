@@ -1,3 +1,5 @@
+'use client'
+
 import styles from './SmallCard.module.scss'
 import { Rating } from '@smastrom/react-rating'
 import { Button } from '@/app/ui/button'
