@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 export function Topbar() {
     const router = useRouter()
     const [isClient, setIsClient] = useState(false)
-    let { userAnswers, currentIndex, setCurrentIndex } =
+    let { userAnswers, currentIndex, setCurrentIndex, setExamInProgress } =
         useContext(ProgressContext)
     let totalQtns = userAnswers.length
 
@@ -15,6 +15,8 @@ export function Topbar() {
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
         setCurrentIndex(0)
+        setExamInProgress('')
+        localStorage.setItem('currentExam', '')
         router.push('/exams')
     }
 

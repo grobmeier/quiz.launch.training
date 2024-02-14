@@ -8,32 +8,23 @@ import { Rating } from '@smastrom/react-rating'
  *
  */
 
-export function ExamMainScreen() {
+export function ExamMainScreen({ title, rating, exam, fullDescription }) {
     return (
         <main className={styles.main}>
-            <h1>JAVA</h1>
+            <h1> {title}</h1>
             <div className={styles.topArea}>
                 <div>Difficulty: </div>
                 <div>
                     <Rating
                         style={{ maxWidth: 100 }}
                         className={styles.stars}
-                        value={4.5}
+                        value={rating}
                         readOnly
                     />
                 </div>
             </div>
-            <div className={styles.examBox}>
-                <p>
-                    Programming languages are the backbone of the digital world,
-                    serving as the communication bridge between humans and
-                    computers. This topic delves into the fascinating realm of
-                    programming languages, exploring their various types,
-                    characteristics, and the key differences that set them
-                    apart.
-                </p>
-            </div>
-            <StartButton examName={'java'}> Start </StartButton>
+            <div className={styles.examBox}>{fullDescription}</div>
+            <StartButton examName={exam}> Start </StartButton>
         </main>
     )
 }

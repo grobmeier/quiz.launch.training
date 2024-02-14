@@ -5,14 +5,13 @@ export const catalogue = [
         rating: '4.3',
         level: 'HARD',
         duration: '15:00',
-        shortDescription: `REST isthe backbone of the digital
+        shortDescription: `JAVA isthe backbone of the digital
         world, serving as the communication bridge between
         humans and computers. This topic delves into the
         fascinating ...`,
-        fullDescription: `REST is the backbone of the digital
+        fullDescription: `JAVA is the backbone of the digital
         world, serving as the communication bridge between
-        humans and computers. This topic delves into the
-        fascinating ...
+        humans and computers. This topic delves into the fascinating ...
         Discover the intricacies of high-level and low-level languages, scripting languages, 
         and domain-specific languages. Uncover the strengths and weaknesses of each language, 
         and learn how to choose the right one for your specific project.

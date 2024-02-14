@@ -88,7 +88,9 @@ export function QuestionProvider({ children }) {
      */
     useEffect(() => {
         // Is NOT triggered when under question dynamic path only outside
-        let persistedExam = JSON.parse(localStorage.getItem('currentExam'))
+        let persistedExam =
+            localStorage['currentExam'] &&
+            JSON.parse(localStorage.getItem('currentExam'))
         if (!persistedExam) {
             typeof window !== 'undefined' &&
                 localStorage.setItem(

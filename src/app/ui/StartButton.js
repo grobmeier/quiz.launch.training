@@ -6,14 +6,7 @@ import { useContext, useEffect } from 'react'
 
 export function StartButton({ children, examName }) {
     const router = useRouter()
-    let {
-        userInitialAnswers,
-        setExamInProgress,
-        examInProgress,
-        setIsTaken,
-        isTaken,
-        currentIndex,
-    } = useContext(ProgressContext)
+    let { userInitialAnswers, setExamInProgress } = useContext(ProgressContext)
 
     function handleStart() {
         setExamInProgress(examName)

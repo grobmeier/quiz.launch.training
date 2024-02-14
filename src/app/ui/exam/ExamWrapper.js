@@ -3,6 +3,7 @@
 import styles from './exam.module.scss'
 import { javaExam } from '../../exams-data/java.js'
 import { restExam } from '../../exams-data/rest.js'
+import { catalogue } from '../../exams-data/catalogue.js'
 import { ExamMainScreen } from '@/app/ui/exam/ExamMainScreen'
 import React, { useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
@@ -68,15 +69,10 @@ export function ExamWrapper() {
 
     // console.log(allExamQtns)
 
-    let {
-        userInitialAnswers,
-        examInProgress,
-        setIsTaken,
-        setAllQtns,
-        isTaken,
-        currentIndex,
-        setCurrentIndex,
-    } = useContext(ProgressContext)
+    const filteredExam = catalogue.filter((item) => item.exam === examName)
+    // console.log(filteredExam[0].exam)
+    let { examInProgress, isTaken, currentIndex, setCurrentIndex } =
+        useContext(ProgressContext)
     // console.log(examInProgress)
 
     /**
@@ -85,7 +81,9 @@ export function ExamWrapper() {
 
     useEffect(() => {
         // Check if there is exam in progress, if one is found in the localstorage no effect
-        let persistedExam = JSON.parse(localStorage.getItem('currentExam'))
+        let persistedExam =
+            localStorage['currentExam'] &&
+            JSON.parse(localStorage.getItem('currentExam'))
         if (persistedExam !== '') {
             return
         }
@@ -96,9 +94,8 @@ export function ExamWrapper() {
         typeof window !== 'undefined' &&
             localStorage.setItem('examTaken', JSON.stringify(0))
         // setAllQtns(allQtns)
-        console.log(allQtns)
         setCurrentIndex(0)
-    }, [])
+    }, [examInProgress])
 
     const [isClient, setIsClient] = useState(false)
 
@@ -107,7 +104,17 @@ export function ExamWrapper() {
     }, [])
 
     if (isClient && examInProgress === '') {
-        return <ExamMainScreen />
+        return (
+            <>
+                <h3>{filteredExam.title}</h3>
+                <ExamMainScreen
+                    title={filteredExam[0].title}
+                    rating={filteredExam[0].rating}
+                    exam={filteredExam[0].exam}
+                    fullDescription={filteredExam[0].fullDescription}
+                />
+            </>
+        )
     } else {
         if (isTaken) {
             return (
