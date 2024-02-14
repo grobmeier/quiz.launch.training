@@ -27,8 +27,15 @@ export function ExamWrapper() {
         fullExam,
         currentIndex,
     } = useContext(ProgressContext)
-    console.log(examInProgress)
-    if (examInProgress === '') {
+    // console.log(examInProgress)
+
+    const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    if (isClient && examInProgress === '') {
         return <ExamMainScreen />
     } else {
         if (isTaken) {
@@ -45,7 +52,11 @@ export function ExamWrapper() {
         }
         return (
             <main className={styles.main}>
-                <Question questionInfo={fullExam[currentIndex]} />
+                {!isClient ? (
+                    <div>Loading ....</div>
+                ) : (
+                    <Question questionInfo={fullExam[currentIndex]} />
+                )}
             </main>
         )
     }

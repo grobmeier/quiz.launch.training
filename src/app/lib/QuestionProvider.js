@@ -91,25 +91,25 @@ export function QuestionProvider({ children }) {
     const [fullExam, setFullExam] = useState(allExamQtns)
 
     //Provide the structure and the questions with initial empty answers
-    function setInitialValues() {
-        localStorage.setItem('userAnswers', userTmpAnswers)
-        localStorage.setItem('currentIndex', JSON.stringify(0))
-        localStorage.setItem('examTaken', JSON.stringify(0))
-    }
+    // function setInitialValues() {
+    //     localStorage.setItem('userAnswers', userTmpAnswers)
+    //     localStorage.setItem('currentIndex', JSON.stringify(0))
+    //     localStorage.setItem('examTaken', JSON.stringify(0))
+    // }
 
-    useEffect(() => {
-        if (
-            typeof window !== 'undefined' &&
-            localStorage['userAnswers'] &&
-            JSON.parse(localStorage.getItem('userAnswers')) === null &&
-            localStorage['currentIndex'] &&
-            JSON.parse(localStorage.getItem('currentIndex')) === null
-            // JSON.parse(localStorage.getItem('examTaken')) === 0
-        ) {
-            // console.log('is Triggered')
-            setInitialValues()
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (
+    //         typeof window !== 'undefined' &&
+    //         localStorage['userAnswers'] &&
+    //         JSON.parse(localStorage.getItem('userAnswers')) === null &&
+    //         localStorage['currentIndex'] &&
+    //         JSON.parse(localStorage.getItem('currentIndex')) === null
+    //         // JSON.parse(localStorage.getItem('examTaken')) === 0
+    //     ) {
+    //         // console.log('is Triggered')
+    //         setInitialValues()
+    //     }
+    // }, [])
 
     /**
      * Responsible for proper initial matrix based on exam value coming from Start Button
@@ -133,9 +133,9 @@ export function QuestionProvider({ children }) {
 
     useEffect(() => {
         // console.log(userTmpAnswers + 'check')
-        if (localStorage.getItem('userAnswers') === null) {
-            setInitialValues()
-        }
+        // if (localStorage.getItem('userAnswers') === null) {
+        //     setInitialValues()
+        // }
         let progress = localStorage.getItem('currentIndex')
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))

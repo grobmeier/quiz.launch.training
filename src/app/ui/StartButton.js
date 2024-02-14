@@ -15,16 +15,12 @@ export function StartButton({ children, examName }) {
         currentIndex,
     } = useContext(ProgressContext)
 
-    // const isExamTaken =
-    //     typeof window !== 'undefined' && localStorage.getItem('examTaken')
-
-    // const checkExam = JSON.parse(isExamTaken) === 1 ? true : false
-
-    // Properly initialize the matrix of answers
-
-    let progress = JSON.parse(localStorage.getItem('currentIndex'))
+    /**
+     * This initialisation, together with Provider make sure the initial values are properly set
+     */
 
     useEffect(() => {
+        // Check if there is exam in progress, if one is found in the localstorage no effect
         let persistedExam = JSON.parse(localStorage.getItem('currentExam'))
         if (persistedExam !== '') {
             return
@@ -39,12 +35,6 @@ export function StartButton({ children, examName }) {
     }, [examName])
 
     function handleStart() {
-        // if (checkExam) {
-        //     router.push('/results')
-        // } else {
-        // setIsTaken(!isTaken)
-        // router.push(`/questions/${examName}-1`)
-        // }
         setExamInProgress(examName)
     }
     return (
