@@ -7,9 +7,9 @@ import { useState, useEffect } from 'react'
 export function Topbar() {
     const router = useRouter()
     const [isClient, setIsClient] = useState(false)
-    let { userAnswers, currentIndex, setCurrentIndex, setExamInProgress } =
+    let { allQtns, currentIndex, setCurrentIndex, setExamInProgress } =
         useContext(ProgressContext)
-    let totalQtns = userAnswers.length
+    let totalQtns = allQtns.length
 
     function handleCancel() {
         localStorage.setItem('currentIndex', JSON.stringify(0))
