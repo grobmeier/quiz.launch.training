@@ -6,14 +6,17 @@ import { useContext } from 'react'
 
 export function DoneButton() {
     const router = useRouter()
-    let { setCurrentIndex, setIsTaken, isTaken } = useContext(ProgressContext)
+    let { setCurrentIndex, setIsTaken, isTaken, setExamInProgress } =
+        useContext(ProgressContext)
 
     function handleDone() {
+        router.push('/exams/', undefined, { shallow: true })
         localStorage.setItem('currentIndex', JSON.stringify(0))
-        localStorage.setItem('examTaken', JSON.stringify(0))
-        setIsTaken(!isTaken)
         setCurrentIndex(0)
-        router.push('/tests-list')
+        localStorage.setItem('examTaken', JSON.stringify(0))
+        setExamInProgress('')
+        localStorage.setItem('currentExam', '')
+        setIsTaken(!isTaken)
     }
     return (
         <button className={styles.doneBtn} type="button" onClick={handleDone}>

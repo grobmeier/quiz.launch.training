@@ -21,30 +21,22 @@ export function QuestionProvider({ children }) {
     const [isTaken, setIsTaken] = useState(false)
     const maxQtns = 30
     let allQtns = []
-    let userTmpAnswers = ''
 
-    const examName =
-        typeof window !== 'undefined' &&
-        JSON.parse(localStorage.getItem('currentExam'))
-    // console.log('here' + examName)
+    let examName = ''
+    if (pathname.includes('java')) {
+        examName = 'java'
+    }
+    if (pathname.includes('rest')) {
+        examName = 'rest'
+    }
 
     // Load all exams questions
 
     const firstJavaQtns = javaExam.slice(0, maxQtns)
     const allJavaQtns = firstJavaQtns.map((p) => p.id)
-    const javaTmpAnswers = firstJavaQtns.map(({ id }) => ({
-        id: 'java-' + id,
-        calculatedPoints: 0,
-        answered: [],
-    }))
 
     const firstRestQtns = restExam.slice(0, maxQtns)
     const allRestQtns = firstRestQtns.map((p) => p.id)
-    const restTmpAnswers = firstRestQtns.map(({ id }) => ({
-        id: 'rest-' + id,
-        calculatedPoints: 0,
-        answered: [],
-    }))
 
     // const firstHtmlQtns = htmlExam.slice(0, maxQtns)
     // const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
@@ -61,63 +53,42 @@ export function QuestionProvider({ children }) {
 
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
         allQtns = allJavaQtns
-        userTmpAnswers = JSON.stringify(javaTmpAnswers)
     }
     if (Object.keys({ restExam })[0] === examName + 'Exam') {
         allQtns = allRestQtns
-        userTmpAnswers = JSON.stringify(restTmpAnswers)
     }
     // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
     //     allQtns = allHtmlQtns
     //     userTmpAnswers = JSON.stringify(htmlTmpAnswers)
     // }
 
-    // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
-    const [userInitialAnswers, setUserInitialAnswers] = useState(userTmpAnswers)
-    const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
-
-    //Provide the structure and the questions with initial empty answers
-    function setInitialValues() {
-        localStorage.setItem('userAnswers', JSON.stringify(userTmpAnswers))
-        localStorage.setItem('currentIndex', JSON.stringify(0))
-        localStorage.setItem('examTaken', JSON.stringify(0))
-    }
-
-    useEffect(() => {
-        if (
-            typeof window !== 'undefined' &&
-            localStorage['userAnswers'] &&
-            JSON.parse(localStorage.getItem('userAnswers')) === null &&
-            localStorage['currentIndex'] &&
-            JSON.parse(localStorage.getItem('currentIndex')) === null
-            // JSON.parse(localStorage.getItem('examTaken')) === 0
-        ) {
-            // console.log('is Triggered')
-            setInitialValues()
-        }
-    }, [])
+    // The variable below is crucial - it holds the real answers at any given moment
+    const [userAnswers, setUserAnswers] = useState('')
 
     /**
-     * Responsible for proper initial matrix based on exam value coming from Start Button
-     * or from Try Again Button
+     * Triggered from Start Button, it updates the localstorage
+     * in order to indicate that the exam is ongoing
      */
     useEffect(() => {
-        // Is NOT triggered when under question dynamic path only outside
-        if (!pathname.includes('question') && !pathname.includes('results')) {
+        // Is NOT triggered when current exam is ongoing
+        let persistedExam =
+            localStorage['currentExam'] &&
+            JSON.parse(localStorage.getItem('currentExam'))
+        if (!persistedExam) {
             typeof window !== 'undefined' &&
-                localStorage.setItem('userAnswers', userTmpAnswers)
+                localStorage.setItem(
+                    'currentExam',
+                    JSON.stringify(examInProgress),
+                )
         }
-    }, [examInProgress, isTaken])
+    }, [examInProgress])
 
     /**
-     * Persist the state on refresh by checking the localstorage userAnswers value
+     * Persist the state on refresh by checking the localstorage userAnswers value,
+     * the index and ongoing exam
      */
 
     useEffect(() => {
-        // console.log(userTmpAnswers + 'check')
-        if (localStorage.getItem('userAnswers') === null) {
-            setInitialValues()
-        }
         let progress = localStorage.getItem('currentIndex')
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
@@ -136,7 +107,6 @@ export function QuestionProvider({ children }) {
                 setUserAnswers,
                 isTaken,
                 setIsTaken,
-                userInitialAnswers,
                 examInProgress,
                 setExamInProgress,
             }}

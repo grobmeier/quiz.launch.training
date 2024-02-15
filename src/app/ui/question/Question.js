@@ -13,19 +13,24 @@ import Image from 'next/image'
 export function Question({ questionInfo }) {
     const { id, content, language, text, answers, type, correctAnswers } =
         questionInfo
-    let { allQtns, currentIndex, setCurrentIndex, examInProgress } =
-        useContext(ProgressContext)
+    let {
+        userAnswers,
+        currentIndex,
+        setCurrentIndex,
+        examInProgress,
+        setIsTaken,
+    } = useContext(ProgressContext)
     const router = useRouter()
 
-    let totalQtns = allQtns.length
-    let previousQtn = allQtns[currentIndex - 1]
-    let nextQtn = allQtns[currentIndex + 1]
+    let totalQtns = userAnswers.length
+    let previousQtn = userAnswers[currentIndex - 1]
+    let nextQtn = userAnswers[currentIndex + 1]
 
     function handlePrevious() {
         if (currentIndex === 0) return
         setCurrentIndex(currentIndex - 1)
         localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
-        router.push(`/questions/${examInProgress}-${previousQtn}`)
+        // router.push(`/questions/${examInProgress}-${previousQtn}`)
     }
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
@@ -34,11 +39,12 @@ export function Question({ questionInfo }) {
                 'currentIndex',
                 JSON.stringify(currentIndex + 1),
             )
-            router.push(`/questions/${examInProgress}-${nextQtn}`)
+            // router.push(`/questions/${examInProgress}-${nextQtn}`)
         } else {
             localStorage.setItem('examTaken', JSON.stringify(1))
+            setIsTaken(true)
             setCurrentIndex(0)
-            router.push('/results')
+            // router.push('/results')
         }
     }
 
