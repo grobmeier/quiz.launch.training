@@ -10,28 +10,28 @@ export default function Home() {
             <div className={styles.grid}>
                 <Card
                     icon={`/icons/html.png`}
-                    link="tests-list"
+                    link="exams"
                     title="HTML"
                     text={`HTML is the standard markup language for Web pages.
                     With HTML you can create your own Website`}
                 />
                 <Card
                     icon={`/icons/html.png`}
-                    link="training-list"
+                    link="exams"
                     title="React"
                     text={`HTML is the standard markup language for Web pages.
                     With HTML you can create your own Website`}
                 />
                 <Card
                     icon={`/icons/html.png`}
-                    link="training-list"
+                    link="exams"
                     title="Git"
                     text={`HTML is the standard markup language for Web pages.
                     With HTML you can create your own Website`}
                 />
                 <Card
                     icon={`/icons/html.png`}
-                    link="training-list"
+                    link="exams"
                     title="Spring"
                     text={`HTML is the standard markup language for Web pages.
                     With HTML you can create your own Website`}

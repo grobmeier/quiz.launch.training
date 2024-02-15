@@ -6,16 +6,10 @@ import { useContext } from 'react'
 
 export function TryAgainButton() {
     const router = useRouter()
-    let {
-        setCurrentIndex,
-        setExamInProgress,
-        setIsTaken,
-        isTaken,
-        userInitialAnswers,
-    } = useContext(ProgressContext)
+    let { setCurrentIndex, setExamInProgress, setIsTaken, isTaken } =
+        useContext(ProgressContext)
 
     function handleTryAgain() {
-        // console.log(userInitialAnswers)
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
         setIsTaken(!isTaken)

@@ -28,7 +28,7 @@ export function ExamWrapper() {
 
     const pathname = usePathname()
     const maxQtns = 30
-    let allQtns = []
+    // let allQtns = []
     let allExamQtns = []
     let userTmpAnswers = ''
     let examName = ''
@@ -57,12 +57,12 @@ export function ExamWrapper() {
     }))
 
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
-        allQtns = allJavaQtns
+        // allQtns = allJavaQtns
         userTmpAnswers = JSON.stringify(javaTmpAnswers)
         allExamQtns = firstJavaQtns
     }
     if (Object.keys({ restExam })[0] === examName + 'Exam') {
-        allQtns = allRestQtns
+        // allQtns = allRestQtns
         userTmpAnswers = JSON.stringify(restTmpAnswers)
         allExamQtns = firstRestQtns
     }

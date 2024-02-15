@@ -21,8 +21,6 @@ export function QuestionProvider({ children }) {
     const [isTaken, setIsTaken] = useState(false)
     const maxQtns = 30
     let allQtns = []
-    let allExamQtns = []
-    let userTmpAnswers = ''
 
     let examName = ''
     if (pathname.includes('java')) {
@@ -36,19 +34,9 @@ export function QuestionProvider({ children }) {
 
     const firstJavaQtns = javaExam.slice(0, maxQtns)
     const allJavaQtns = firstJavaQtns.map((p) => p.id)
-    const javaTmpAnswers = firstJavaQtns.map(({ id }) => ({
-        id: id,
-        calculatedPoints: 0,
-        answered: [],
-    }))
 
     const firstRestQtns = restExam.slice(0, maxQtns)
     const allRestQtns = firstRestQtns.map((p) => p.id)
-    const restTmpAnswers = firstRestQtns.map(({ id }) => ({
-        id: id,
-        calculatedPoints: 0,
-        answered: [],
-    }))
 
     // const firstHtmlQtns = htmlExam.slice(0, maxQtns)
     // const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
@@ -65,29 +53,24 @@ export function QuestionProvider({ children }) {
 
     if (Object.keys({ javaExam })[0] === examName + 'Exam') {
         allQtns = allJavaQtns
-        userTmpAnswers = JSON.stringify(javaTmpAnswers)
-        allExamQtns = firstJavaQtns
     }
     if (Object.keys({ restExam })[0] === examName + 'Exam') {
         allQtns = allRestQtns
-        userTmpAnswers = JSON.stringify(restTmpAnswers)
-        allExamQtns = firstRestQtns
     }
     // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
     //     allQtns = allHtmlQtns
     //     userTmpAnswers = JSON.stringify(htmlTmpAnswers)
     // }
 
-    // The variable below is needed for Try Again button, to keep a snapshot of the initial moment
-    const [userInitialAnswers, setUserInitialAnswers] = useState(userTmpAnswers)
-    const [userAnswers, setUserAnswers] = useState(userTmpAnswers)
+    // The variable below is crucial - it holds the real answers at any given moment
+    const [userAnswers, setUserAnswers] = useState('')
 
     /**
-     * Responsible for proper initial matrix based on exam value coming from Start Button
-     * or from Try Again Button
+     * Triggered from Start Button, it updates the localstorage
+     * in order to indicate that the exam is ongoing
      */
     useEffect(() => {
-        // Is NOT triggered when under question dynamic path only outside
+        // Is NOT triggered when current exam is ongoing
         let persistedExam =
             localStorage['currentExam'] &&
             JSON.parse(localStorage.getItem('currentExam'))
@@ -101,7 +84,8 @@ export function QuestionProvider({ children }) {
     }, [examInProgress])
 
     /**
-     * Persist the state on refresh by checking the localstorage userAnswers value
+     * Persist the state on refresh by checking the localstorage userAnswers value,
+     * the index and ongoing exam
      */
 
     useEffect(() => {
@@ -109,7 +93,6 @@ export function QuestionProvider({ children }) {
         let qtnsAnswers = localStorage.getItem('userAnswers')
         setCurrentIndex(JSON.parse(progress))
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
-        //NOTE this is removed to properly load initial Screen - ExamMainScreen
         let persistedExam = localStorage.getItem('currentExam')
         setExamInProgress(JSON.parse(persistedExam))
     }, [currentIndex])
@@ -124,7 +107,6 @@ export function QuestionProvider({ children }) {
                 setUserAnswers,
                 isTaken,
                 setIsTaken,
-                userInitialAnswers,
                 examInProgress,
                 setExamInProgress,
             }}
