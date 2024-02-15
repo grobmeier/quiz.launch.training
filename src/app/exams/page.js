@@ -7,7 +7,7 @@ import { catalogue } from '../exams-data/catalogue.js'
 export default function Page() {
     return (
         <main className={styles.main}>
-            <h1>HTML (exams page)</h1>
+            <h1>Exams Page</h1>
             <div className={styles.grid}>
                 {catalogue.map((item) => (
                     <SmallCard

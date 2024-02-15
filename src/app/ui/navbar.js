@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './navbar.module.css'
-import { Button } from '@/app/ui/button'
 
 // import Logo from './Logo'
 
@@ -17,40 +16,23 @@ export function Navbar() {
                 </div>
                 <ul className={styles.menuItems}>
                     <li>
-                        <Link href="/">
-                            <p>Home</p>
+                        <a href="https://www.launch.training/">
+                            <p>Back To Main Site</p>
+                        </a>
+                    </li>
+                    <li>
+                        <Link href="/exams">
+                            <p>Exams</p>
                         </Link>
                     </li>
-                    <li>
-                        <a href="#">Consultation</a>
-                    </li>
-                    <li>
-                        <Link href="/training-list">
-                            <p>Training</p>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/tests-list">
-                            <p>Learn</p>
-                        </Link>
-                    </li>
-                    <li>
+                    {/* <li>
                         <a href="#">Contact</a>
-                    </li>
+                    </li> */}
                 </ul>
                 <ul className={styles.menuItems}>
-                    <li>
-                        <a href="#">English</a>
-                    </li>
-                    <li>
-                        <a href="#">Sign In</a>
-                    </li>
                     {/* <li>
                         <a href="#food">Create Account</a>
                     </li> */}
-                    <li>
-                        <Button link={'training-list'}>Create Account</Button>
-                    </li>
                 </ul>
                 <div className={styles.logo}>
                     <Link href="/">
