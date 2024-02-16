@@ -3,24 +3,32 @@
 import styles from './SmallCard.module.scss'
 import { Rating } from '@smastrom/react-rating'
 import { Button } from '@/app/ui/Button'
+import Link from 'next/link'
 
 export function SmallCard({ link, title, text, rating, duration, level }) {
     return (
         <div className={styles.card}>
             <div className={styles.container}>
                 <div>
-                    <h4>
-                        <b>{title}</b>
-                    </h4>
+                    <Link href={link}>
+                        <h4>
+                            <b>{title}</b>
+                        </h4>
+                    </Link>
+
                     <Rating
                         style={{ maxWidth: 100 }}
                         className={styles.stars}
                         value={rating}
                         readOnly
                     />
-                    <span>{duration} min</span>
-                    <span className={styles.level}> {level} </span>
-                    <p>{text}</p>
+                    <Link href={link}>
+                        <span>{duration} min</span>
+                    </Link>
+                    <Link href={link}>
+                        <span className={styles.level}> {level} </span>
+                    </Link>
+                    <p> {text}</p>
                     <div className={styles.containerBtn}>
                         <Button link={link}>More</Button>
                     </div>
