@@ -16,14 +16,7 @@ export function Navbar() {
                 </div>
                 <ul className={styles.menuItems}>
                     <li>
-                        <a href="https://www.launch.training/">
-                            <p>Back To Main Site</p>
-                        </a>
-                    </li>
-                    <li>
-                        <Link href="/exams">
-                            <p>Exams</p>
-                        </Link>
+                        <Link href="/exams">Exams</Link>
                     </li>
                     {/* <li>
                         <a href="#">Contact</a>
@@ -44,6 +37,7 @@ export function Navbar() {
                             priority
                         />
                     </Link>
+                    <a href="https://www.launch.training/">Back To Main Site</a>
                 </div>
                 {/* <h1 className="logo">RS</h1> */}
             </div>
