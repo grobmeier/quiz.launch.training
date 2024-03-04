@@ -17,8 +17,9 @@
     gap: 14px;
 }
 
-.text {
-    max-width: $questionElement;
+.text,
+.codeContainer {
+    width: $questionElement;
 }
 .btnsContainer {
     display: flex;
@@ -34,7 +35,8 @@
     .main {
         padding: 2rem;
     }
-    .btnsContainer {
+    .btnsContainer,
+    .text {
         width: 90vw;
     }
 }

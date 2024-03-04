@@ -77,7 +77,7 @@ export function Question({ questionInfo }) {
             )}
             {type === 'text' && <p className={styles.text}>{content}</p>}
             {type === '' && <p></p>}
-            <h3>{text}</h3>
+            <h3 className={styles.text}>{text}</h3>
             {correctAnswers === 1 && <SingleOption answers={answers} id={id} />}
             {correctAnswers > 1 && (
                 <MultiChoice
