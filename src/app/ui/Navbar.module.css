@@ -131,16 +131,26 @@
     }
 } */
 
+@media (min-width: 768px) {
+    .backLinkMobile {
+        display: none;
+    }
+    .backLinkDesktop {
+        display: block;
+    }
+}
 @media (max-width: 768px) {
     .navbar {
         opacity: 0.95;
     }
 
     .navbarContainer input[type='checkbox'],
-    .navbarContainer .hamburgerLines {
+    .navbarContainer .hamburgerLines .backLinkMobile {
         display: block;
     }
-
+    .backLinkDesktop {
+        display: none;
+    }
     .navbarContainer {
         display: block;
         position: relative;

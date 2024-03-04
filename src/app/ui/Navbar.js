@@ -15,17 +15,14 @@ export function Navbar() {
                     <span className={`${styles.line} ${styles.line3}`}></span>
                 </div>
                 <ul className={styles.menuItems}>
+                    <li className={styles.backLinkMobile}>
+                        <a href="https://www.launch.training/">
+                            Back To Main Site
+                        </a>
+                    </li>
                     <li>
                         <Link href="/exams">Exams</Link>
                     </li>
-                    {/* <li>
-                        <a href="#">Contact</a>
-                    </li> */}
-                </ul>
-                <ul className={styles.menuItems}>
-                    {/* <li>
-                        <a href="#food">Create Account</a>
-                    </li> */}
                 </ul>
                 <div className={styles.logo}>
                     <Link href="/">
@@ -37,7 +34,12 @@ export function Navbar() {
                             priority
                         />
                     </Link>
-                    <a href="https://www.launch.training/">Back To Main Site</a>
+                    <a
+                        className={styles.backLinkDesktop}
+                        href="https://www.launch.training/"
+                    >
+                        Back To Main Site
+                    </a>
                 </div>
                 {/* <h1 className="logo">RS</h1> */}
             </div>
