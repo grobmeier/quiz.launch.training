@@ -17,7 +17,7 @@ export function Topbar() {
         setCurrentIndex(0)
         setExamInProgress('')
         localStorage.setItem('currentExam', '')
-        router.push('/exams')
+        router.push('/')
     }
 
     useEffect(() => {

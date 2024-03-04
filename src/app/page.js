@@ -1,41 +1,25 @@
-// `app/training-list/page.tsx` is the UI for the `/training-lists` URL
+// `app/tests-list/page.tsx` is the UI for the `/tests-lists` URL
 
 import styles from './page.module.scss'
-import { Card } from '@/app/ui/Card'
+import { SmallCard } from '@/app/ui/SmallCard'
+import { catalogue } from './exams-data/catalogue.js'
 
-export default function Home() {
+export default function Page() {
     return (
         <main className={styles.main}>
-            <h1>Home</h1>
+            <h1>Exams Page</h1>
             <div className={styles.grid}>
-                <Card
-                    icon={`/icons/html.png`}
-                    link="exams"
-                    title="HTML"
-                    text={`HTML is the standard markup language for Web pages.
-                    With HTML you can create your own Website`}
-                />
-                <Card
-                    icon={`/icons/html.png`}
-                    link="exams"
-                    title="React"
-                    text={`HTML is the standard markup language for Web pages.
-                    With HTML you can create your own Website`}
-                />
-                <Card
-                    icon={`/icons/html.png`}
-                    link="exams"
-                    title="Git"
-                    text={`HTML is the standard markup language for Web pages.
-                    With HTML you can create your own Website`}
-                />
-                <Card
-                    icon={`/icons/html.png`}
-                    link="exams"
-                    title="Spring"
-                    text={`HTML is the standard markup language for Web pages.
-                    With HTML you can create your own Website`}
-                />
+                {catalogue.map((item) => (
+                    <SmallCard
+                        key={item.exam}
+                        link={`exams/${item.exam}`}
+                        title={item.title}
+                        rating={item.rating}
+                        level={item.level}
+                        duration={item.duration}
+                        text={item.shortDescription}
+                    />
+                ))}
             </div>
         </main>
     )

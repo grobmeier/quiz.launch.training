@@ -21,7 +21,7 @@ export function Navbar() {
                         </a>
                     </li>
                     <li>
-                        <Link href="/exams">Exams</Link>
+                        <Link href="/">Exams</Link>
                     </li>
                 </ul>
                 <div className={styles.logo}>

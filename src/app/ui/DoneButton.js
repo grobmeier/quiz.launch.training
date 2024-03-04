@@ -10,7 +10,7 @@ export function DoneButton() {
         useContext(ProgressContext)
 
     function handleDone() {
-        router.push('/exams/', undefined, { shallow: true })
+        router.push('/', undefined, { shallow: true })
         localStorage.setItem('currentIndex', JSON.stringify(0))
         setCurrentIndex(0)
         localStorage.setItem('examTaken', JSON.stringify(0))
