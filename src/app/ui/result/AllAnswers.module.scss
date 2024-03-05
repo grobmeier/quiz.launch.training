@@ -6,12 +6,19 @@
     align-items: center;
     padding: 6rem;
     gap: 20px;
+    h3 {
+        text-align: center;
+    }
 }
 .answerContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: $questionElement;
+    .qtnHeading {
+        font-size: $standardSize;
+        font-weight: $thinFont;
+    }
 }
 .explanationBox {
     border-radius: $standardRadius;
@@ -19,14 +26,27 @@
     background: $yellowColor;
     width: $questionElement;
     padding: 16px 31px;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    // h3 {
+    //     font-size: $headingSecondary;
+    // }
 }
-.text {
-    max-width: $questionElement;
+.text,
+.codeContainer {
+    width: $questionElement;
+}
+
+.codeContainer {
+    margin: 10px 0;
 }
 
 @media (max-width: 768px) {
     .answerContainer,
     .explanationBox {
+        width: 90vw;
+    }
+    .text {
         width: 90vw;
     }
 }

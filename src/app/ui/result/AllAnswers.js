@@ -33,7 +33,7 @@ export function AllAnswers() {
         <main className={styles.main}>
             {takenQtns.map((item, index) => (
                 <div key={item.id} className={styles.answerContainer}>
-                    <h3>Question {index + 1}</h3>
+                    <h3 className={styles.qtnHeading}>Question {index + 1}</h3>
                     {item.type === 'code' && (
                         <div className={styles.codeContainer}>
                             <CodeBlock
@@ -57,7 +57,7 @@ export function AllAnswers() {
                     {item.type === 'text' && (
                         <p className={styles.text}>{item.content}</p>
                     )}
-                    <h3>{item.text}</h3>
+                    <h3 className={styles.text}>{item.text}</h3>
                     <ResultOption answers={item.answers} id={index} />
                     <div className={styles.explanationBox}>
                         <h3>Explanation</h3>
