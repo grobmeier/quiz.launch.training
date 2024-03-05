@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
 import { ProgressContext } from '@/app/lib/QuestionProvider.js'
 import { useState, useEffect } from 'react'
+import { CountdownWrapper } from '@/app/ui/question/CountdownWrapper'
 
 export function Topbar() {
     const router = useRouter()
@@ -17,6 +18,7 @@ export function Topbar() {
         setCurrentIndex(0)
         setExamInProgress('')
         localStorage.setItem('currentExam', '')
+        localStorage.removeItem('end_date')
         router.push('/')
     }
 
@@ -37,7 +39,7 @@ export function Topbar() {
                     </p>
                 </strong>
             </span>
-            <span>13:31</span>
+            <CountdownWrapper />
         </div>
     )
 }

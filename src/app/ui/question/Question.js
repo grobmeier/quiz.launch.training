@@ -13,18 +13,13 @@ import Image from 'next/image'
 export function Question({ questionInfo }) {
     const { id, content, language, text, answers, type, correctAnswers } =
         questionInfo
-    let {
-        userAnswers,
-        currentIndex,
-        setCurrentIndex,
-        examInProgress,
-        setIsTaken,
-    } = useContext(ProgressContext)
-    const router = useRouter()
+    let { userAnswers, currentIndex, setCurrentIndex, setIsTaken } =
+        useContext(ProgressContext)
+    // const router = useRouter()
 
     let totalQtns = userAnswers.length
-    let previousQtn = userAnswers[currentIndex - 1]
-    let nextQtn = userAnswers[currentIndex + 1]
+    // let previousQtn = userAnswers[currentIndex - 1]
+    // let nextQtn = userAnswers[currentIndex + 1]
 
     function handlePrevious() {
         if (currentIndex === 0) return
@@ -44,6 +39,7 @@ export function Question({ questionInfo }) {
             localStorage.setItem('examTaken', JSON.stringify(1))
             setIsTaken(true)
             setCurrentIndex(0)
+            localStorage.removeItem('end_date')
             // router.push('/results')
         }
     }
