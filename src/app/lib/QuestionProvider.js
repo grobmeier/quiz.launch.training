@@ -19,6 +19,8 @@ export function QuestionProvider({ children }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
+    // indicates in Result that the user arrived because time expired
+    const [isTimerExpired, setIsTimerExpired] = useState(false)
     const maxQtns = 30
     let allQtns = []
 
@@ -109,6 +111,8 @@ export function QuestionProvider({ children }) {
                 setIsTaken,
                 examInProgress,
                 setExamInProgress,
+                isTimerExpired,
+                setIsTimerExpired,
             }}
         >
             {children}

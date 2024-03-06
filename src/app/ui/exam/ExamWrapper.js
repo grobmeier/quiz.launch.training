@@ -71,8 +71,14 @@ export function ExamWrapper() {
 
     const filteredExam = catalogue.filter((item) => item.exam === examName)
     // console.log(filteredExam[0].exam)
-    let { examInProgress, isTaken, currentIndex, setCurrentIndex } =
-        useContext(ProgressContext)
+    let {
+        examInProgress,
+        isTaken,
+        currentIndex,
+        setCurrentIndex,
+        isTimerExpired,
+        setIsTimerExpired,
+    } = useContext(ProgressContext)
     // console.log(examInProgress)
 
     /**
@@ -94,6 +100,7 @@ export function ExamWrapper() {
         typeof window !== 'undefined' &&
             localStorage.setItem('examTaken', JSON.stringify(0))
         // setAllQtns(allQtns)
+        setIsTimerExpired(false)
         setCurrentIndex(0)
     }, [examInProgress])
 
@@ -119,7 +126,11 @@ export function ExamWrapper() {
         if (isTaken) {
             return (
                 <main className={styles.main}>
-                    <h3>Congratulations</h3>
+                    {!isTimerExpired ? (
+                        <h3>Congratulations</h3>
+                    ) : (
+                        <h3>Your time was up - here are your results</h3>
+                    )}
                     <ResultBox />
                     <div className={styles.btnsArea}>
                         <TryAgainButton />

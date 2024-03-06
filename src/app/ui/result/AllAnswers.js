@@ -14,7 +14,8 @@ import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
 
 export function AllAnswers() {
-    let { allQtns, examInProgress } = useContext(ProgressContext)
+    let { allQtns, examInProgress, isTimerExpired } =
+        useContext(ProgressContext)
 
     let takenQtns = []
 
@@ -27,13 +28,30 @@ export function AllAnswers() {
         takenQtns = restExam.filter((item) => allQtns.includes(item.id))
     }
 
+    let userAnswers =
+        localStorage['userAnswers'] &&
+        JSON.parse(localStorage.getItem('userAnswers'))
     // console.log(userAnswers)
+
+    // Coming from timer expired
+    if (isTimerExpired) {
+        let answeredQtns = userAnswers.filter((item) => item.answered.length)
+        let answeredFinal = takenQtns.filter((el) =>
+            answeredQtns.some((item) => item.id === el.id),
+        )
+        takenQtns = answeredFinal
+    }
+
+    // Check which Qtn number corresponds to the answered qtn
+    const indexOfQtn = (el) => userAnswers.findIndex((x) => x.id === el.id) + 1
 
     return (
         <main className={styles.main}>
             {takenQtns.map((item, index) => (
                 <div key={item.id} className={styles.answerContainer}>
-                    <h3 className={styles.qtnHeading}>Question {index + 1}</h3>
+                    <h3 className={styles.qtnHeading}>
+                        Question {indexOfQtn(item)}
+                    </h3>
                     {item.type === 'code' && (
                         <div className={styles.codeContainer}>
                             <CodeBlock
@@ -58,7 +76,10 @@ export function AllAnswers() {
                         <p className={styles.text}>{item.content}</p>
                     )}
                     <h3 className={styles.text}>{item.text}</h3>
-                    <ResultOption answers={item.answers} id={index} />
+                    <ResultOption
+                        answers={item.answers}
+                        id={indexOfQtn(item) - 1}
+                    />
                     <div className={styles.explanationBox}>
                         <h3>Explanation</h3>
                         <p>{item.explanation}</p>

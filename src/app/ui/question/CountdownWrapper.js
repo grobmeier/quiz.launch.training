@@ -6,7 +6,8 @@ import { ProgressContext } from '@/app/lib/QuestionProvider.js'
 const getLocalStorageValue = (s) => localStorage.getItem(s)
 
 export const CountdownWrapper = () => {
-    let { setCurrentIndex, setIsTaken } = useContext(ProgressContext)
+    let { setCurrentIndex, setIsTaken, setIsTimerExpired } =
+        useContext(ProgressContext)
 
     // Renderer callback with condition
     const renderer = ({ hours, minutes, seconds, completed }) => {
@@ -14,6 +15,7 @@ export const CountdownWrapper = () => {
             // Render a complete state
             localStorage.setItem('examTaken', JSON.stringify(1))
             setIsTaken(true)
+            setIsTimerExpired(true)
             setCurrentIndex(0)
         } else {
             // Render a countdown
