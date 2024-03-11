@@ -14,10 +14,11 @@ import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
 
 export function AllAnswers() {
-    let { allQtns, examInProgress, isTimerExpired } =
+    let { allQtns, examInProgress, isTimerExpired, seenQtns } =
         useContext(ProgressContext)
 
     let takenQtns = []
+    let maxReachedQtns = []
 
     // Have to duplicate the logic from Provider to see which is the current exam evaluated
 
@@ -35,11 +36,7 @@ export function AllAnswers() {
 
     // Coming from timer expired
     if (isTimerExpired) {
-        let answeredQtns = userAnswers.filter((item) => item.answered.length)
-        let answeredFinal = takenQtns.filter((el) =>
-            answeredQtns.some((item) => item.id === el.id),
-        )
-        takenQtns = answeredFinal
+        maxReachedQtns = takenQtns.slice(0, seenQtns)
     }
 
     // Check which Qtn number corresponds to the answered qtn
@@ -47,7 +44,7 @@ export function AllAnswers() {
 
     return (
         <main className={styles.main}>
-            {takenQtns.map((item, index) => (
+            {maxReachedQtns.map((item, index) => (
                 <div key={item.id} className={styles.answerContainer}>
                     <h3 className={styles.qtnHeading}>
                         Question {indexOfQtn(item)}

@@ -17,6 +17,7 @@ export const ProgressContext = createContext()
 export function QuestionProvider({ children }) {
     const pathname = usePathname()
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [seenQtns, setSeenQtns] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
     // indicates in Result that the user arrived because time expired
@@ -97,6 +98,11 @@ export function QuestionProvider({ children }) {
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
         let persistedExam = localStorage.getItem('currentExam')
         setExamInProgress(JSON.parse(persistedExam))
+        // Sets the seen questions. Maximum index that has been reached
+        // to be utilized in Results area
+        if (currentIndex + 1 > seenQtns) {
+            setSeenQtns(currentIndex + 1)
+        }
     }, [currentIndex])
 
     return (
@@ -113,6 +119,7 @@ export function QuestionProvider({ children }) {
                 setExamInProgress,
                 isTimerExpired,
                 setIsTimerExpired,
+                seenQtns,
             }}
         >
             {children}
