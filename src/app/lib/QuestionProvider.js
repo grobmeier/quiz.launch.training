@@ -120,6 +120,7 @@ export function QuestionProvider({ children }) {
                 isTimerExpired,
                 setIsTimerExpired,
                 seenQtns,
+                setSeenQtns,
             }}
         >
             {children}
