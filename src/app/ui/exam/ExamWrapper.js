@@ -28,6 +28,7 @@ export function ExamWrapper() {
 
     const pathname = usePathname()
     const maxQtns = 30
+    let maxQtnsPerExam = 0
     // let allQtns = []
     let allExamQtns = []
     let userTmpAnswers = ''
@@ -40,7 +41,11 @@ export function ExamWrapper() {
         examName = 'rest'
     }
 
-    const firstJavaQtns = javaExam.slice(0, maxQtns)
+    let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
+    maxQtnsPerExam = examToCheck[0].maxQuestions
+    console.log(maxQtnsPerExam)
+
+    const firstJavaQtns = javaExam.slice(0, maxQtnsPerExam)
     const allJavaQtns = firstJavaQtns.map((p) => p.id)
     const javaTmpAnswers = firstJavaQtns.map(({ id }) => ({
         id: id,
@@ -48,7 +53,7 @@ export function ExamWrapper() {
         answered: [],
     }))
 
-    const firstRestQtns = restExam.slice(0, maxQtns)
+    const firstRestQtns = restExam.slice(0, maxQtnsPerExam)
     const allRestQtns = firstRestQtns.map((p) => p.id)
     const restTmpAnswers = firstRestQtns.map(({ id }) => ({
         id: id,

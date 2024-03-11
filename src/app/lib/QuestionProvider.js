@@ -3,6 +3,8 @@
 import { createContext, useState, useEffect } from 'react'
 import { javaExam } from '../exams-data/java.js'
 import { restExam } from '../exams-data/rest.js'
+import { catalogue } from '../exams-data/catalogue.js'
+
 // import { htmlExam } from '../exams-data/html.js'
 import { usePathname } from 'next/navigation'
 
@@ -23,6 +25,8 @@ export function QuestionProvider({ children }) {
     // indicates in Result that the user arrived because time expired
     const [isTimerExpired, setIsTimerExpired] = useState(false)
     const maxQtns = 30
+    let maxQtnsPerExam = 0
+
     let allQtns = []
 
     let examName = ''
@@ -34,11 +38,12 @@ export function QuestionProvider({ children }) {
     }
 
     // Load all exams questions
-
-    const firstJavaQtns = javaExam.slice(0, maxQtns)
+    let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
+    maxQtnsPerExam = examToCheck[0].maxQuestions
+    const firstJavaQtns = javaExam.slice(0, maxQtnsPerExam)
     const allJavaQtns = firstJavaQtns.map((p) => p.id)
 
-    const firstRestQtns = restExam.slice(0, maxQtns)
+    const firstRestQtns = restExam.slice(0, maxQtnsPerExam)
     const allRestQtns = firstRestQtns.map((p) => p.id)
 
     // const firstHtmlQtns = htmlExam.slice(0, maxQtns)

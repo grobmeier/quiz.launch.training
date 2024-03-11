@@ -19,6 +19,7 @@ export const catalogue = [
         dynamic nature of JavaScript to the robustness of Java this exploration provides 
         insights into the diverse universe of programming languages. Understand how they 
         shape the way we code, design, and innovate in the ever-evolving landscape of technology.`,
+        maxQuestions: 5,
     },
     {
         exam: 'rest',
@@ -41,5 +42,6 @@ export const catalogue = [
         dynamic nature of JavaScript to the robustness of Java this exploration provides 
         insights into the diverse universe of programming languages. Understand how they 
         shape the way we code, design, and innovate in the ever-evolving landscape of technology.`,
+        maxQuestions: 10,
     },
 ]

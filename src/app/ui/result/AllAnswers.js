@@ -37,6 +37,7 @@ export function AllAnswers() {
     // Coming from timer expired
     if (isTimerExpired) {
         maxReachedQtns = takenQtns.slice(0, seenQtns)
+        takenQtns = maxReachedQtns
     }
 
     // Check which Qtn number corresponds to the answered qtn
@@ -44,7 +45,7 @@ export function AllAnswers() {
 
     return (
         <main className={styles.main}>
-            {maxReachedQtns.map((item, index) => (
+            {takenQtns.map((item, index) => (
                 <div key={item.id} className={styles.answerContainer}>
                     <h3 className={styles.qtnHeading}>
                         Question {indexOfQtn(item)}
