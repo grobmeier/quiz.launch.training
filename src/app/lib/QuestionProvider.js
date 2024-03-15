@@ -5,7 +5,7 @@ import { javaExam } from '../exams-data/java.js'
 import { restExam } from '../exams-data/rest.js'
 import { catalogue } from '../exams-data/catalogue.js'
 
-// import { htmlExam } from '../exams-data/html.js'
+import { shuffle } from '../lib/Functions.js'
 import { usePathname } from 'next/navigation'
 
 /**
@@ -27,48 +27,7 @@ export function QuestionProvider({ children }) {
     const maxQtns = 30
     let maxQtnsPerExam = 0
 
-    let allQtns = []
-
-    let examName = ''
-    if (pathname.includes('java')) {
-        examName = 'java'
-    }
-    if (pathname.includes('rest')) {
-        examName = 'rest'
-    }
-
-    // Load all exams questions
-    let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
-    maxQtnsPerExam = examToCheck[0].maxQuestions
-    const firstJavaQtns = javaExam.slice(0, maxQtnsPerExam)
-    const allJavaQtns = firstJavaQtns.map((p) => p.id)
-
-    const firstRestQtns = restExam.slice(0, maxQtnsPerExam)
-    const allRestQtns = firstRestQtns.map((p) => p.id)
-
-    // const firstHtmlQtns = htmlExam.slice(0, maxQtns)
-    // const allHtmlQtns = firstHtmlQtns.map((p) => p.id)
-    // const htmlTmpAnswers = firstHtmlQtns.map(({ id }) => ({
-    //     id: 'html-' + id,
-    //     calculatedPoints: 0,
-    //     answered: [],
-    // }))
-
-    /**
-     * Load all Qtsn and matrix of the calculated answers based on the currentExam
-     * value (Java / HTML) form localstorage.
-     * */
-
-    if (Object.keys({ javaExam })[0] === examName + 'Exam') {
-        allQtns = allJavaQtns
-    }
-    if (Object.keys({ restExam })[0] === examName + 'Exam') {
-        allQtns = allRestQtns
-    }
-    // if (Object.keys({ htmlExam })[0] === examName + 'Exam') {
-    //     allQtns = allHtmlQtns
-    //     userTmpAnswers = JSON.stringify(htmlTmpAnswers)
-    // }
+    const [allQtns, setAllQtns] = useState([])
 
     // The variable below is crucial - it holds the real answers at any given moment
     const [userAnswers, setUserAnswers] = useState('')
@@ -88,6 +47,7 @@ export function QuestionProvider({ children }) {
                     'currentExam',
                     JSON.stringify(examInProgress),
                 )
+            // provideInitialQtnsMatrix()
         }
     }, [examInProgress])
 
@@ -126,6 +86,7 @@ export function QuestionProvider({ children }) {
                 setIsTimerExpired,
                 seenQtns,
                 setSeenQtns,
+                setAllQtns,
             }}
         >
             {children}

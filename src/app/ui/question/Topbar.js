@@ -9,13 +9,13 @@ export function Topbar() {
     const router = useRouter()
     const [isClient, setIsClient] = useState(false)
     let {
-        allQtns,
+        userAnswers,
         currentIndex,
         setCurrentIndex,
         setExamInProgress,
         setSeenQtns,
     } = useContext(ProgressContext)
-    let totalQtns = allQtns.length
+    let totalQtns = userAnswers.length
 
     function handleCancel() {
         localStorage.setItem('currentIndex', JSON.stringify(0))

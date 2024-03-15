@@ -13,6 +13,7 @@ import { TryAgainButton } from '@/app/ui/TryAgainButton'
 import { DoneButton } from '@/app/ui/DoneButton'
 import { useContext, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import { shuffle, searchMatchingIds } from '@/app/lib/Functions.js'
 
 /**
  * This Component is responsible for all the logic for the exam.
@@ -21,17 +22,20 @@ import { usePathname } from 'next/navigation'
  */
 
 export function ExamWrapper() {
+    let { setAllQtns, allQtns } = useContext(ProgressContext)
+    // const [allQtns, setAllQtns] = useState([])
+
     /**
      * Note the same functionality exists here and inside Provider.
      * That guarantees that the Parent Component has the data on initial load.
      */
 
     const pathname = usePathname()
-    const maxQtns = 30
     let maxQtnsPerExam = 0
-    // let allQtns = []
-    let allExamQtns = []
-    let userTmpAnswers = ''
+
+    // Make it in localstorage to keep it persistant
+    // const [allQtns, setAllQtns] = useState([])
+
     let examName = ''
 
     if (pathname.includes('java')) {
@@ -41,38 +45,65 @@ export function ExamWrapper() {
         examName = 'rest'
     }
 
-    let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
-    maxQtnsPerExam = examToCheck[0].maxQuestions
-    console.log(maxQtnsPerExam)
+    const [allExamQtns, setAllExamQtns] = useState([])
+    let userTmpAnswers = ''
 
-    const firstJavaQtns = javaExam.slice(0, maxQtnsPerExam)
-    const allJavaQtns = firstJavaQtns.map((p) => p.id)
-    const javaTmpAnswers = firstJavaQtns.map(({ id }) => ({
-        id: id,
-        calculatedPoints: 0,
-        answered: [],
-    }))
+    function provideInitialQtnsMatrix() {
+        // Load all exams questions
+        let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
+        maxQtnsPerExam = examToCheck[0].maxQuestions
 
-    const firstRestQtns = restExam.slice(0, maxQtnsPerExam)
-    const allRestQtns = firstRestQtns.map((p) => p.id)
-    const restTmpAnswers = firstRestQtns.map(({ id }) => ({
-        id: id,
-        calculatedPoints: 0,
-        answered: [],
-    }))
+        // Prepare the random qtns for each exam
+        let randomizedJavaExam = shuffle(javaExam)
+        let randomizedRestExam = shuffle(restExam)
 
-    if (Object.keys({ javaExam })[0] === examName + 'Exam') {
-        // allQtns = allJavaQtns
-        userTmpAnswers = JSON.stringify(javaTmpAnswers)
-        allExamQtns = firstJavaQtns
+        // console.log(randomizedJavaExam)
+
+        const firstJavaQtns = randomizedJavaExam.slice(0, maxQtnsPerExam)
+        const allJavaQtns = firstJavaQtns.map((p) => p.id)
+
+        const firstRestQtns = randomizedRestExam.slice(0, maxQtnsPerExam)
+        const allRestQtns = firstRestQtns.map((p) => p.id)
+
+        /**
+         * Load all Qtsn and matrix of the calculated answers based on the currentExam
+         * value (Java / HTML) form localstorage.
+         * */
+
+        if (examName === 'java') {
+            setAllQtns(allJavaQtns)
+            // allExamQtns = firstJavaQtns
+            const javaTmpAnswers = allQtns.map(({ id }) => ({
+                id: id,
+                calculatedPoints: 0,
+                answered: [],
+            }))
+            userTmpAnswers = JSON.stringify(javaTmpAnswers)
+        }
+        if (examName === 'rest') {
+            setAllQtns(allRestQtns)
+            let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
+            setAllExamQtns(tmpAllExamQtns)
+            // console.log(tmpAllExamQtns + ' Is it here')
+            typeof window !== 'undefined' &&
+                localStorage.setItem(
+                    'allExamQtns',
+                    JSON.stringify(tmpAllExamQtns),
+                )
+            const restTmpAnswers = allQtns.map((id) => ({
+                id: id,
+                calculatedPoints: 0,
+                answered: [],
+            }))
+            userTmpAnswers = JSON.stringify(restTmpAnswers)
+        }
+
+        console.log('Reached functinon')
+        typeof window !== 'undefined' &&
+            localStorage.setItem('allQtns', JSON.stringify(allQtns))
+        typeof window !== 'undefined' &&
+            localStorage.setItem('userAnswers', userTmpAnswers)
     }
-    if (Object.keys({ restExam })[0] === examName + 'Exam') {
-        // allQtns = allRestQtns
-        userTmpAnswers = JSON.stringify(restTmpAnswers)
-        allExamQtns = firstRestQtns
-    }
-
-    // console.log(allExamQtns)
 
     const filteredExam = catalogue.filter((item) => item.exam === examName)
     // console.log(filteredExam[0].exam)
@@ -91,6 +122,30 @@ export function ExamWrapper() {
      */
 
     useEffect(() => {
+        // Check if AllQtns are present
+        let persistedQtns =
+            typeof window !== 'undefined' &&
+            localStorage['allQtns'] &&
+            JSON.parse(localStorage.getItem('allQtns')).length > 0
+        if (!persistedQtns) {
+            provideInitialQtnsMatrix()
+            // console.log(allQtns + ' After')
+        }
+        /**
+         * Here we need to recalculate on refresh the actual data for
+         * matched Ids of allQtns and the current exam. This is done to keep the state persistant
+         * without showing the data in localstorage (hide from user)
+         */
+        if (examName === 'rest') {
+            let tmpAllExamQtns = searchMatchingIds(
+                restExam,
+                JSON.parse(localStorage.getItem('allQtns')),
+            )
+            setAllExamQtns(tmpAllExamQtns)
+        }
+    }, [])
+
+    useEffect(() => {
         // Check if there is exam in progress, if one is found in the localstorage no effect
         let persistedExam =
             localStorage['currentExam'] &&
@@ -98,8 +153,6 @@ export function ExamWrapper() {
         if (persistedExam !== '') {
             return
         }
-        typeof window !== 'undefined' &&
-            localStorage.setItem('userAnswers', userTmpAnswers)
         typeof window !== 'undefined' &&
             localStorage.setItem('currentIndex', JSON.stringify(0))
         typeof window !== 'undefined' &&
@@ -146,10 +199,11 @@ export function ExamWrapper() {
         }
         return (
             <main className={styles.main}>
-                {!isClient ? (
+                {!isClient | !allExamQtns ? (
                     <div>Loading ....</div>
                 ) : (
                     <Question questionInfo={allExamQtns[currentIndex]} />
+                    // <h4>Just to make sure{allExamQtns[currentIndex]}</h4>
                 )}
             </main>
         )
