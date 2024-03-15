@@ -72,8 +72,13 @@ export function ExamWrapper() {
 
         if (examName === 'java') {
             setAllQtns(allJavaQtns)
-            // allExamQtns = firstJavaQtns
-            const javaTmpAnswers = allQtns.map(({ id }) => ({
+            let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
+            typeof window !== 'undefined' &&
+                localStorage.setItem(
+                    'allExamQtns',
+                    JSON.stringify(tmpAllExamQtns),
+                )
+            const javaTmpAnswers = allQtns.map((id) => ({
                 id: id,
                 calculatedPoints: 0,
                 answered: [],
@@ -84,7 +89,6 @@ export function ExamWrapper() {
             setAllQtns(allRestQtns)
             let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
             setAllExamQtns(tmpAllExamQtns)
-            // console.log(tmpAllExamQtns + ' Is it here')
             typeof window !== 'undefined' &&
                 localStorage.setItem(
                     'allExamQtns',
@@ -98,7 +102,6 @@ export function ExamWrapper() {
             userTmpAnswers = JSON.stringify(restTmpAnswers)
         }
 
-        console.log('Reached functinon')
         typeof window !== 'undefined' &&
             localStorage.setItem('allQtns', JSON.stringify(allQtns))
         typeof window !== 'undefined' &&
@@ -129,16 +132,22 @@ export function ExamWrapper() {
             JSON.parse(localStorage.getItem('allQtns')).length > 0
         if (!persistedQtns) {
             provideInitialQtnsMatrix()
-            // console.log(allQtns + ' After')
         }
         /**
          * Here we need to recalculate on refresh the actual data for
          * matched Ids of allQtns and the current exam. This is done to keep the state persistant
          * without showing the data in localstorage (hide from user)
          */
-        if (examName === 'rest') {
+        if (pathname.includes('rest')) {
             let tmpAllExamQtns = searchMatchingIds(
                 restExam,
+                JSON.parse(localStorage.getItem('allQtns')),
+            )
+            setAllExamQtns(tmpAllExamQtns)
+        }
+        if (pathname.includes('java')) {
+            let tmpAllExamQtns = searchMatchingIds(
+                javaExam,
                 JSON.parse(localStorage.getItem('allQtns')),
             )
             setAllExamQtns(tmpAllExamQtns)
