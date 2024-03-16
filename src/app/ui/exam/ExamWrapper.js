@@ -23,18 +23,14 @@ import { shuffle, searchMatchingIds } from '@/app/lib/Functions.js'
 
 export function ExamWrapper() {
     let { setAllQtns, allQtns } = useContext(ProgressContext)
-    // const [allQtns, setAllQtns] = useState([])
 
     /**
-     * Note the same functionality exists here and inside Provider.
+     * Initalization happens here and allQtns is passed to the Provider.
      * That guarantees that the Parent Component has the data on initial load.
      */
 
     const pathname = usePathname()
     let maxQtnsPerExam = 0
-
-    // Make it in localstorage to keep it persistant
-    // const [allQtns, setAllQtns] = useState([])
 
     let examName = ''
 
@@ -73,6 +69,7 @@ export function ExamWrapper() {
         if (examName === 'java') {
             setAllQtns(allJavaQtns)
             let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
+            setAllExamQtns(tmpAllExamQtns)
             typeof window !== 'undefined' &&
                 localStorage.setItem(
                     'allExamQtns',
@@ -125,7 +122,7 @@ export function ExamWrapper() {
      */
 
     useEffect(() => {
-        // Check if AllQtns are present
+        // Check if AllQtns are present, that is the trigger to provide inital values for localstorage
         let persistedQtns =
             typeof window !== 'undefined' &&
             localStorage['allQtns'] &&
@@ -152,7 +149,7 @@ export function ExamWrapper() {
             )
             setAllExamQtns(tmpAllExamQtns)
         }
-    }, [])
+    }, [allQtns])
 
     useEffect(() => {
         // Check if there is exam in progress, if one is found in the localstorage no effect
@@ -166,7 +163,6 @@ export function ExamWrapper() {
             localStorage.setItem('currentIndex', JSON.stringify(0))
         typeof window !== 'undefined' &&
             localStorage.setItem('examTaken', JSON.stringify(0))
-        // setAllQtns(allQtns)
         setIsTimerExpired(false)
         setCurrentIndex(0)
     }, [examInProgress])
@@ -211,8 +207,13 @@ export function ExamWrapper() {
                 {!isClient | !allExamQtns ? (
                     <div>Loading ....</div>
                 ) : (
-                    <Question questionInfo={allExamQtns[currentIndex]} />
-                    // <h4>Just to make sure{allExamQtns[currentIndex]}</h4>
+                    <Question
+                        questionInfo={
+                            allExamQtns &&
+                            allExamQtns.length &&
+                            allExamQtns[currentIndex]
+                        }
+                    />
                 )}
             </main>
         )
