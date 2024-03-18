@@ -61,6 +61,8 @@ export function ExamWrapper() {
         const firstRestQtns = randomizedRestExam.slice(0, maxQtnsPerExam)
         const allRestQtns = firstRestQtns.map((p) => p.id)
 
+        console.log(maxQtnsPerExam)
+
         /**
          * Load all Qtsn and matrix of the calculated answers based on the currentExam
          * value (Java / HTML) form localstorage.
@@ -68,41 +70,12 @@ export function ExamWrapper() {
 
         if (examName === 'java') {
             setAllQtns(allJavaQtns)
-            let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
-            setAllExamQtns(tmpAllExamQtns)
-            typeof window !== 'undefined' &&
-                localStorage.setItem(
-                    'allExamQtns',
-                    JSON.stringify(tmpAllExamQtns),
-                )
-            const javaTmpAnswers = allQtns.map((id) => ({
-                id: id,
-                calculatedPoints: 0,
-                answered: [],
-            }))
-            userTmpAnswers = JSON.stringify(javaTmpAnswers)
+            console.log(allJavaQtns.length + ' same as above')
         }
         if (examName === 'rest') {
             setAllQtns(allRestQtns)
-            let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
-            setAllExamQtns(tmpAllExamQtns)
-            typeof window !== 'undefined' &&
-                localStorage.setItem(
-                    'allExamQtns',
-                    JSON.stringify(tmpAllExamQtns),
-                )
-            const restTmpAnswers = allQtns.map((id) => ({
-                id: id,
-                calculatedPoints: 0,
-                answered: [],
-            }))
-            userTmpAnswers = JSON.stringify(restTmpAnswers)
+            console.log(allJavaQtns.length + ' same as above')
         }
-
-        typeof window !== 'undefined' &&
-            localStorage.setItem('allQtns', JSON.stringify(allQtns))
-        typeof window !== 'undefined' &&
-            localStorage.setItem('userAnswers', userTmpAnswers)
     }
 
     const filteredExam = catalogue.filter((item) => item.exam === examName)
@@ -130,26 +103,7 @@ export function ExamWrapper() {
         if (!persistedQtns) {
             provideInitialQtnsMatrix()
         }
-        /**
-         * Here we need to recalculate on refresh the actual data for
-         * matched Ids of allQtns and the current exam. This is done to keep the state persistant
-         * without showing the data in localstorage (hide from user)
-         */
-        if (pathname.includes('rest')) {
-            let tmpAllExamQtns = searchMatchingIds(
-                restExam,
-                JSON.parse(localStorage.getItem('allQtns')),
-            )
-            setAllExamQtns(tmpAllExamQtns)
-        }
-        if (pathname.includes('java')) {
-            let tmpAllExamQtns = searchMatchingIds(
-                javaExam,
-                JSON.parse(localStorage.getItem('allQtns')),
-            )
-            setAllExamQtns(tmpAllExamQtns)
-        }
-    }, [allQtns])
+    }, [])
 
     useEffect(() => {
         // Check if there is exam in progress, if one is found in the localstorage no effect
@@ -168,6 +122,46 @@ export function ExamWrapper() {
     }, [examInProgress])
 
     const [isClient, setIsClient] = useState(false)
+
+    useEffect(() => {
+        /**
+         * Here we update the inital Matrix according to the most recent allQtns
+         */
+        if (examName === 'java') {
+            let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
+            setAllExamQtns(tmpAllExamQtns)
+            typeof window !== 'undefined' &&
+                localStorage.setItem(
+                    'allExamQtns',
+                    JSON.stringify(tmpAllExamQtns),
+                )
+            const javaTmpAnswers = allQtns.map((id) => ({
+                id: id,
+                calculatedPoints: 0,
+                answered: [],
+            }))
+            userTmpAnswers = JSON.stringify(javaTmpAnswers)
+        }
+        if (examName === 'rest') {
+            let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
+            setAllExamQtns(tmpAllExamQtns)
+            typeof window !== 'undefined' &&
+                localStorage.setItem(
+                    'allExamQtns',
+                    JSON.stringify(tmpAllExamQtns),
+                )
+            const restTmpAnswers = allQtns.map((id) => ({
+                id: id,
+                calculatedPoints: 0,
+                answered: [],
+            }))
+            userTmpAnswers = JSON.stringify(restTmpAnswers)
+        }
+        typeof window !== 'undefined' &&
+            localStorage.setItem('userAnswers', userTmpAnswers)
+        typeof window !== 'undefined' &&
+            localStorage.setItem('allQtns', JSON.stringify(allQtns))
+    }, [allQtns])
 
     useEffect(() => {
         setIsClient(true)

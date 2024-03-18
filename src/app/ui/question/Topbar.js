@@ -14,17 +14,16 @@ export function Topbar() {
         setCurrentIndex,
         setExamInProgress,
         setSeenQtns,
+        setAllQtns,
+        setUserAnswers,
     } = useContext(ProgressContext)
     let totalQtns = userAnswers.length
 
     function handleCancel() {
-        localStorage.setItem('currentIndex', JSON.stringify(0))
-        localStorage.setItem('examTaken', JSON.stringify(0))
         setCurrentIndex(0)
         setSeenQtns(0)
         setExamInProgress('')
-        localStorage.setItem('currentExam', '')
-        localStorage.removeItem('end_date')
+        localStorage.clear()
         router.push('/')
     }
 
