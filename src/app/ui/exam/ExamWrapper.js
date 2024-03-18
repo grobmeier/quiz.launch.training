@@ -127,7 +127,18 @@ export function ExamWrapper() {
         /**
          * Here we update the inital Matrix according to the most recent allQtns
          */
-        if (examName === 'java') {
+        let persistedQtns =
+            typeof window !== 'undefined' &&
+            localStorage['currentExam'] &&
+            JSON.parse(localStorage.getItem('currentExam')) !== ''
+        // During the exam allExamQtns is kept in localstorage. Values are taken from there
+        if (persistedQtns) {
+            let persistedAllExamQtns =
+                typeof window !== 'undefined' && localStorage['allExamQtns']
+            setAllExamQtns(JSON.parse(persistedAllExamQtns))
+            console.log(allExamQtns)
+        }
+        if (examName === 'java' && !persistedQtns) {
             let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
             setAllExamQtns(tmpAllExamQtns)
             typeof window !== 'undefined' &&
@@ -141,8 +152,12 @@ export function ExamWrapper() {
                 answered: [],
             }))
             userTmpAnswers = JSON.stringify(javaTmpAnswers)
+            typeof window !== 'undefined' &&
+                localStorage.setItem('userAnswers', userTmpAnswers)
+            typeof window !== 'undefined' &&
+                localStorage.setItem('allQtns', JSON.stringify(allQtns))
         }
-        if (examName === 'rest') {
+        if (examName === 'rest' && !persistedQtns) {
             let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
             setAllExamQtns(tmpAllExamQtns)
             typeof window !== 'undefined' &&
@@ -156,11 +171,11 @@ export function ExamWrapper() {
                 answered: [],
             }))
             userTmpAnswers = JSON.stringify(restTmpAnswers)
+            typeof window !== 'undefined' &&
+                localStorage.setItem('userAnswers', userTmpAnswers)
+            typeof window !== 'undefined' &&
+                localStorage.setItem('allQtns', JSON.stringify(allQtns))
         }
-        typeof window !== 'undefined' &&
-            localStorage.setItem('userAnswers', userTmpAnswers)
-        typeof window !== 'undefined' &&
-            localStorage.setItem('allQtns', JSON.stringify(allQtns))
     }, [allQtns])
 
     useEffect(() => {
