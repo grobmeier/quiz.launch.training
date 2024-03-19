@@ -6,10 +6,12 @@ import { useContext, useEffect } from 'react'
 
 export function StartButton({ children, examName }) {
     const router = useRouter()
-    let { setExamInProgress } = useContext(ProgressContext)
+    let { setExamInProgress, setIsTaken } = useContext(ProgressContext)
 
     function handleStart() {
         setExamInProgress(examName)
+        // This is set so that the proper initialization after Done button behaves as intended
+        setIsTaken(false)
     }
     return (
         <button className={styles.examBtn} type="button" onClick={handleStart}>

@@ -8,23 +8,17 @@ import { CountdownWrapper } from '@/app/ui/question/CountdownWrapper'
 export function Topbar() {
     const router = useRouter()
     const [isClient, setIsClient] = useState(false)
-    let {
-        allQtns,
-        currentIndex,
-        setCurrentIndex,
-        setExamInProgress,
-        setSeenQtns,
-    } = useContext(ProgressContext)
-    let totalQtns = allQtns.length
+    let { currentIndex, setCurrentIndex, setExamInProgress, setSeenQtns } =
+        useContext(ProgressContext)
+
+    let allCurrentQtns = JSON.parse(localStorage.getItem('allQtns'))
+    let totalQtns = allCurrentQtns && allCurrentQtns.length
 
     function handleCancel() {
-        localStorage.setItem('currentIndex', JSON.stringify(0))
-        localStorage.setItem('examTaken', JSON.stringify(0))
         setCurrentIndex(0)
         setSeenQtns(0)
         setExamInProgress('')
-        localStorage.setItem('currentExam', '')
-        localStorage.removeItem('end_date')
+        localStorage.clear()
         router.push('/')
     }
 

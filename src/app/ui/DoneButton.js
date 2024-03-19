@@ -15,14 +15,15 @@ export function DoneButton() {
     } = useContext(ProgressContext)
 
     function handleDone() {
-        router.push('/', undefined, { shallow: true })
-        localStorage.setItem('currentIndex', JSON.stringify(0))
+        // localStorage.setItem('currentIndex', JSON.stringify(0))
         setCurrentIndex(0)
         setSeenQtns(0)
-        localStorage.setItem('examTaken', JSON.stringify(0))
+        // localStorage.setItem('examTaken', JSON.stringify(0))
         setExamInProgress('')
-        localStorage.setItem('currentExam', '')
-        setIsTaken(!isTaken)
+        // localStorage.setItem('currentExam', '')
+        localStorage.clear()
+        router.push('/')
+        // setIsTaken(!isTaken)
     }
     return (
         <button className={styles.doneBtn} type="button" onClick={handleDone}>

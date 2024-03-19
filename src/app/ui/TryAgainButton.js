@@ -5,7 +5,6 @@ import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { useContext } from 'react'
 
 export function TryAgainButton() {
-    const router = useRouter()
     let {
         setCurrentIndex,
         setExamInProgress,
@@ -17,12 +16,12 @@ export function TryAgainButton() {
     function handleTryAgain() {
         localStorage.setItem('currentIndex', JSON.stringify(0))
         localStorage.setItem('examTaken', JSON.stringify(0))
-        setIsTaken(!isTaken)
         setExamInProgress('')
         localStorage.setItem('currentExam', '')
         setCurrentIndex(0)
         setSeenQtns(0)
-        // router.push(`/exams/${examInProgress}`, { shallow: true })
+        localStorage.setItem('allQtns', JSON.stringify([]))
+        setIsTaken(!isTaken)
     }
     return (
         <button
