@@ -61,8 +61,6 @@ export function ExamWrapper() {
         const firstRestQtns = randomizedRestExam.slice(0, maxQtnsPerExam)
         const allRestQtns = firstRestQtns.map((p) => p.id)
 
-        console.log(maxQtnsPerExam)
-
         /**
          * Load all Qtsn and matrix of the calculated answers based on the currentExam
          * value (Java / HTML) form localstorage.
@@ -70,11 +68,9 @@ export function ExamWrapper() {
 
         if (examName === 'java') {
             setAllQtns(allJavaQtns)
-            console.log(allJavaQtns.length + ' same as above')
         }
         if (examName === 'rest') {
             setAllQtns(allRestQtns)
-            console.log(allJavaQtns.length + ' same as above')
         }
     }
 
@@ -87,6 +83,7 @@ export function ExamWrapper() {
         setCurrentIndex,
         isTimerExpired,
         setIsTimerExpired,
+        setUserAnswers,
     } = useContext(ProgressContext)
     // console.log(examInProgress)
 
@@ -101,9 +98,10 @@ export function ExamWrapper() {
             localStorage['allQtns'] &&
             JSON.parse(localStorage.getItem('allQtns')).length > 0
         if (!persistedQtns) {
+            console.log(allQtns.length + 'BEFORE')
             provideInitialQtnsMatrix()
         }
-    }, [])
+    }, [isTaken])
 
     useEffect(() => {
         // Check if there is exam in progress, if one is found in the localstorage no effect
@@ -136,7 +134,6 @@ export function ExamWrapper() {
             let persistedAllExamQtns =
                 typeof window !== 'undefined' && localStorage['allExamQtns']
             setAllExamQtns(JSON.parse(persistedAllExamQtns))
-            console.log(allExamQtns)
         }
         if (examName === 'java' && !persistedQtns) {
             let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
@@ -152,6 +149,7 @@ export function ExamWrapper() {
                 answered: [],
             }))
             userTmpAnswers = JSON.stringify(javaTmpAnswers)
+            // setUserAnswers(userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
             typeof window !== 'undefined' &&
@@ -171,11 +169,13 @@ export function ExamWrapper() {
                 answered: [],
             }))
             userTmpAnswers = JSON.stringify(restTmpAnswers)
+            // setUserAnswers(userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('allQtns', JSON.stringify(allQtns))
         }
+        console.log(allQtns.length + 'AFTER')
     }, [allQtns])
 
     useEffect(() => {
