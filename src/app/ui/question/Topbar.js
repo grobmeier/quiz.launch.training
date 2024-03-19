@@ -12,7 +12,7 @@ export function Topbar() {
         useContext(ProgressContext)
 
     let allCurrentQtns = JSON.parse(localStorage.getItem('allQtns'))
-    let totalQtns = allCurrentQtns.length
+    let totalQtns = allCurrentQtns && allCurrentQtns.length
 
     function handleCancel() {
         setCurrentIndex(0)
