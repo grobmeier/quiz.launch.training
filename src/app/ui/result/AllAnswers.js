@@ -14,19 +14,26 @@ import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
 
 export function AllAnswers() {
-    let { allQtns, examInProgress, isTimerExpired, seenQtns } =
+    let { examInProgress, isTimerExpired, seenQtns } =
         useContext(ProgressContext)
+
+    let allQtnsFromStorage =
+        typeof window !== 'undefined' && JSON.parse(localStorage['allQtns'])
 
     let takenQtns = []
     let maxReachedQtns = []
 
-    // Have to duplicate the logic from Provider to see which is the current exam evaluated
+    // Have to check current exam to see which are the questions evaluated
 
     if (examInProgress === 'java') {
-        takenQtns = javaExam.filter((item) => allQtns.includes(item.id))
+        takenQtns = allQtnsFromStorage
+            .map((el) => javaExam.find((item) => item.id === el) || {})
+            .filter(Boolean)
     }
     if (examInProgress === 'rest') {
-        takenQtns = restExam.filter((item) => allQtns.includes(item.id))
+        takenQtns = allQtnsFromStorage
+            .map((el) => restExam.find((item) => item.id === el) || {})
+            .filter(Boolean)
     }
 
     let userAnswers =
