@@ -22,7 +22,16 @@ import { shuffle, searchMatchingIds } from '@/app/lib/Functions.js'
  */
 
 export function ExamWrapper() {
-    let { setAllQtns, allQtns } = useContext(ProgressContext)
+    let {
+        allQtns,
+        setAllQtns,
+        examInProgress,
+        isTaken,
+        currentIndex,
+        setCurrentIndex,
+        isTimerExpired,
+        setIsTimerExpired,
+    } = useContext(ProgressContext)
 
     /**
      * Initalization happens here and allQtns is passed to the Provider.
@@ -75,17 +84,6 @@ export function ExamWrapper() {
     }
 
     const filteredExam = catalogue.filter((item) => item.exam === examName)
-    // console.log(filteredExam[0].exam)
-    let {
-        examInProgress,
-        isTaken,
-        currentIndex,
-        setCurrentIndex,
-        isTimerExpired,
-        setIsTimerExpired,
-        setUserAnswers,
-    } = useContext(ProgressContext)
-    // console.log(examInProgress)
 
     /**
      * This initialisation, together with Provider make sure the initial values are properly set
@@ -98,7 +96,6 @@ export function ExamWrapper() {
             localStorage['allQtns'] &&
             JSON.parse(localStorage.getItem('allQtns')).length > 0
         if (!persistedQtns) {
-            console.log(allQtns.length + 'BEFORE')
             provideInitialQtnsMatrix()
         }
     }, [isTaken])
@@ -149,7 +146,6 @@ export function ExamWrapper() {
                 answered: [],
             }))
             userTmpAnswers = JSON.stringify(javaTmpAnswers)
-            // setUserAnswers(userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
             typeof window !== 'undefined' &&
@@ -169,13 +165,11 @@ export function ExamWrapper() {
                 answered: [],
             }))
             userTmpAnswers = JSON.stringify(restTmpAnswers)
-            // setUserAnswers(userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('userAnswers', userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('allQtns', JSON.stringify(allQtns))
         }
-        console.log(allQtns.length + 'AFTER')
     }, [allQtns])
 
     useEffect(() => {
