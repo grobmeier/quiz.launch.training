@@ -55,10 +55,10 @@ export function Navbar() {
 
     useEffect(() => {
         if (examInProgress !== '') {
-            console.log('DURING EXAM')
+            // console.log('DURING EXAM')
             setComingFromTest(true)
         } else {
-            console.log('Exit EXAM')
+            // console.log('Exit EXAM')
             setComingFromTest(false)
         }
     }, [examInProgress])
