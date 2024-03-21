@@ -72,7 +72,7 @@ export function ExamWrapper() {
 
         /**
          * Load all Qtsn and matrix of the calculated answers based on the currentExam
-         * value (Java / HTML) form localstorage.
+         * value (Java / HTML) into localstorage.
          * */
 
         if (examName === 'java') {
