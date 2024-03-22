@@ -62,7 +62,7 @@ export function SingleOption({ answers, id }) {
                 : { ...item },
         )
         localStorage.setItem('userAnswers', JSON.stringify(temp))
-        // setUserAnswers(temp)
+        setUserAnswers(temp)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']

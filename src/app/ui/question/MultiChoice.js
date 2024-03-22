@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 
 export function MultiChoice({ answers, options, id }) {
-    let { currentIndex, userAnswers, examInProgress } =
+    let { currentIndex, userAnswers, examInProgress, setUserAnswers, allQtns } =
         useContext(ProgressContext)
 
     const [currentSelected, setCurrentSelected] = useState([])
@@ -24,7 +24,7 @@ export function MultiChoice({ answers, options, id }) {
         if (progressParsed && progressParsed[currentIndex].answered) {
             setCurrentSelected(progressParsed[currentIndex].answered)
         }
-    }, [userAnswers, clicked])
+    }, [userAnswers, clicked, examInProgress, allQtns])
 
     function handleClick(event, item, index) {
         event.preventDefault()
@@ -40,7 +40,7 @@ export function MultiChoice({ answers, options, id }) {
         let optionToCheck = currentSelected.indexOf(item.text)
         if (optionToCheck === -1) {
             currentSelected.push(item.text)
-            if (item.correct) {
+            if (item.correct && userAnswers[currentIndex]) {
                 userAnswers[currentIndex].calculatedPoints = (
                     parseFloat(userAnswers[currentIndex].calculatedPoints) +
                     parseFloat(calculateAnswerWeight)
@@ -60,7 +60,7 @@ export function MultiChoice({ answers, options, id }) {
             // console.log(`New index collection is: ${currentSelected}`)
         }
         // inserts the selected answers into the global state
-        let temp = userAnswers.map((item) =>
+        let temp = tmpUsersFormatted.map((item) =>
             item.id === id
                 ? {
                       ...item,
@@ -70,7 +70,7 @@ export function MultiChoice({ answers, options, id }) {
         )
 
         localStorage.setItem('userAnswers', JSON.stringify(temp))
-        // setUserAnswers(temp)
+        setUserAnswers(temp)
     }
 
     const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']

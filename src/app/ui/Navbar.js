@@ -6,7 +6,7 @@ import styles from './Navbar.module.css'
 import React, { useState, useEffect } from 'react'
 import { useContext } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider.js'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { confirmAlert } from 'react-confirm-alert' // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 // import Logo from './Logo'
@@ -20,9 +20,15 @@ import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 
 export function Navbar() {
     const [comingFromTest, setComingFromTest] = useState(false)
-    let { examInProgress, setCurrentIndex, setExamInProgress, setSeenQtns } =
-        useContext(ProgressContext)
+    let {
+        examInProgress,
+        setCurrentIndex,
+        setExamInProgress,
+        setSeenQtns,
+        setUserAnswers,
+    } = useContext(ProgressContext)
     const router = useRouter()
+    const pathname = usePathname()
 
     function confirmExit(address) {
         confirmAlert({
@@ -54,14 +60,25 @@ export function Navbar() {
     }
 
     useEffect(() => {
-        if (examInProgress !== '') {
-            // console.log('DURING EXAM')
+        if (pathname.includes('exam') && examInProgress !== '') {
             setComingFromTest(true)
+            // console.log('DURING EXAM')
         } else {
-            // console.log('Exit EXAM')
+            console.log('Exit EXAM')
             setComingFromTest(false)
         }
-    }, [examInProgress])
+        if (
+            pathname === '/' &&
+            localStorage['allExamQtns'] &&
+            localStorage['userAnswers'] &&
+            localStorage['allQtns']
+        ) {
+            localStorage.removeItem('allExamQtns')
+            localStorage.removeItem('userAnswers')
+            localStorage.removeItem('allQtns')
+            setUserAnswers('')
+        }
+    }, [pathname, examInProgress])
 
     return (
         <nav className={styles.navbar}>
