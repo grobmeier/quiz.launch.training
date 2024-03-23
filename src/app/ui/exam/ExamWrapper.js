@@ -31,6 +31,7 @@ export function ExamWrapper() {
         setCurrentIndex,
         isTimerExpired,
         setIsTimerExpired,
+        setUserAnswers,
     } = useContext(ProgressContext)
 
     /**
@@ -61,8 +62,6 @@ export function ExamWrapper() {
         // Prepare the random qtns for each exam
         let randomizedJavaExam = shuffle(javaExam)
         let randomizedRestExam = shuffle(restExam)
-
-        // console.log(randomizedJavaExam)
 
         const firstJavaQtns = randomizedJavaExam.slice(0, maxQtnsPerExam)
         const allJavaQtns = firstJavaQtns.map((p) => p.id)
@@ -150,6 +149,7 @@ export function ExamWrapper() {
                 localStorage.setItem('userAnswers', userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('allQtns', JSON.stringify(allQtns))
+            setUserAnswers(userTmpAnswers)
         }
         if (examName === 'rest' && !persistedQtns) {
             let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
@@ -169,6 +169,7 @@ export function ExamWrapper() {
                 localStorage.setItem('userAnswers', userTmpAnswers)
             typeof window !== 'undefined' &&
                 localStorage.setItem('allQtns', JSON.stringify(allQtns))
+            setUserAnswers(userTmpAnswers)
         }
     }, [allQtns])
 

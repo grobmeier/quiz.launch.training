@@ -30,12 +30,14 @@ export function Question({ questionInfo }) {
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
         if (currentIndex < totalQtns - 1) {
+            console.log('Proper')
             localStorage.setItem(
                 'currentIndex',
                 JSON.stringify(currentIndex + 1),
             )
             // router.push(`/questions/${examInProgress}-${nextQtn}`)
         } else {
+            console.log('Wrong')
             localStorage.setItem('examTaken', JSON.stringify(1))
             setIsTaken(true)
             setCurrentIndex(0)
