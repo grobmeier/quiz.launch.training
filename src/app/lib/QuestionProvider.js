@@ -1,34 +1,23 @@
 'use client'
 
 import { createContext, useState, useEffect } from 'react'
-import { javaExam } from '../exams-data/java.js'
-import { restExam } from '../exams-data/rest.js'
-import { catalogue } from '../exams-data/catalogue.js'
-
-import { shuffle } from '../lib/Functions.js'
-import { usePathname } from 'next/navigation'
 
 /**
- * Note the dynamic array should be passed by the page / initial loading
- * of the question. TBD - temporary solution mimic the existing qtns for
- * inserting the answers. May come from database
+ * Note the dynamic array - userAnswers should be passed on the initial loading
+ * of the questions. The temporary solution mimics the existing qtns for
+ * inserting the answers.TBD May come from database
  */
 
 export const ProgressContext = createContext()
 
 export function QuestionProvider({ children }) {
-    const pathname = usePathname()
     const [currentIndex, setCurrentIndex] = useState(0)
     const [seenQtns, setSeenQtns] = useState(0)
     const [examInProgress, setExamInProgress] = useState('')
     const [isTaken, setIsTaken] = useState(false)
     // indicates in Result that the user arrived because time expired
     const [isTimerExpired, setIsTimerExpired] = useState(false)
-    const maxQtns = 30
-    let maxQtnsPerExam = 0
-
     const [allQtns, setAllQtns] = useState([])
-
     // The variable below is crucial - it holds the real answers at any given moment
     const [userAnswers, setUserAnswers] = useState('')
 
@@ -47,7 +36,6 @@ export function QuestionProvider({ children }) {
                     'currentExam',
                     JSON.stringify(examInProgress),
                 )
-            // provideInitialQtnsMatrix()
         }
     }, [examInProgress])
 
@@ -63,7 +51,7 @@ export function QuestionProvider({ children }) {
         localStorage['userAnswers'] && setUserAnswers(JSON.parse(qtnsAnswers))
         let persistedExam = localStorage.getItem('currentExam')
         setExamInProgress(JSON.parse(persistedExam))
-        // Sets the seen questions. Maximum index that has been reached
+        // Sets the seen questions. Maximum index/seen qtn that has been reached
         // to be utilized in Results area
         if (currentIndex + 1 > seenQtns) {
             setSeenQtns(currentIndex + 1)

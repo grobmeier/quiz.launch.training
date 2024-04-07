@@ -3,8 +3,8 @@ import { StartButton } from '@/app/ui/StartButton'
 import { Rating } from '@smastrom/react-rating'
 
 /**
- * This Component is responsible for all the logic for the exam.
- * Moving between the questions and viewing the final result
+ * This Component is responsible for displaying the exam details.
+ * By start button it launches exam.
  *
  */
 

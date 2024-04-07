@@ -9,7 +9,6 @@ import { ProgressContext } from '@/app/lib/QuestionProvider.js'
 import { useRouter, usePathname } from 'next/navigation'
 import { confirmAlert } from 'react-confirm-alert' // Import
 import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-// import Logo from './Logo'
 
 /**
  * Here the consideration to pick the approach with checking the @examInProgress in state
@@ -32,7 +31,6 @@ export function Navbar() {
 
     function confirmExit(address) {
         confirmAlert({
-            // title: 'Confirm to exit the test',
             message:
                 'Are you sure you want to do this? If you exit your progress will be wiped out!',
             buttons: [
@@ -62,9 +60,7 @@ export function Navbar() {
     useEffect(() => {
         if (pathname.includes('exam') && examInProgress !== '') {
             setComingFromTest(true)
-            // console.log('DURING EXAM')
         } else {
-            console.log('Exit EXAM')
             setComingFromTest(false)
         }
         if (
@@ -150,7 +146,6 @@ export function Navbar() {
                         </li>
                     )}
                 </div>
-                {/* <h1 className="logo">RS</h1> */}
             </div>
         </nav>
     )

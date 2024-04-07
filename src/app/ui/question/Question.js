@@ -7,7 +7,6 @@ import { MultiChoice } from '@/app/ui/question/MultiChoice'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import { useContext } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider.js'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 export function Question({ questionInfo }) {
@@ -15,41 +14,31 @@ export function Question({ questionInfo }) {
         questionInfo
     let { userAnswers, currentIndex, setCurrentIndex, setIsTaken } =
         useContext(ProgressContext)
-    // const router = useRouter()
 
     let totalQtns = userAnswers.length
-    // let previousQtn = userAnswers[currentIndex - 1]
-    // let nextQtn = userAnswers[currentIndex + 1]
 
     function handlePrevious() {
         if (currentIndex === 0) return
         setCurrentIndex(currentIndex - 1)
         localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
-        // router.push(`/questions/${examInProgress}-${previousQtn}`)
     }
     function handleNext() {
         setCurrentIndex(currentIndex + 1)
         if (currentIndex < totalQtns - 1) {
-            console.log('Proper')
             localStorage.setItem(
                 'currentIndex',
                 JSON.stringify(currentIndex + 1),
             )
-            // router.push(`/questions/${examInProgress}-${nextQtn}`)
         } else {
-            console.log('Wrong')
             localStorage.setItem('examTaken', JSON.stringify(1))
             setIsTaken(true)
             setCurrentIndex(0)
             localStorage.removeItem('end_date')
-            // router.push('/results')
         }
     }
 
     return (
         <main className={styles.main}>
-            {/* <h5>Index: {currentIndex}</h5>
-            <h5>Multichoice: {correctAnswers.toString()}</h5> */}
             <Topbar />
             {type === 'code' && (
                 <div className={styles.codeContainer}>
@@ -57,9 +46,7 @@ export function Question({ questionInfo }) {
                         text={content}
                         language={language}
                         showLineNumbers="true"
-                        // wrapLines
                         theme={dracula}
-                        // codeBlock={true}
                     />
                 </div>
             )}

@@ -3,7 +3,7 @@ import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 
 export function SingleOption({ answers, id }) {
-    let { currentIndex, userAnswers, examInProgress, setUserAnswers } =
+    let { currentIndex, userAnswers, setUserAnswers } =
         useContext(ProgressContext)
 
     let currentCalculatedPoints = '0'
@@ -17,7 +17,6 @@ export function SingleOption({ answers, id }) {
     useEffect(() => {
         const progress = localStorage.getItem('userAnswers')
         const progressParsed = progress && JSON.parse(progress)
-        // console.log('parsed', progressParsed)
         if (
             progressParsed &&
             progressParsed[currentIndex] &&
@@ -29,8 +28,6 @@ export function SingleOption({ answers, id }) {
 
     function handleClick(event, item) {
         event.preventDefault()
-        // console.log('intial selected', userAnswers)
-
         setClicked(!clicked)
 
         if (currentSelected.includes(item.text)) {
@@ -46,7 +43,6 @@ export function SingleOption({ answers, id }) {
             } else {
                 currentCalculatedPoints = '0'
             }
-            // console.log(`New single option: ${currentSelected}`)
             setCurrentSelected(currentSelected)
         }
 

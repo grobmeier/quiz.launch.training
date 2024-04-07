@@ -1,11 +1,9 @@
 'use client'
 import styles from './StartButton.module.scss'
-import { useRouter } from 'next/navigation'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { useContext, useEffect } from 'react'
 
 export function StartButton({ children, examName }) {
-    const router = useRouter()
     let { setExamInProgress, setIsTaken } = useContext(ProgressContext)
 
     function handleStart() {
