@@ -13,7 +13,7 @@ import { TryAgainButton } from '@/app/ui/TryAgainButton'
 import { DoneButton } from '@/app/ui/DoneButton'
 import { useContext, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { shuffle, searchMatchingIds } from '@/app/lib/Functions.js'
+import { shuffleQtns, setLocalStoragePerExam } from '@/app/lib/Functions.js'
 
 /**
  * This Component is responsible for all the logic for the exam.
@@ -52,33 +52,24 @@ export function ExamWrapper() {
     }
 
     const [allExamQtns, setAllExamQtns] = useState([])
-    let userTmpAnswers = ''
 
     function provideInitialQtnsMatrix() {
-        // Load all exams questions
+        // Load all exam info
         let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
         maxQtnsPerExam = examToCheck[0].maxQuestions
 
-        // Prepare the random qtns for each exam
-        let randomizedJavaExam = shuffle(javaExam)
-        let randomizedRestExam = shuffle(restExam)
-
-        const firstJavaQtns = randomizedJavaExam.slice(0, maxQtnsPerExam)
-        const allJavaQtns = firstJavaQtns.map((p) => p.id)
-
-        const firstRestQtns = randomizedRestExam.slice(0, maxQtnsPerExam)
-        const allRestQtns = firstRestQtns.map((p) => p.id)
-
         /**
          * Load all Qtsn and matrix of the calculated answers based on the currentExam
-         * value (Java / HTML) into localstorage.
+         * value (Java / HTML) into pathname.
          * */
 
         if (examName === 'java') {
-            setAllQtns(allJavaQtns)
+            const qtnsIds = shuffleQtns(javaExam, maxQtnsPerExam)
+            setAllQtns(qtnsIds)
         }
         if (examName === 'rest') {
-            setAllQtns(allRestQtns)
+            const qtnsIds = shuffleQtns(restExam, maxQtnsPerExam)
+            setAllQtns(qtnsIds)
         }
     }
 
@@ -132,43 +123,19 @@ export function ExamWrapper() {
             setAllExamQtns(JSON.parse(persistedAllExamQtns))
         }
         if (examName === 'java' && !persistedQtns) {
-            let tmpAllExamQtns = searchMatchingIds(javaExam, allQtns)
+            const { tmpAllExamQtns, userTmpAnswers } = setLocalStoragePerExam(
+                javaExam,
+                allQtns,
+            )
             setAllExamQtns(tmpAllExamQtns)
-            typeof window !== 'undefined' &&
-                localStorage.setItem(
-                    'allExamQtns',
-                    JSON.stringify(tmpAllExamQtns),
-                )
-            const javaTmpAnswers = allQtns.map((id) => ({
-                id: id,
-                calculatedPoints: 0,
-                answered: [],
-            }))
-            userTmpAnswers = JSON.stringify(javaTmpAnswers)
-            typeof window !== 'undefined' &&
-                localStorage.setItem('userAnswers', userTmpAnswers)
-            typeof window !== 'undefined' &&
-                localStorage.setItem('allQtns', JSON.stringify(allQtns))
             setUserAnswers(userTmpAnswers)
         }
         if (examName === 'rest' && !persistedQtns) {
-            let tmpAllExamQtns = searchMatchingIds(restExam, allQtns)
+            const { tmpAllExamQtns, userTmpAnswers } = setLocalStoragePerExam(
+                restExam,
+                allQtns,
+            )
             setAllExamQtns(tmpAllExamQtns)
-            typeof window !== 'undefined' &&
-                localStorage.setItem(
-                    'allExamQtns',
-                    JSON.stringify(tmpAllExamQtns),
-                )
-            const restTmpAnswers = allQtns.map((id) => ({
-                id: id,
-                calculatedPoints: 0,
-                answered: [],
-            }))
-            userTmpAnswers = JSON.stringify(restTmpAnswers)
-            typeof window !== 'undefined' &&
-                localStorage.setItem('userAnswers', userTmpAnswers)
-            typeof window !== 'undefined' &&
-                localStorage.setItem('allQtns', JSON.stringify(allQtns))
             setUserAnswers(userTmpAnswers)
         }
     }, [allQtns])

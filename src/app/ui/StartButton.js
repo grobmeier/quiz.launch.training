@@ -1,7 +1,7 @@
 'use client'
 import styles from './StartButton.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 
 export function StartButton({ children, examName }) {
     let { setExamInProgress, setIsTaken } = useContext(ProgressContext)
