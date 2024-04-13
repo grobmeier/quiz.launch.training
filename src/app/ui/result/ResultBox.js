@@ -1,9 +1,8 @@
 'use client'
 
 /**
- * Note the dynamic array should be passed by the page / initial loading
- * of the question. TBD - temporary solution mimic the existing qtns for
- * inserting the answers
+ * Note the userAnswers array should be passed in order to calculate
+ * correct and wrong answers.
  */
 
 import styles from './Result.module.scss'
@@ -12,7 +11,7 @@ import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { AllAnswers } from '@/app/ui/result/AllAnswers'
 
 export function ResultBox() {
-    let { allQtns, userAnswers } = useContext(ProgressContext)
+    let { allQtns } = useContext(ProgressContext)
 
     const tmpUsers =
         typeof window !== 'undefined' && localStorage.getItem('userAnswers')
@@ -25,13 +24,9 @@ export function ResultBox() {
         setIsClient(true)
     }, [])
 
-    // console.log('answers', userAnswers)
-
     let correctAnswers = 0
     let incorrectAnswers = 0
     let noAnswer = 0
-
-    // console.log(userAnswers)
 
     Array.isArray(tmpUserAnswers) &&
         tmpUserAnswers.map((qtn) => {

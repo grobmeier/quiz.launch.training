@@ -37,18 +37,20 @@ export function MultiChoice({ answers, options, id }) {
         let optionToCheck = currentSelected.indexOf(item.text)
         if (optionToCheck === -1) {
             currentSelected.push(item.text)
-            if (item.correct && userAnswers[currentIndex]) {
-                userAnswers[currentIndex].calculatedPoints = (
-                    parseFloat(userAnswers[currentIndex].calculatedPoints) +
-                    parseFloat(calculateAnswerWeight)
+            if (item.correct && tmpUsersFormatted[currentIndex]) {
+                tmpUsersFormatted[currentIndex].calculatedPoints = (
+                    parseFloat(
+                        tmpUsersFormatted[currentIndex].calculatedPoints,
+                    ) + parseFloat(calculateAnswerWeight)
                 ).toFixed(2)
             }
             setCurrentSelected(currentSelected)
         } else {
             if (item.correct) {
-                userAnswers[currentIndex].calculatedPoints = (
-                    parseFloat(userAnswers[currentIndex].calculatedPoints) -
-                    parseFloat(calculateAnswerWeight)
+                tmpUsersFormatted[currentIndex].calculatedPoints = (
+                    parseFloat(
+                        tmpUsersFormatted[currentIndex].calculatedPoints,
+                    ) - parseFloat(calculateAnswerWeight)
                 ).toFixed(2)
             }
             currentSelected.splice(optionToCheck, 1)

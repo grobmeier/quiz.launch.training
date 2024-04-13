@@ -7,39 +7,20 @@
 import { useContext } from 'react'
 import styles from './AllAnswers.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { javaExam } from '../../exams-data/java.js'
-import { restExam } from '../../exams-data/rest.js'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
 
 export function AllAnswers() {
-    let { examInProgress, isTimerExpired, seenQtns } =
-        useContext(ProgressContext)
+    let { isTimerExpired, seenQtns } = useContext(ProgressContext)
 
-    let allQtnsFromStorage =
-        typeof window !== 'undefined' && JSON.parse(localStorage['allQtns'])
-
-    let takenQtns = []
+    let takenQtns =
+        typeof window !== 'undefined' && JSON.parse(localStorage['allExamQtns'])
     let maxReachedQtns = []
-
-    // Have to check current exam to see which are the questions evaluated
-
-    if (examInProgress === 'java') {
-        takenQtns = allQtnsFromStorage
-            .map((el) => javaExam.find((item) => item.id === el) || {})
-            .filter(Boolean)
-    }
-    if (examInProgress === 'rest') {
-        takenQtns = allQtnsFromStorage
-            .map((el) => restExam.find((item) => item.id === el) || {})
-            .filter(Boolean)
-    }
 
     let userAnswers =
         localStorage['userAnswers'] &&
         JSON.parse(localStorage.getItem('userAnswers'))
-    // console.log(userAnswers)
 
     // Coming from timer expired
     if (isTimerExpired) {
@@ -52,7 +33,7 @@ export function AllAnswers() {
 
     return (
         <main className={styles.main}>
-            {takenQtns.map((item, index) => (
+            {takenQtns.map((item) => (
                 <div key={item.id} className={styles.answerContainer}>
                     <h3 className={styles.qtnHeading}>
                         Question {indexOfQtn(item)}
@@ -63,9 +44,7 @@ export function AllAnswers() {
                                 text={item.content}
                                 language={item.language}
                                 showLineNumbers="true"
-                                // wrapLines
                                 theme={dracula}
-                                // codeBlock={true}
                             />
                         </div>
                     )}

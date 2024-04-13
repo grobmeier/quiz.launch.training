@@ -1,5 +1,5 @@
 import styles from './ResultOption.module.scss'
-import { useEffect, useContext, useState, Fragment } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 
 export function ResultOption({ answers, id }) {
     const [allAnswers, setAllAnswers] = useState([])
