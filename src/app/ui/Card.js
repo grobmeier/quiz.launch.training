@@ -8,14 +8,7 @@ export function Card({ icon, link, title, text }) {
         <Link href={`/${link}`}>
             <div className={styles.card}>
                 <div className={styles.container}>
-                    <Image
-                        src={icon}
-                        alt=""
-                        // className={styles.vercelLogo}
-                        width={64}
-                        height={64}
-                        priority
-                    />
+                    <Image src={icon} alt="" width={64} height={64} priority />
                     <div>
                         <h4>
                             <b>{title}</b>

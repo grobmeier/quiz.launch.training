@@ -5,7 +5,6 @@ import { Rating } from '@smastrom/react-rating'
 /**
  * This Component is responsible for displaying the exam details.
  * By start button it launches exam.
- *
  */
 
 export function ExamMainScreen({ title, rating, exam, fullDescription }) {

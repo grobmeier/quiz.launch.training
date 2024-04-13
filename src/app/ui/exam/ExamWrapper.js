@@ -18,7 +18,6 @@ import { shuffleQtns, setLocalStoragePerExam } from '@/app/lib/Functions.js'
 /**
  * This Component is responsible for all the logic for the exam.
  * Moving between the questions and viewing the final result.
- *
  */
 
 export function ExamWrapper() {

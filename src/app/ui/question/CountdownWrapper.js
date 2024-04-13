@@ -10,7 +10,7 @@ export const CountdownWrapper = () => {
         useContext(ProgressContext)
 
     // Renderer callback with condition
-    const renderer = ({ hours, minutes, seconds, completed }) => {
+    const renderer = ({ minutes, seconds, completed }) => {
         if (completed) {
             // Render a complete state
             localStorage.setItem('examTaken', JSON.stringify(1))

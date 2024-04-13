@@ -52,7 +52,7 @@ export function shuffleQtns(exam, maxQtns) {
 }
 
 /**
- * Sets the localstorage - allExamQtns,userAnswers and allQtns, based
+ * Sets the localstorage - allExamQtns, userAnswers and allQtns, based
  * on the randomized IDs of the questions and allQtns, coming from state
  * @param exam Current Exam, with all the data
  * @param allQtns Randomized IDs of the current exam, from state

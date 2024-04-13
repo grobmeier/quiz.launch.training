@@ -1,6 +1,7 @@
 import styles from './SingleOption.module.scss'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
+import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
 
 export function SingleOption({ answers, id }) {
     let { currentIndex, userAnswers, setUserAnswers } =
@@ -61,8 +62,6 @@ export function SingleOption({ answers, id }) {
         setUserAnswers(temp)
     }
 
-    const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']
-
     return (
         <>
             {answers.map((item, index) => (
@@ -76,7 +75,7 @@ export function SingleOption({ answers, id }) {
                             : ''
                     }`}
                 >
-                    <span>{indexToCharacter[index]}</span>
+                    <span>{INDEX_TO_CHARACTER[index]}</span>
                     <span>{item.text}</span>
                 </button>
             ))}

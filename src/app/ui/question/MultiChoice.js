@@ -1,6 +1,7 @@
 import styles from './MultiChoice.module.scss'
 import { useContext, useState, useEffect } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
+import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
 
 export function MultiChoice({ answers, options, id }) {
     let { currentIndex, userAnswers, examInProgress, setUserAnswers, allQtns } =
@@ -70,8 +71,6 @@ export function MultiChoice({ answers, options, id }) {
         setUserAnswers(temp)
     }
 
-    const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']
-
     return (
         <>
             <span>You may pick {maxSelects} answers</span>
@@ -86,7 +85,7 @@ export function MultiChoice({ answers, options, id }) {
                             : ''
                     }`}
                 >
-                    <span>{indexToCharacter[index]}</span>
+                    <span>{INDEX_TO_CHARACTER[index]}</span>
                     <span>{item.text}</span>
                 </button>
             ))}

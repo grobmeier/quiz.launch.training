@@ -1,10 +1,9 @@
 import styles from './ResultOption.module.scss'
 import { useEffect, useState, Fragment } from 'react'
+import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
 
 export function ResultOption({ answers, id }) {
     const [allAnswers, setAllAnswers] = useState([])
-
-    const indexToCharacter = ['A', 'B', 'C', 'D', 'E', 'F']
 
     useEffect(() => {
         let qtnsAnswers = localStorage.getItem('userAnswers')
@@ -27,7 +26,7 @@ export function ResultOption({ answers, id }) {
                                 : ''
                         }`}
                     >
-                        <span>{indexToCharacter[index]}</span>
+                        <span>{INDEX_TO_CHARACTER[index]}</span>
                         <span>{item.text}</span>
                     </button>
                     {isAnswered &&
