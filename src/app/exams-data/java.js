@@ -1,4 +1,4 @@
-export const javaExam = [
+const exam = [
     {
         id: '1',
         difficulty: 1,
@@ -509,3 +509,5 @@ export const javaExam = [
             'Multi-dimensional arrays in Java are indeed arrays of arrays, and each sub-array can have different lengths (thus, they can be non-rectangular). Accessing elements requires multiple indices, one for each dimension of the array.',
     },
 ]
+
+export default exam;

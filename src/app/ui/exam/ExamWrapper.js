@@ -1,8 +1,6 @@
 'use client'
 
 import styles from './exam.module.scss'
-import { javaExam } from '../../exams-data/java.js'
-import { restExam } from '../../exams-data/rest.js'
 import { catalogue } from '../../exams-data/catalogue.js'
 import { ExamMainScreen } from '@/app/ui/exam/ExamMainScreen'
 import React, { useState } from 'react'
@@ -37,40 +35,30 @@ export function ExamWrapper() {
      * Initalization happens here and allQtns is passed to the Provider.
      * That guarantees that the Parent Component has the data on initial load.
      */
-
     const pathname = usePathname()
-    let maxQtnsPerExam = 0
 
-    let examName = ''
-
-    if (pathname.includes('java')) {
-        examName = 'java'
+    let examName = '';
+    const match = pathname.match(/\/([a-zA-Z0-9-]+)\/$/);
+    if (match) {
+        examName = match[1];
+    } else {
+        examName = 'java-arrays';
     }
-    if (pathname.includes('rest')) {
-        examName = 'rest'
-    }
-
+   
     const [allExamQtns, setAllExamQtns] = useState([])
+    const [exam, setExam] = useState(null);
 
-    function provideInitialQtnsMatrix() {
-        // Load all exam info
-        let examToCheck = catalogue.filter((i) => i.exam.includes(examName))
-        maxQtnsPerExam = examToCheck[0].maxQuestions
-
-        /**
-         * Load all Qtsn and matrix of the calculated answers based on the currentExam
-         * value (Java / HTML) into pathname.
-         * */
-
-        if (examName === 'java') {
-            const qtnsIds = shuffleQtns(javaExam, maxQtnsPerExam)
-            setAllQtns(qtnsIds)
-        }
-        if (examName === 'rest') {
-            const qtnsIds = shuffleQtns(restExam, maxQtnsPerExam)
-            setAllQtns(qtnsIds)
-        }
-    }
+    useEffect(() => {
+        const fetchExams = async () => {
+            try {
+                let examModule = await import(`../../exams-data/${examName}.js`);
+                setExam(examModule.default);            
+            } catch (error) {
+                console.error('Error fetching the exam file:', error);
+            }
+        };
+        fetchExams();
+    }, [examName]);
 
     const filteredExam = catalogue.filter((item) => item.exam === examName)
 
@@ -79,6 +67,21 @@ export function ExamWrapper() {
      */
 
     useEffect(() => {
+        function provideInitialQtnsMatrix() {
+            // Load all exam info
+            let examToCheck = catalogue.filter((i) => i.exam.includes(examName));
+            let maxQtnsPerExam = examToCheck[0].maxQuestions;
+    
+            /**
+             * Load all Qtsn and matrix of the calculated answers based on the currentExam
+             * value (Java / HTML) into pathname.
+             * */
+            if (exam) {
+                const qtnsIds = shuffleQtns(exam, maxQtnsPerExam);
+                setAllQtns(qtnsIds);
+            }
+        }
+    
         // Check if AllQtns are present, that is the trigger to provide inital values for localstorage
         let persistedQtns =
             typeof window !== 'undefined' &&
@@ -87,25 +90,24 @@ export function ExamWrapper() {
         if (!persistedQtns) {
             provideInitialQtnsMatrix()
         }
-    }, [isTaken])
+    }, [exam, examName, setAllQtns, isTaken])
 
     useEffect(() => {
         // Check if there is exam in progress, if one is found in the localstorage no effect
         let persistedExam =
             localStorage['currentExam'] &&
-            JSON.parse(localStorage.getItem('currentExam'))
+            JSON.parse(localStorage.getItem('currentExam'));
+
         if (persistedExam !== '') {
             return
         }
-        typeof window !== 'undefined' &&
-            localStorage.setItem('currentIndex', JSON.stringify(0))
-        typeof window !== 'undefined' &&
-            localStorage.setItem('examTaken', JSON.stringify(0))
-        setIsTimerExpired(false)
-        setCurrentIndex(0)
-    }, [examInProgress])
+        typeof window !== 'undefined' && localStorage.setItem('currentIndex', JSON.stringify(0));
+        typeof window !== 'undefined' && localStorage.setItem('examTaken', JSON.stringify(0));
+        setIsTimerExpired(false);
+        setCurrentIndex(0);
+    }, [setCurrentIndex, setIsTimerExpired, examInProgress]);
 
-    const [isClient, setIsClient] = useState(false)
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         /**
@@ -117,27 +119,17 @@ export function ExamWrapper() {
             JSON.parse(localStorage.getItem('currentExam')) !== ''
         // During the exam allExamQtns is kept in localstorage. Values are taken from there
         if (persistedQtns) {
-            let persistedAllExamQtns =
-                typeof window !== 'undefined' && localStorage['allExamQtns']
+            let persistedAllExamQtns = typeof window !== 'undefined' && localStorage['allExamQtns']
+            console.log(persistedAllExamQtns);
             setAllExamQtns(JSON.parse(persistedAllExamQtns))
         }
-        if (examName === 'java' && !persistedQtns) {
-            const { tmpAllExamQtns, userTmpAnswers } = setLocalStoragePerExam(
-                javaExam,
-                allQtns,
-            )
-            setAllExamQtns(tmpAllExamQtns)
-            setUserAnswers(userTmpAnswers)
+
+        if (!persistedQtns) {
+            const { tmpAllExamQtns, userTmpAnswers } = setLocalStoragePerExam(exam, allQtns);
+            setAllExamQtns(tmpAllExamQtns);
+            setUserAnswers(userTmpAnswers);
         }
-        if (examName === 'rest' && !persistedQtns) {
-            const { tmpAllExamQtns, userTmpAnswers } = setLocalStoragePerExam(
-                restExam,
-                allQtns,
-            )
-            setAllExamQtns(tmpAllExamQtns)
-            setUserAnswers(userTmpAnswers)
-        }
-    }, [allQtns])
+    }, [exam, setUserAnswers, allQtns])
 
     useEffect(() => {
         setIsClient(true)
@@ -172,6 +164,7 @@ export function ExamWrapper() {
                 </main>
             )
         }
+
         return (
             <main className={styles.main}>
                 {!isClient | !allExamQtns ? (

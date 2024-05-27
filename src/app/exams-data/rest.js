@@ -1,4 +1,4 @@
-export const restExam = [
+const questions = [
     {
         id: '1',
         difficulty: 2,
@@ -737,3 +737,5 @@ export const restExam = [
             'API versioning is critical for introducing new features or making changes that could break backward compatibility, allowing developers to evolve the API without affecting existing clients. It also supports parallel development.',
     },
 ]
+
+export default questions;

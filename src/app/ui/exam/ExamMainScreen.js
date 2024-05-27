@@ -10,7 +10,7 @@ import { Rating } from '@smastrom/react-rating'
 export function ExamMainScreen({ title, rating, exam, fullDescription }) {
     return (
         <main className={styles.main}>
-            <h1> {title}</h1>
+            <h1>{title}</h1>
             <div className={styles.topArea}>
                 <div>Difficulty: </div>
                 <div>
