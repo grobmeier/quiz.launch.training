@@ -9,13 +9,12 @@ import styles from './Result.module.scss'
 import { useEffect, useContext, useState } from 'react'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { AllAnswers } from '@/app/ui/result/AllAnswers'
+import { Storage, read, put, remove } from '@/app/lib/Storage.js'
 
 export function ResultBox() {
     let { allQtns } = useContext(ProgressContext)
 
-    const tmpUsers =
-        typeof window !== 'undefined' && localStorage.getItem('userAnswers')
-    const tmpUserAnswers = tmpUsers && JSON.parse(tmpUsers)
+    const tmpUserAnswers = read(Storage.USER_ANSWERS);
 
     const [showResult, setShowResult] = useState(false)
     const [isClient, setIsClient] = useState(false)

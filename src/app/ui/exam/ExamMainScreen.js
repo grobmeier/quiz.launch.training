@@ -23,7 +23,7 @@ export function ExamMainScreen({ title, rating, exam, fullDescription }) {
                 </div>
             </div>
             <div className={styles.examBox}>{fullDescription}</div>
-            <StartButton examName={exam}> Start </StartButton>
+            <StartButton examName={exam}>Start</StartButton>
         </main>
     )
 }

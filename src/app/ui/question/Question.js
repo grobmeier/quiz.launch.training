@@ -1,43 +1,66 @@
 'use client'
 
-import styles from './Question.module.scss'
-import { Topbar } from '@/app/ui/question/Topbar'
-import { SingleOption } from '@/app/ui/question/SingleOption'
-import { MultiChoice } from '@/app/ui/question/MultiChoice'
-import { CodeBlock, dracula } from 'react-code-blocks'
-import { useContext } from 'react'
-import { ProgressContext } from '@/app/lib/QuestionProvider.js'
-import Image from 'next/image'
+import styles from './Question.module.scss';
+import { Topbar } from '@/app/ui/question/Topbar';
+import { SingleOption } from '@/app/ui/question/SingleOption';
+import { MultiChoice } from '@/app/ui/question/MultiChoice';
+import { CodeBlock, dracula } from 'react-code-blocks';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
 
-export function Question({ questionInfo }) {
-    const { id, content, language, text, answers, type, correctAnswers } =
-        questionInfo
-    let { userAnswers, currentIndex, setCurrentIndex, setIsTaken } =
-        useContext(ProgressContext)
+export function Question() {
+    let [question, setQuestion] = useState(null);
 
-    let totalQtns = userAnswers.length
+    function loadQuestion() {
+        let questions = readJSON(Storage.EXAM_QUESTIONS);
+        let currentIndex = readJSON(Storage.CURRENT_INDEX);
+        setQuestion(questions[currentIndex]);
+    }    
 
     function handlePrevious() {
-        if (currentIndex === 0) return
-        setCurrentIndex(currentIndex - 1)
-        localStorage.setItem('currentIndex', JSON.stringify(currentIndex - 1))
-    }
-    function handleNext() {
-        setCurrentIndex(currentIndex + 1)
-        if (currentIndex < totalQtns - 1) {
-            localStorage.setItem(
-                'currentIndex',
-                JSON.stringify(currentIndex + 1),
-            )
-        } else {
-            localStorage.setItem('examTaken', JSON.stringify(1))
-            setIsTaken(true)
-            setCurrentIndex(0)
-            localStorage.removeItem('end_date')
+        let currentIndex = readJSON(Storage.CURRENT_INDEX);
+        if (currentIndex === 0) {
+            return;
         }
+        put(Storage.CURRENT_INDEX, currentIndex - 1);
+        loadQuestion();
     }
 
+    function handleNext() {
+        let currentIndex = readJSON(Storage.CURRENT_INDEX);
+
+        currentIndex = currentIndex + 1;
+
+        if (currentIndex < totalQuestions) {
+            put(Storage.CURRENT_INDEX, currentIndex);
+        } else {
+            put(Storage.EXAM_TAKEN, 1);
+            put(Storage.CURRENT_INDEX, 0);
+            remove(Storage.END_DATE);
+        }
+        
+        loadQuestion();
+    }
+
+    useEffect(() => {
+        // TODO: reuse the function loadQuestion?
+        console.log("useEffect called")
+        let questions = readJSON(Storage.EXAM_QUESTIONS);
+        let currentIndex = readJSON(Storage.CURRENT_INDEX);
+        setQuestion(questions[currentIndex]);
+    }, []);
+
+    if (!question) {
+        return <p>Loading...</p>;
+    }
+
+    const { id, content, language, text, answers, type, correctAnswers } = question;
+    
+    let totalQuestions = readJSON(Storage.USER_ANSWERS).length
+
     return (
+
         <main className={styles.main}>
             <Topbar />
             {type === 'code' && (
@@ -76,14 +99,13 @@ export function Question({ questionInfo }) {
                     <button
                         className={styles.prevBtn}
                         onClick={handlePrevious}
-                        disabled={currentIndex === 0 ? true : false}
-                    >
-                        PREV
+                        disabled={read(Storage.CURRENT_INDEX) === 0 ? true : false}>
+                        Previous
                     </button>
                 </div>
                 <div>
                     <button className={styles.nextBtn} onClick={handleNext}>
-                        NEXT
+                        Next
                     </button>
                 </div>
             </div>

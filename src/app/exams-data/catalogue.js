@@ -9,7 +9,7 @@ export const catalogue = [
         fullDescription: `Arrays are low-level, but you need to know them very well. 
         Looping, indexing and all that are crucial for your Java skills. With that knowledge, you can make better
         decisions if you should use ArrayList or LinkedList.`,
-        maxQuestions: 10,
+        maxQuestions: 2,
     },
     {
         exam: 'rest',

@@ -1,30 +1,18 @@
 import styles from './Topbar.module.scss'
-import { useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import { ProgressContext } from '@/app/lib/QuestionProvider.js'
-import { useState, useEffect } from 'react'
 import { CountdownWrapper } from '@/app/ui/question/CountdownWrapper'
+import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
 
 export function Topbar() {
     const router = useRouter()
-    const [isClient, setIsClient] = useState(false)
-    let { currentIndex, setCurrentIndex, setExamInProgress, setSeenQtns } =
-        useContext(ProgressContext)
 
-    let allCurrentQtns = JSON.parse(localStorage.getItem('allQtns'))
-    let totalQtns = allCurrentQtns && allCurrentQtns.length
+    let currentIndex = readJSON(Storage.CURRENT_INDEX);
+    let totalQuestions = readJSON(Storage.USER_ANSWERS).length;
 
     function handleCancel() {
-        setCurrentIndex(0)
-        setSeenQtns(0)
-        setExamInProgress('')
-        localStorage.clear()
-        router.push('/')
+        localStorage.clear();
+        router.push('/');
     }
-
-    useEffect(() => {
-        setIsClient(true)
-    }, [])
 
     return (
         <div className={styles.container}>
@@ -34,8 +22,8 @@ export function Topbar() {
             <span>
                 <strong>
                     <p>
-                        {isClient ? currentIndex + 1 : 0} of{' '}
-                        {isClient ? totalQtns : 0}
+                        {true ? currentIndex + 1 : 0} of{' '}
+                        {true ? totalQuestions : 0}
                     </p>
                 </strong>
             </span>
