@@ -56,7 +56,7 @@ export function QuestionProvider({ children }) {
         if (currentIndex + 1 > seenQtns) {
             setSeenQtns(currentIndex + 1)
         }
-    }, [currentIndex])
+    }, [currentIndex, seenQtns])
 
     return (
         <ProgressContext.Provider
