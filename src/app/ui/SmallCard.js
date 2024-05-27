@@ -11,24 +11,27 @@ export function SmallCard({ link, title, text, rating, duration, level }) {
             <div className={styles.container}>
                 <div>
                     <Link href={link}>
-                        <h4>
-                            <b>{title}</b>
-                        </h4>
+                        <h4>{title}</h4>
                     </Link>
 
+                    {/*
                     <Rating
                         style={{ maxWidth: 100 }}
                         className={styles.stars}
                         value={rating}
                         readOnly
                     />
+                    */}
                     <Link href={link}>
-                        <span>{duration} min</span>
+                        <span>{duration}m</span>
                     </Link>
+                    {/*
                     <Link href={link}>
-                        <span className={styles.level}> {level} </span>
+                        <span className={styles.level}>{level}</span>
                     </Link>
-                    <p> {text}</p>
+                    */}
+
+                    <p>{text}</p>
                     <div className={styles.containerBtn}>
                         <Button link={link}>More</Button>
                     </div>
