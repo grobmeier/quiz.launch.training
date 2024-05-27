@@ -74,7 +74,7 @@ export function Navbar() {
             localStorage.removeItem('allQtns')
             setUserAnswers('')
         }
-    }, [pathname, examInProgress])
+    }, [pathname, examInProgress, setUserAnswers])
 
     return (
         <nav className={styles.navbar}>
