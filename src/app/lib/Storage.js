@@ -7,7 +7,7 @@ export const Storage = {
 }
 
 export function read(key) {
-    return localStorage.getItem(key);
+    return typeof window !== "undefined" && localStorage.getItem(key);
 }
 
 export function readJSON(key) {
@@ -16,9 +16,9 @@ export function readJSON(key) {
 
 export function put(key, value) {
     if (typeof value === 'object') value = JSON.stringify(value);
-    return localStorage.setItem(key, value);
+    return typeof window !== "undefined" && localStorage.setItem(key, value);
 }
 
 export function remove(key) {
-    return localStorage.removeItem(key);
+    return typeof window !== "undefined" && localStorage.removeItem(key);
 }
