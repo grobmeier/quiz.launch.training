@@ -1,19 +1,16 @@
 import styles from './ResultOption.module.scss'
-import { useEffect, useState, Fragment } from 'react'
+import { Fragment } from 'react'
 import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
+import { Storage, readJSON } from '@/app/lib/Storage.js'
 
 export function ResultOption({ answers, id }) {
-    const [allAnswers, setAllAnswers] = useState([])
-
-    useEffect(() => {
-        let qtnsAnswers = localStorage.getItem('userAnswers')
-        setAllAnswers(JSON.parse(qtnsAnswers))
-    }, [])
-
+ 
+    let userAnswers = readJSON(Storage.USER_ANSWERS);
     const isAnswered =
-        allAnswers[id] &&
-        allAnswers[id].answered !== undefined &&
-        allAnswers[id].answered
+        userAnswers[id] &&
+        userAnswers[id].answered !== undefined &&
+        userAnswers[id].answered;
+
     return (
         <>
             {answers.map((item, index) => (
@@ -24,18 +21,21 @@ export function ResultOption({ answers, id }) {
                             isAnswered && isAnswered.includes(item.text)
                                 ? styles.selectedBtn
                                 : ''
-                        }`}
-                    >
+                        }`}>
+                        {
+                            item.correct && (
+                            <span><small>Correct: </small></span>
+                        )}
+                         {isAnswered &&
+                        isAnswered.includes(item.text) &&
+                        !item.correct && (
+                            <span>
+                                <small>Wrong :-(</small>
+                            </span>
+                        )}
                         <span>{INDEX_TO_CHARACTER[index]}</span>
                         <span>{item.text}</span>
                     </button>
-                    {isAnswered &&
-                        isAnswered.includes(item.text) &&
-                        item.correct && (
-                            <span>
-                                <small>Right Answer</small>
-                            </span>
-                        )}
                 </Fragment>
             ))}
         </>

@@ -1,42 +1,25 @@
 'use client'
 
-/**
- * Checking the answers by ID so that in the future this is dynamic
- */
-
-import { useContext } from 'react'
 import styles from './AllAnswers.module.scss'
-import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { CodeBlock, dracula } from 'react-code-blocks'
 import Image from 'next/image'
 import { ResultOption } from '@/app/ui/result/ResultOption'
+import { Storage, read, readJSON, put } from '@/app/lib/Storage.js'
 
 export function AllAnswers() {
-    let { isTimerExpired, seenQtns } = useContext(ProgressContext)
 
-    let takenQtns =
-        typeof window !== 'undefined' && JSON.parse(localStorage['allExamQtns'])
-    let maxReachedQtns = []
+    let examQuestions = readJSON(Storage.EXAM_QUESTIONS);
+    let userAnswers = readJSON(Storage.USER_ANSWERS);
 
-    let userAnswers =
-        localStorage['userAnswers'] &&
-        JSON.parse(localStorage.getItem('userAnswers'))
-
-    // Coming from timer expired
-    if (isTimerExpired) {
-        maxReachedQtns = takenQtns.slice(0, seenQtns)
-        takenQtns = maxReachedQtns
-    }
-
-    // Check which Qtn number corresponds to the answered qtn
-    const indexOfQtn = (el) => userAnswers.findIndex((x) => x.id === el.id) + 1
+    // Check which question number corresponds to the answered question
+    const questionIndex = (el) => userAnswers.findIndex((x) => x.id === el.id) + 1
 
     return (
         <main className={styles.main}>
-            {takenQtns.map((item) => (
+            {examQuestions.map((item) => (
                 <div key={item.id} className={styles.answerContainer}>
                     <h3 className={styles.qtnHeading}>
-                        Question {indexOfQtn(item)}
+                        Question {questionIndex(item)}
                     </h3>
                     {item.type === 'code' && (
                         <div className={styles.codeContainer}>
@@ -49,12 +32,7 @@ export function AllAnswers() {
                         </div>
                     )}
                     {item.type === 'image' && (
-                        <Image
-                            src={item.content}
-                            width={680}
-                            height={340}
-                            alt=""
-                        />
+                        <Image src={item.content} width={680} height={340} alt="" />
                     )}
                     {item.type === 'text' && (
                         <p className={styles.text}>{item.content}</p>
@@ -62,7 +40,7 @@ export function AllAnswers() {
                     <h3 className={styles.text}>{item.text}</h3>
                     <ResultOption
                         answers={item.answers}
-                        id={indexOfQtn(item) - 1}
+                        id={questionIndex(item) - 1}
                     />
                     <div className={styles.explanationBox}>
                         <h3>Explanation</h3>

@@ -43,7 +43,7 @@ export function searchMatchingIds(examQuestions, randomizedQtns) {
  * @returns {array} allExamQtns ids to be set in state
  */
 
-export function shuffleQtns(exam, maxQtns) {
+export function shuffleQuestions(exam, maxQtns) {
     let randomizedExamQtns = shuffle(exam)
     const maxExamQtns = randomizedExamQtns.slice(0, maxQtns)
     const allExamQtnsIds = maxExamQtns.map((p) => p.id)
@@ -51,28 +51,14 @@ export function shuffleQtns(exam, maxQtns) {
     return allExamQtnsIds
 }
 
-/**
- * Sets the localstorage - allExamQtns, userAnswers and allQtns, based
- * on the randomized IDs of the questions and allQtns, coming from state
- * @param exam Current Exam, with all the data
- * @param allQtns Randomized IDs of the current exam, from state
- * @returns tmpAllExamQtns and userTmpAnswers to be set in state
- */
-
-export function setLocalStoragePerExam(exam, allQtns) {
-    let tmpAllExamQtns = searchMatchingIds(exam, allQtns)
-    typeof window !== 'undefined' &&
-        localStorage.setItem('allExamQtns', JSON.stringify(tmpAllExamQtns))
-    const examTmpAnswers = allQtns.map((id) => ({
+export function readQuestionAndResponses(exam, questionIds) {
+    let examQuestions = searchMatchingIds(exam, questionIds);
+    
+    const responses = questionIds.map((id) => ({
         id: id,
         calculatedPoints: 0,
         answered: [],
-    }))
-    let userTmpAnswers = JSON.stringify(examTmpAnswers)
-    typeof window !== 'undefined' &&
-        localStorage.setItem('userAnswers', userTmpAnswers)
-    typeof window !== 'undefined' &&
-        localStorage.setItem('allQtns', JSON.stringify(allQtns))
+    }));
 
-    return { tmpAllExamQtns, userTmpAnswers }
+    return { examQuestions, responses };
 }

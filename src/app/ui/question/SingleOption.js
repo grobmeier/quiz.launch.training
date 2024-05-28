@@ -1,65 +1,47 @@
 import styles from './SingleOption.module.scss'
-import { useEffect, useContext, useState } from 'react'
-import { ProgressContext } from '@/app/lib/QuestionProvider'
+import { useEffect, useState } from 'react'
 import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
+import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
 
 export function SingleOption({ answers, id }) {
-    let { currentIndex, userAnswers, setUserAnswers } =
-        useContext(ProgressContext)
-
     let currentCalculatedPoints = '0'
     const [currentSelected, setCurrentSelected] = useState([])
     const [clicked, setClicked] = useState(false)
 
-    const tmpUsers =
-        typeof window !== 'undefined' && localStorage.getItem('userAnswers')
-    const tmpUsersFormatted = tmpUsers && JSON.parse(tmpUsers)
+    let currentIndex = readJSON(Storage.CURRENT_INDEX);
 
     useEffect(() => {
-        const progress = localStorage.getItem('userAnswers')
-        const progressParsed = progress && JSON.parse(progress)
-        if (
-            progressParsed &&
-            progressParsed[currentIndex] &&
-            progressParsed[currentIndex].answered
-        ) {
-            setCurrentSelected(progressParsed[currentIndex].answered)
-        }
-    }, [userAnswers, clicked])
+        const userAnswers = readJSON(Storage.USER_ANSWERS);
+        if (userAnswers &&
+            userAnswers[currentIndex] &&
+            userAnswers[currentIndex].answered) {
+            setCurrentSelected(userAnswers[currentIndex].answered)
+        }    
+    }, [currentIndex, clicked]);
 
     function handleClick(event, item) {
-        event.preventDefault()
-        setClicked(!clicked)
+        const userAnswers = readJSON(Storage.USER_ANSWERS);
 
-        if (currentSelected.includes(item.text)) {
-            if (item.correct) {
-                currentCalculatedPoints = '0'
-            }
-            currentSelected[0] = ''
-            setCurrentSelected(currentSelected)
+        event.preventDefault();
+
+        if (item.correct) {
+            currentCalculatedPoints = '1';
         } else {
-            currentSelected[0] = item.text
-            if (item.correct) {
-                currentCalculatedPoints = '1'
-            } else {
-                currentCalculatedPoints = '0'
-            }
-            setCurrentSelected(currentSelected)
+            currentCalculatedPoints = '0';
         }
 
-        // inserts the selected answers and calculated points into the global state (local storage)
+        currentSelected[0] = item.text;        
 
-        let temp = tmpUsersFormatted.map((item) =>
-            item.id === id
-                ? {
+        let temp = userAnswers.map((item) =>
+            item.id === id ? {
                       ...item,
                       answered: currentSelected,
                       calculatedPoints: currentCalculatedPoints,
-                  }
-                : { ...item },
+                  } : { ...item },
         )
-        localStorage.setItem('userAnswers', JSON.stringify(temp))
-        setUserAnswers(temp)
+        put(Storage.USER_ANSWERS, temp);
+
+        setClicked(!clicked);
     }
 
     return (
@@ -69,12 +51,7 @@ export function SingleOption({ answers, id }) {
                     onClick={(event) => handleClick(event, item)}
                     key={index}
                     type="button"
-                    className={`${styles.container} ${
-                        currentSelected.includes(item.text)
-                            ? styles.selectedBtn
-                            : ''
-                    }`}
-                >
+                    className={`${styles.container} ${currentSelected.includes(item.text) ? styles.selectedBtn : ''}`}>
                     <span>{INDEX_TO_CHARACTER[index]}</span>
                     <span>{item.text}</span>
                 </button>
