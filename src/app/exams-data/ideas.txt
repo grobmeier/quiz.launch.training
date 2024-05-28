@@ -1,0 +1,27 @@
+ {
+        id: '4',
+        difficulty: 4,
+        text: 'Which of the following is a valid way to declare a generic method in Java?',
+        type: 'conceptual',
+        language: 'java',
+        answers: [
+            {
+                text: 'public <T> void genericMethod(T param)',
+                correct: true,
+            },
+            {
+                text: 'public void genericMethod(T param)',
+                correct: false,
+            },
+            {
+                text: 'public <T> void genericMethod<T>(T param)',
+                correct: false,
+            },
+            {
+                text: 'public <T> void <T>genericMethod(T param)',
+                correct: false,
+            },
+        ],
+        correctAnswers: 1,
+        explanation: 'The correct way to declare a generic method is by placing the type parameter before the return type.',
+    },

@@ -12,7 +12,7 @@ export const catalogue = [
         maxQuestions: 7,
     },
     {
-        exam: 'java',
+        exam: 'java-arraylist',
         title: 'Java - Lists',
         rating: '4.3',
         level: 'BEGINNER',
@@ -20,6 +20,6 @@ export const catalogue = [
         shortDescription: `Everything about ArrayLists, Lists, LinkedLists, and all that.`,
         fullDescription: `The collections framework is a very important part of Java. 
             This exam will test your knowledge about ArrayLists, Lists, LinkedLists, and all that.`,
-        maxQuestions: 2,
+        maxQuestions: 7,
     }
 ]

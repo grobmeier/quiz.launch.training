@@ -19,6 +19,10 @@ const exam = [
                 correct: false,
             },
             {
+                text: 'ArrayList is an interface, while List is a concrete class.',
+                correct: false,
+            },
+            {
                 text: 'There is no difference.',
                 correct: false,
             },
@@ -43,6 +47,10 @@ const exam = [
             },
             {
                 text: 'insert()',
+                correct: false,
+            },
+            {
+                text: 'put()',
                 correct: false,
             },
             {
@@ -80,6 +88,10 @@ const exam = [
                 correct: false,
             },
             {
+                text: 'ArrayIndexOutOfBoundsException',
+                correct: false,
+            },
+            {
                 text: 'This code does not compile',
                 correct: false,
             },
@@ -90,24 +102,28 @@ const exam = [
     {
         id: '4',
         difficulty: 4,
-        text: 'Which of the following is a valid way to declare a generic method in Java?',
+        text: 'Which of the following is a valid way to declare an ArrayList, given a class called Person exists?',
         type: 'conceptual',
         language: 'java',
         answers: [
             {
-                text: 'public <T> void genericMethod(T param)',
+                text: 'new ArrayList<Person>();',
                 correct: true,
             },
             {
-                text: 'public void genericMethod(T param)',
+                text: 'new ArrayList()<Person>;',
                 correct: false,
             },
             {
-                text: 'public <T> void genericMethod<T>(T param)',
+                text: 'new List<Person>();',
                 correct: false,
             },
             {
-                text: 'public <T> void <T>genericMethod(T param)',
+                text: 'new ArrayList<Person>[];',
+                correct: false,
+            },
+            {
+                text: 'new ArrayList<Person>{ };',
                 correct: false,
             },
         ],
@@ -117,7 +133,7 @@ const exam = [
     {
         id: '5',
         difficulty: 2,
-        text: 'How do you convert an ArrayList to an array in Java?',
+        text: 'How do you convert an ArrayList with the reference name list to an array in Java?',
         type: 'conceptual',
         language: 'java',
         answers: [
@@ -135,6 +151,10 @@ const exam = [
             },
             {
                 text: 'ArrayList.toArray(list)',
+                correct: false,
+            },
+            {
+                text: 'Comparator.toArray(list)',
                 correct: false,
             },
         ],
@@ -170,6 +190,10 @@ const exam = [
                 correct: false,
             },
             {
+                text: 'ArrayIndexOutOfBoundsException',
+                correct: false,
+            },
+            {
                 text: 'This code does not compile',
                 correct: false,
             },
@@ -200,6 +224,10 @@ const exam = [
                 text: 'Generics provide a way to use the same code with different types.',
                 correct: true,
             },
+            {
+                text: 'No answer is correct',
+                correct: false,
+            },
         ],
         correctAnswers: 2,
         explanation: 'Generics enable type-safe collections and allow the same code to be used with different types, but they cannot be used with primitive types and are checked at compile-time, not runtime.',
@@ -210,42 +238,50 @@ const exam = [
         text: 'What will be the output of the following Java code snippet?',
         type: 'code',
         content: `  
-            public class GenericExample<T> {
-                private T value;
-                public GenericExample(T value) {
-                    this.value = value;
-                }
-                public T getValue() {
-                    return value;
-                }
+            import java.util.ArrayList;
+            import java.util.List;
+    
+            public class ContainsExample {
                 public static void main(String[] args) {
-                    GenericExample<String> example = new GenericExample<>("Hello");
-                    System.out.println(example.getValue());
+                    List<String> list = new ArrayList<>();
+                    list.add("apple");
+                    list.add("banana");
+                    list.add("cherry");
+    
+                    if (list.contains("banana")) {
+                        System.out.println("List contains banana");
+                    } else {
+                        System.out.println("List does not contain banana");
+                    }
                 }
             }
         `,
         language: 'java',
         answers: [
             {
-                text: 'Hello',
+                text: 'List contains banana',
                 correct: true,
             },
             {
-                text: 'World',
-                correct: false,
-            },
-            {
-                text: 'null',
+                text: 'List does not contain banana',
                 correct: false,
             },
             {
                 text: 'This code does not compile',
                 correct: false,
             },
+            {
+                text: 'An exception is thrown',
+                correct: false,
+            },
+            {
+                text: 'Contains does not work with strings',
+                correct: false,
+            },
         ],
         correctAnswers: 1,
-        explanation: 'The getValue() method returns the value stored in the GenericExample instance, which is "Hello".',
-    },
+        explanation: 'The contains() method checks if the specified element is present in the list. Since "banana" is added to the list, the output is "List contains banana".',
+    },    
     {
         id: '9',
         difficulty: 2,
@@ -267,6 +303,10 @@ const exam = [
             },
             {
                 text: 'purge()',
+                correct: false,
+            },
+            {
+                text: 'clean()',
                 correct: false,
             },
         ],
@@ -297,6 +337,10 @@ const exam = [
             },
             {
                 text: '5',
+                correct: false,
+            },
+            {
+                text: 'null',
                 correct: false,
             },
             {
@@ -338,6 +382,10 @@ const exam = [
                 text: '[A, C, B]',
                 correct: false,
             },
+            {
+                text: 'No answer is correct',
+                correct: false,
+            },
         ],
         correctAnswers: 1,
         explanation: 'The remove() method removes the specified element ("B") from the list. The resulting list is [A, C].',
@@ -345,29 +393,33 @@ const exam = [
     {
         id: '12',
         difficulty: 2,
-        text: 'Which of the following is a correct way to create a generic class in Java?',
+        text: 'Which of the following is a correct way to check if an ArrayList contains a specific element in Java?',
         type: 'conceptual',
         language: 'java',
         answers: [
             {
-                text: 'public class MyClass<T> { }',
+                text: 'list.contains("element")',
                 correct: true,
             },
             {
-                text: 'public class <T>MyClass { }',
+                text: 'list.has("element")',
                 correct: false,
             },
             {
-                text: 'public class MyClass { <T> }',
+                text: 'list.includes("element")',
                 correct: false,
             },
             {
-                text: 'public class MyClass { public T field; }',
+                text: 'list.exists("element")',
+                correct: false,
+            },
+            {
+                text: 'No answer is correct',
                 correct: false,
             },
         ],
         correctAnswers: 1,
-        explanation: 'The correct syntax to declare a generic class is to place the type parameter in angle brackets after the class name.',
+        explanation: 'The correct method to check if an ArrayList contains a specific element is contains().',
     },
     {
         id: '13',
@@ -399,6 +451,10 @@ const exam = [
                 text: '0',
                 correct: false,
             },
+            {
+                text: '-1',
+                correct: false,
+            },
         ],
         correctAnswers: 1,
         explanation: 'The indexOf() method returns the index of the first occurrence of the specified element, which is 2 for "fun".',
@@ -406,30 +462,56 @@ const exam = [
     {
         id: '14',
         difficulty: 4,
-        text: 'Which of the following is a valid way to define a generic method that accepts two parameters of different types?',
-        type: 'conceptual',
+        text: 'What will be the output of the following Java code snippet?',
+        type: 'code',
+        content: `  
+            import java.util.ArrayList;
+            import java.util.List;
+    
+            public class ComplexLoopExample {
+                public static void main(String[] args) {
+                    List<Integer> numbers = new ArrayList<>();
+                    for (int i = 1; i <= 5; i++) {
+                        numbers.add(i);
+                    }
+                    int result = 0;
+                    for (int i = 0; i < numbers.size(); i++) {
+                        if (i % 2 == 0) {
+                            result += numbers.get(i);
+                        } else {
+                            result -= numbers.get(i);
+                        }
+                    }
+                    System.out.println(result);
+                }
+            }
+        `,
         language: 'java',
         answers: [
             {
-                text: 'public <T, U> void methodName(T param1, U param2)',
+                text: '3',
                 correct: true,
             },
             {
-                text: 'public <T> void methodName(T param1, U param2)',
+                text: '15',
                 correct: false,
             },
             {
-                text: 'public void <T, U> methodName(T param1, U param2)',
+                text: '-3',
                 correct: false,
             },
             {
-                text: 'public <T, U> methodName(T param1, U param2) void',
+                text: '0',
+                correct: false,
+            },
+            {
+                text: 'This code does not compile',
                 correct: false,
             },
         ],
         correctAnswers: 1,
-        explanation: 'The correct way to declare a generic method with two type parameters is to place both type parameters in angle brackets before the return type.',
-    },
+        explanation: 'The loop iterates over the list and adds the value to result if the index is even and subtracts it if the index is odd. The calculation is: 1 - 2 + 3 - 4 + 5 = 3.',
+    },    
     {
         id: '15',
         difficulty: 3,
@@ -459,6 +541,10 @@ const exam = [
             },
             {
                 text: '[1.1, 3.3, 2.2]',
+                correct: false,
+            },
+            {
+                text: 'None of the others',
                 correct: false,
             },
         ],
@@ -498,6 +584,10 @@ const exam = [
                 text: '[110, 210, 300]',
                 correct: false,
             },
+            {
+                text: 'This code does not compile',
+                correct: false,
+            },
         ],
         correctAnswers: 1,
         explanation: 'The for loop updates each element in the list by adding 10 to it. The resulting list is [110, 210, 310].',
@@ -523,6 +613,10 @@ const exam = [
             },
             {
                 text: 'list.isEmpty == true',
+                correct: false,
+            },
+            {
+                text: 'This is not possible',
                 correct: false,
             },
         ],
@@ -560,36 +654,61 @@ const exam = [
                 text: '[W, X, Z]',
                 correct: false,
             },
+            {
+                text: 'This code does not compile',
+                correct: false,
+            },
         ],
         correctAnswers: 1,
         explanation: 'The set() method replaces the element at the specified position (index 1) with the new value ("W"). The resulting list is [X, W, Z].',
     },
     {
         id: '19',
-        difficulty: 4,
-        text: 'Which of the following is a correct way to use a wildcard with generics in Java?',
-        type: 'conceptual',
+        difficulty: 2,
+        text: 'What will be the output of the following Java code snippet?',
+        type: 'code',
+        content: `  
+            import java.util.ArrayList;
+            import java.util.List;
+    
+            public class SimpleLoopExample {
+                public static void main(String[] args) {
+                    List<String> fruits = new ArrayList<>();
+                    fruits.add("apple");
+                    fruits.add("banana");
+                    fruits.add("cherry");
+    
+                    for (String fruit : fruits) {
+                        System.out.print(fruit + " ");
+                    }
+                }
+            }
+        `,
         language: 'java',
         answers: [
             {
-                text: 'List<?> list = new ArrayList<>()',
+                text: 'apple banana cherry ',
                 correct: true,
             },
             {
-                text: 'List<?> list = new ArrayList<String>()',
-                correct: true,
+                text: 'banana cherry apple ',
+                correct: false,
             },
             {
-                text: 'List<? extends Number> list = new ArrayList<>()',
-                correct: true,
+                text: 'cherry apple banana ',
+                correct: false,
             },
             {
-                text: 'List<? super Integer> list = new ArrayList<>()',
-                correct: true,
+                text: 'apple cherry banana ',
+                correct: false,
+            },
+            {
+                text: 'This code does not compile',
+                correct: false,
             },
         ],
-        correctAnswers: 4,
-        explanation: 'Wildcards in generics can be used with various bounds. The unbounded wildcard (?), upper-bounded wildcard (? extends Type), and lower-bounded wildcard (? super Type) are all valid.',
+        correctAnswers: 1,
+        explanation: 'The for-each loop iterates over the list and prints each element in the order they were added: apple, banana, cherry.',
     },
     {
         id: '20',
@@ -620,6 +739,10 @@ const exam = [
             },
             {
                 text: '[apple, banana, cherry]',
+                correct: false,
+            },
+            {
+                text: 'This code does not compile',
                 correct: false,
             },
         ],
