@@ -66,10 +66,12 @@ export function Navbar() {
         if (
             pathname === '/' &&
             localStorage['allExamQtns'] &&
-            localStorage['userAnswers'] 
+            localStorage['userAnswers'] &&
+            localStorage['allQtns']
         ) {
             localStorage.removeItem('allExamQtns')
             localStorage.removeItem('userAnswers')
+            localStorage.removeItem('allQtns')
             setUserAnswers('')
         }
     }, [pathname, examInProgress, setUserAnswers])
