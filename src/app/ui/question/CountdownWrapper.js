@@ -27,10 +27,11 @@ export const CountdownWrapper = () => {
         }
     }
 
+    // TODO WTF hardcoded data
     const [data, setData] = useState(
-        { date: Date.now(), delay: 600000 }, //10 mins
+        { date: Date.now(), delay: 6000000 }, //10 mins
     )
-    const wantedDelay = 600000 //10 mins
+    const wantedDelay = 6000000 //10 mins
 
     //Code runs only one time after each reloading
     useEffect(() => {
