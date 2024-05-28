@@ -14,6 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
+            <head>
+                <script defer data-domain="launch.training" src="https://analytics.grobmeier.de/js/plausible.js"></script>
+            </head>
             <body className={inter.className}>
                 <QuestionProvider>
                     <Navbar />
