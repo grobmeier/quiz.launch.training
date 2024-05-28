@@ -33,16 +33,14 @@ export function ExamWrapper() {
     const [examData, setExamData] = useState(null);
     const [isExamLoaded, setIsExamLoaded] = useState(false);
     const [isClient, setIsClient] = useState(false);
-
+    let [finish, setFinish] = useState(false);
     
-    let examName = ''
+    let examName = 'java-arrays'
     const match = pathname.match(/\/([a-zA-Z0-9-]+)\/$/)
     if (match) {
         examName = match[1]
-    } else {
-        examName = 'java-arrays'
-    }
-
+    } 
+    
     useEffect(() => {
         
         const selectQuestionId = (examData) => {
@@ -76,65 +74,9 @@ export function ExamWrapper() {
 
     }, [examName, setAllQuestions, setUserAnswers, setCurrentIndex]);
 
-    // useEffect(() => {
-    //     if (!isExamLoaded || !examData) return
-
-    //     const initializeQuestions = () => {
-    //         const examToCheck = catalogue.find((item) => item.exam === examName)
-    //         const maxQtnsPerExam = examToCheck ? examToCheck.maxQuestions : 0
-
-    //         if (maxQtnsPerExam && examData) {
-    //             const qtnsIds = shuffleQtns(examData, maxQtnsPerExam)
-    //             setAllQtns(qtnsIds)
-    //             localStorage.setItem('allQtns', JSON.stringify(qtnsIds))
-    //         }
-    //     }
-
-    //     const persistedQtns =
-    //         localStorage.getItem('allQtns') &&
-    //         JSON.parse(localStorage.getItem('allQtns')).length > 0
-
-    //     if (!persistedQtns) {
-    //         initializeQuestions()
-    //     }
-    // }, [isExamLoaded, examData, examName, setAllQtns])
-
-    // useEffect(() => {
-    //     if (!isExamLoaded) return
-
-    //     const checkExamInProgress = () => {
-    //         const persistedExam = localStorage.getItem('currentExam')
-
-    //         if (persistedExam !== null && persistedExam !== '') {
-    //             return
-    //         }
-
-    //         localStorage.setItem('currentIndex', JSON.stringify(0))
-    //         localStorage.setItem('examTaken', JSON.stringify(0))
-    //         setIsTimerExpired(false)
-    //         setCurrentIndex(0)
-    //     }
-
-    //     checkExamInProgress()
-    // }, [isExamLoaded, setCurrentIndex, setIsTimerExpired, examInProgress])
-
-    // useEffect(() => {
-    //     if (!isExamLoaded || !examData) return;
-
-    //     const updateQuestionsMatrix = () => {
-    //         const persistedQtns = localStorage.getItem('allExamQtns')
-    //         if (persistedQtns) {
-    //             setAllExamQtns(JSON.parse(persistedQtns))
-    //         } else {
-    //             console.log(examData);
-    //             const { tmpAllExamQtns, userTmpAnswers } = setLocalStoragePerExam(examData, allQtns)
-    //             setAllExamQtns(tmpAllExamQtns)
-    //             setUserAnswers(JSON.parse(userTmpAnswers))
-    //         }
-    //     }
-
-    //     updateQuestionsMatrix()
-    // }, [isExamLoaded, examData, setUserAnswers, allQtns])
+    function finishExam() {
+        setFinish(true);
+    }   
 
     useEffect(() => {
         setIsClient(true)
@@ -155,7 +97,7 @@ export function ExamWrapper() {
             </>
         )
     } else {
-        if (isTaken) {
+        if (finish && readJSON(Storage.EXAM_TAKEN)) {
             return (
                 <main className={styles.main}>
                     {!isTimerExpired ? (
@@ -178,7 +120,7 @@ export function ExamWrapper() {
                 {!isClient || questions.length === 0 ? (
                     <div>Loading ....</div>
                 ) : (
-                    <Question />
+                    <Question finishExam={finishExam}/>
                 )}
             </main>
         )
