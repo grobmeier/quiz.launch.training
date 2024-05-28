@@ -9,7 +9,8 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
 
-export function Question() {
+export function Question({ finishExam }) {
+    
     let [question, setQuestion] = useState(null);
 
     function loadQuestion() {
@@ -38,6 +39,7 @@ export function Question() {
             put(Storage.EXAM_TAKEN, 1);
             put(Storage.CURRENT_INDEX, 0);
             remove(Storage.END_DATE);
+            finishExam();
         }
         
         loadQuestion();
