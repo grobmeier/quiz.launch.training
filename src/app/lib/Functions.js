@@ -51,14 +51,6 @@ export function shuffleQuestions(exam, maxQtns) {
     return allExamQtnsIds
 }
 
-/**
- * Sets the localstorage - allExamQtns, userAnswers and allQtns, based
- * on the randomized IDs of the questions and allQtns, coming from state
- * @param exam Current Exam, with all the data
- * @param questionIds Randomized IDs of the current exam, from state
- * @returns tmpAllExamQtns and userTmpAnswers to be set in state
- */
-
 export function readQuestionAndResponses(exam, questionIds) {
     let examQuestions = searchMatchingIds(exam, questionIds);
     
@@ -67,10 +59,6 @@ export function readQuestionAndResponses(exam, questionIds) {
         calculatedPoints: 0,
         answered: [],
     }));
-    // let jsonResponses = JSON.stringify(responses);
-    
-    // localStorage.setItem('userAnswers', jsonResponses);
-    // localStorage.setItem('allQtns', JSON.stringify(questionIds));
 
     return { examQuestions, responses };
 }
