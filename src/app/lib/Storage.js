@@ -3,7 +3,8 @@ export const Storage = {
     USER_ANSWERS: 'userAnswers',
     CURRENT_INDEX: 'currentIndex',
     EXAM_TAKEN: 'examTaken',
-    END_DATE: 'end_date'
+    END_DATE: 'end_date',
+    START_TIME: 'start_time'
 }
 
 export function read(key) {

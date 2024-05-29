@@ -7,11 +7,11 @@ import { Rating } from '@smastrom/react-rating'
  * By start button it launches exam.
  */
 
-export function ExamMainScreen({ title, rating, exam, fullDescription }) {
+export function ExamMainScreen({ title, rating, exam, fullDescription, startFn }) {
     return (
         <main className={styles.main}>
             <h1>{title}</h1>
-            <div className={styles.topArea}>
+            {/* <div className={styles.topArea}>
                 <div>Difficulty: </div>
                 <div>
                     <Rating
@@ -21,9 +21,9 @@ export function ExamMainScreen({ title, rating, exam, fullDescription }) {
                         readOnly
                     />
                 </div>
-            </div>
+            </div> */}
             <div className={styles.examBox}>{fullDescription}</div>
-            <StartButton examName={exam}>Start</StartButton>
+            <StartButton examName={exam} startFn={startFn}>Start</StartButton>
         </main>
     )
 }

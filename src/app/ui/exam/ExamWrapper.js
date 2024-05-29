@@ -34,6 +34,7 @@ export function ExamWrapper() {
     const [isExamLoaded, setIsExamLoaded] = useState(false);
     const [isClient, setIsClient] = useState(false);
     let [finish, setFinish] = useState(false);
+    let [startTime, setStartTime] = useState(null);
     
     let examName = 'java-arrays'
     const match = pathname.match(/\/([a-zA-Z0-9-]+)\/$/)
@@ -76,7 +77,12 @@ export function ExamWrapper() {
 
     function finishExam() {
         setFinish(true);
-    }   
+    }
+    function startExam() {
+        let startTime = new Date().toISOString();
+        put(Storage.START_TIME, {startTime});
+        setStartTime(startTime);
+    }
 
     useEffect(() => {
         setIsClient(true)
@@ -84,15 +90,15 @@ export function ExamWrapper() {
 
     const filteredExam = catalogue.find((item) => item.exam === examName)
 
-    if (isClient && examInProgress === '') {
+    if (isClient && readJSON(Storage.START_TIME) === null) {
         return (
             <>
-                <h3>{filteredExam?.title}</h3>
                 <ExamMainScreen
                     title={filteredExam?.title}
                     rating={filteredExam?.rating}
                     exam={filteredExam?.exam}
                     fullDescription={filteredExam?.fullDescription}
+                    startFn={startExam}
                 />
             </>
         )
@@ -117,7 +123,7 @@ export function ExamWrapper() {
         let questions = readJSON(Storage.EXAM_QUESTIONS);
         return (
             <main className={styles.main}>
-                {!isClient || questions.length === 0 ? (
+                {!isClient || questions == null || questions.length === 0 ? (
                     <div>Loading ....</div>
                 ) : (
                     <Question finishExam={finishExam}/>
