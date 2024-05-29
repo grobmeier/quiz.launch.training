@@ -16,9 +16,9 @@ export function Topbar() {
 
     return (
         <div className={styles.container}>
-            <span type="button" onClick={handleCancel}>
-                Cancel
-            </span>
+            <button className={styles.cancel} onClick={handleCancel}>
+                Exit
+            </button>
             <span>
                 <strong>
                     <p>
@@ -27,7 +27,6 @@ export function Topbar() {
                     </p>
                 </strong>
             </span>
-            <CountdownWrapper />
         </div>
     )
 }
