@@ -32,4 +32,14 @@ export const catalogue = [
         fullDescription: `Constructors are a fundamental part of Java, used to initialize objects and set up initial states. This exam will cover various aspects of constructors, including basic usage, constructors with arguments, the use of this and super keywords, default constructors, and constructor overloading. Mastering these concepts is crucial for writing efficient and effective Java programs. By the end of this exam, you will have a strong understanding of how to work with constructors and use them to create robust Java applications.`,
         maxQuestions: 5,
     },
+    {
+        exam: 'java-datatypes',
+        title: 'Java - Datatypes',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Understanding datatypes in Java is fundamental. This includes primitives, wrapper classes, autoboxing, and unboxing.`,
+        fullDescription: `Datatypes are a core concept in Java, essential for any developer to understand. This exam will cover various aspects of datatypes, including primitives (such as int and boolean), wrapper classes (like Integer and Boolean), and the concepts of autoboxing and unboxing. Additionally, it will touch upon string manipulations and operations. By the end of this exam, you will have a solid understanding of how to work with different datatypes in Java, enabling you to write more efficient and robust programs.`,    
+        maxQuestions: 5,
+    },
 ]
