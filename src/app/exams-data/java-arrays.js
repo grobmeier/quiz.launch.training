@@ -111,11 +111,11 @@ const exam = [
             },
             {
                 text: '4',
-                correct: true,
+                correct: false,
             },
             {
                 text: 'ArrayIndexOutOfBoundsException is thrown',
-                correct: false,
+                correct: true,
             },
             {
                 text: 'None of the above',
@@ -124,7 +124,7 @@ const exam = [
         ],
         correctAnswers: 1,
         explanation:
-            'The do...while loop increments `i` before checking the condition. Since all numbers in the array are even, the loop continues until `i` reaches 4, which is out of bounds for the array, causing the loop to break and print 4.',
+            'The do...while loop increments `i` before checking the condition. Since all numbers in the array are even, the loop continues until `i` reaches the array length, causing the loop to attempt to access `numbers[5]`, which is out of bounds, resulting in an ArrayIndexOutOfBoundsException.',
     },
     {
         id: '4',
