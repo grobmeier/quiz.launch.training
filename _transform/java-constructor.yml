@@ -12,7 +12,7 @@
       correct: false
     - text: 'To set the visibility of the class'
       correct: false
-    - text: 'None of the above'
+    - text: 'No answer is correct'
       correct: false
   explanation: 'A constructor in Java is used to initialize objects when they are created.'
 
@@ -39,7 +39,7 @@
       correct: false
     - text: 'Runtime error'
       correct: false
-    - text: 'None of the above'
+    - text: 'No answer is correct'
       correct: false
   explanation: 'The constructor is called when a new instance of the class is created, so "Constructor called" is printed.'
 

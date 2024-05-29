@@ -14,6 +14,7 @@ const exam = [
                 text: 'List allows duplicate elements, while ArrayList does not.',
                 correct: false,
             },
+            // TODO
             {
                 text: 'ArrayList is synchronized, while List is not.',
                 correct: false,
@@ -544,7 +545,7 @@ const exam = [
                 correct: false,
             },
             {
-                text: 'None of the others',
+                text: 'No answer is correct',
                 correct: false,
             },
         ],

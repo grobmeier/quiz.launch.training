@@ -24,7 +24,7 @@ const exam = [
                 "correct": false
             },
             {
-                "text": "None of the above",
+                "text": "No answer is correct",
                 "correct": false
             }
         ],
@@ -56,7 +56,7 @@ const exam = [
                 "correct": false
             },
             {
-                "text": "None of the above",
+                "text": "No answer is correct",
                 "correct": false
             }
         ],
