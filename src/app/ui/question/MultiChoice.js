@@ -15,7 +15,6 @@ export function MultiChoice({ answers, options, id }) {
     useEffect(() => {
         const userAnswers = readJSON(Storage.USER_ANSWERS);
         if (userAnswers[currentIndex].answered) {
-            console.log(userAnswers[currentIndex].answered);
             setCurrentSelected(userAnswers[currentIndex].answered)
         }
     }, [currentIndex, clicked]);

@@ -47,7 +47,6 @@ export function Question({ finishExam }) {
 
     useEffect(() => {
         // TODO: reuse the function loadQuestion?
-        console.log("useEffect called")
         let questions = readJSON(Storage.EXAM_QUESTIONS);
         let currentIndex = readJSON(Storage.CURRENT_INDEX);
         setQuestion(questions[currentIndex]);
