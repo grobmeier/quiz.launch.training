@@ -39,7 +39,7 @@ export const catalogue = [
         level: 'BEGINNER',
         duration: '20:00',
         shortDescription: `Understanding datatypes in Java is fundamental. This includes primitives, wrapper classes, autoboxing, and unboxing.`,
-        fullDescription: `Datatypes are a core concept in Java, essential for any developer to understand. This exam will cover various aspects of datatypes, including primitives (such as int and boolean), wrapper classes (like Integer and Boolean), and the concepts of autoboxing and unboxing. Additionally, it will touch upon string manipulations and operations. By the end of this exam, you will have a solid understanding of how to work with different datatypes in Java, enabling you to write more efficient and robust programs.`,    
+        fullDescription: `Datatypes are a core concept in Java, essential for any developer to understand. This exam will cover various aspects of datatypes, including primitives (such as int and boolean), wrapper classes (like Integer and Boolean), and the concepts of autoboxing and unboxing. Additionally, it will touch upon string manipulations and operations.`,    
         maxQuestions: 5,
     },
 ]
