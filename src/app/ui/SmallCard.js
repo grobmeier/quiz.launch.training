@@ -22,9 +22,9 @@ export function SmallCard({ link, title, text, rating, duration, level }) {
                         readOnly
                     />
                     */}
-                    <Link href={link}>
+                    {/* <Link href={link}>
                         <span>{duration}m</span>
-                    </Link>
+                    </Link> */}
                     {/*
                     <Link href={link}>
                         <span className={styles.level}>{level}</span>
