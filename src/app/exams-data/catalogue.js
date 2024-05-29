@@ -21,5 +21,15 @@ export const catalogue = [
         fullDescription: `The collections framework is a very important part of Java. 
             This exam will test your knowledge about ArrayLists, Lists, LinkedLists, and all that.`,
         maxQuestions: 7,
-    }
+    },
+    {
+        exam: 'java-constructor',
+        title: 'Java - Constructors',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Constructors are essential for initializing objects in Java. Understanding constructors is crucial for mastering object-oriented programming.`,
+        fullDescription: `Constructors are a fundamental part of Java, used to initialize objects and set up initial states. This exam will cover various aspects of constructors, including basic usage, constructors with arguments, the use of this and super keywords, default constructors, and constructor overloading. Mastering these concepts is crucial for writing efficient and effective Java programs. By the end of this exam, you will have a strong understanding of how to work with constructors and use them to create robust Java applications.`,
+        maxQuestions: 5,
+    },
 ]

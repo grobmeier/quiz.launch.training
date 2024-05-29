@@ -1,0 +1,600 @@
+- difficulty: 1
+  text: 'What is the purpose of a constructor in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'To initialize objects'
+      correct: true
+    - text: 'To create new methods'
+      correct: false
+    - text: 'To define new classes'
+      correct: false
+    - text: 'To set the visibility of the class'
+      correct: false
+    - text: 'None of the above'
+      correct: false
+  explanation: 'A constructor in Java is used to initialize objects when they are created.'
+
+- difficulty: 2
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Test {
+        public Test() {
+            System.out.println("Constructor called");
+        }
+
+        public static void main(String[] args) {
+            Test obj = new Test();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Constructor called'
+      correct: true
+    - text: 'No output'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+    - text: 'Runtime error'
+      correct: false
+    - text: 'None of the above'
+      correct: false
+  explanation: 'The constructor is called when a new instance of the class is created, so "Constructor called" is printed.'
+
+- difficulty: 2
+  text: 'Which of the following is a correct way to define a constructor with arguments in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'public Person(int a) { }'
+      correct: true
+    - text: 'public void Person(int a) { }'
+      correct: false
+    - text: 'public constructor Person(int a) { }'
+      correct: false
+    - text: 'public static Person(int a) { }'
+      correct: false
+    - text: 'public final Person(int a) { }'
+      correct: false
+  explanation: 'A constructor is defined without a return type and has the same name as the class.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Person {
+        String name;
+        int age;
+
+        public Person(String name, int age) {
+            this.name = name;
+            this.age = age;
+        }
+
+        public void display() {
+            System.out.println(name + " is " + age + " years old.");
+        }
+
+        public static void main(String[] args) {
+            Person person = new Person("Alice", 30);
+            person.display();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Alice is 30 years old.'
+      correct: true
+    - text: 'Alice is 0 years old.'
+      correct: false
+    - text: 'null is 30 years old.'
+      correct: false
+    - text: 'Alice is 30'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The constructor initializes the name and age fields, and the display method prints the initialized values.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Animal {
+        String type;
+
+        public Animal() {
+            this("Unknown");
+        }
+
+        public Animal(String type) {
+            this.type = type;
+        }
+
+        public void printType() {
+            System.out.println("Animal type: " + type);
+        }
+
+        public static void main(String[] args) {
+            Animal animal = new Animal();
+            animal.printType();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Animal type: Unknown'
+      correct: true
+    - text: 'Animal type: null'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+    - text: 'Animal type: Animal'
+      correct: false
+    - text: 'No output'
+      correct: false
+  explanation: 'The no-argument constructor calls the parameterized constructor with "Unknown" as the argument.'
+
+- difficulty: 4
+  text: 'Which of the following is true about default constructors in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'A default constructor is provided by the compiler if no constructors are defined.'
+      correct: true
+    - text: 'A default constructor can have parameters.'
+      correct: false
+    - text: 'A default constructor is always private.'
+      correct: false
+    - text: 'A default constructor must be defined explicitly.'
+      correct: false
+    - text: 'A default constructor initializes all fields to null.'
+      correct: false
+  explanation: 'The compiler provides a no-argument default constructor if no constructors are defined by the programmer.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Base {
+        public Base() {
+            System.out.println("Base constructor");
+        }
+    }
+
+    public class Derived extends Base {
+        public Derived() {
+            System.out.println("Derived constructor");
+        }
+
+        public static void main(String[] args) {
+            Derived obj = new Derived();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Base constructor\nDerived constructor'
+      correct: true
+    - text: 'Derived constructor'
+      correct: false
+    - text: 'Base constructor'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+    - text: 'Runtime error'
+      correct: false
+  explanation: 'The Base constructor is called first, followed by the Derived constructor.'
+
+- difficulty: 4
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Parent {
+        public Parent() {
+            System.out.println("Parent constructor");
+        }
+    }
+
+    public class Child extends Parent {
+        public Child() {
+            super();
+            System.out.println("Child constructor");
+        }
+
+        public static void main(String[] args) {
+            Child child = new Child();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Parent constructor\nChild constructor'
+      correct: true
+    - text: 'Child constructor\nParent constructor'
+      correct: false
+    - text: 'Parent constructor'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+    - text: 'No output'
+      correct: false
+  explanation: 'The super() call in the Child constructor calls the Parent constructor first.'
+
+- difficulty: 2
+  text: 'What is the keyword used to call a superclass constructor in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'super'
+      correct: true
+    - text: 'this'
+      correct: false
+    - text: 'parent'
+      correct: false
+    - text: 'base'
+      correct: false
+    - text: 'superclass'
+      correct: false
+  explanation: 'The super keyword is used to call a superclass constructor.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Vehicle {
+        String type;
+
+        public Vehicle() {
+            this("Car");
+        }
+
+        public Vehicle(String type) {
+            this.type = type;
+        }
+
+        public void displayType() {
+            System.out.println("Vehicle type: " + type);
+        }
+
+        public static void main(String[] args) {
+            Vehicle vehicle = new Vehicle();
+            vehicle.displayType();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Vehicle type: Car'
+      correct: true
+    - text: 'Vehicle type: null'
+      correct: false
+    - text: 'Vehicle type: Vehicle'
+      correct: false
+    - text: 'Vehicle type: Unknown'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The no-argument constructor calls the parameterized constructor with "Car" as the argument.'
+
+- difficulty: 4
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Shape {
+        public Shape() {
+            System.out.println("Shape constructor");
+        }
+    }
+
+    public class Circle extends Shape {
+        public Circle() {
+            super();
+            System.out.println("Circle constructor");
+        }
+
+        public static void main(String[] args) {
+            Circle circle = new Circle();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Shape constructor\nCircle constructor'
+      correct: true
+    - text: 'Circle constructor\nShape constructor'
+      correct: false
+    - text: 'Shape constructor'
+      correct: false
+    - text: 'Circle constructor'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The super() call in the Circle constructor calls the Shape constructor first.'
+
+- difficulty: 3
+  text: 'Which of the following statements is true about the this() constructor call in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'It must be the first statement in the constructor.'
+      correct: true
+    - text: 'It can be called multiple times in the constructor.'
+      correct: false
+    - text: 'It can be placed anywhere in the constructor.'
+      correct: false
+    - text: 'It is optional and can be omitted.'
+      correct: false
+    - text: 'It must be the last statement in the constructor.'
+      correct: false
+  explanation: 'The this() constructor call must be the first statement in the constructor.'
+
+- difficulty: 4
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Rectangle {
+        int width;
+        int height;
+
+        public Rectangle() {
+            this(10, 20);
+        }
+
+        public Rectangle(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        public void displayDimensions() {
+            System.out.println("Width: " + width + ", Height: " + height);
+        }
+
+        public static void main(String[] args) {
+            Rectangle rectangle = new Rectangle();
+            rectangle.displayDimensions();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Width: 10, Height: 20'
+      correct: true
+    - text: 'Width: 0, Height: 0'
+      correct: false
+    - text: 'Width: 10, Height: 0'
+      correct: false
+    - text: 'Width: 0, Height: 20'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The no-argument constructor calls the parameterized constructor with the arguments 10 and 20.'
+
+- difficulty: 2
+  text: 'Which of the following is true about constructor overloading in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'Constructors can be overloaded by changing the number of parameters.'
+      correct: true
+    - text: 'Constructors cannot be overloaded.'
+      correct: false
+    - text: 'Constructors can be overloaded by changing the return type.'
+      correct: false
+    - text: 'Constructors can be overloaded by changing the visibility modifier.'
+      correct: false
+    - text: 'Constructors can be overloaded by adding static keyword.'
+      correct: false
+  explanation: 'Constructors can be overloaded by changing the number or type of parameters, but not by changing the return type.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Point {
+        int x, y;
+
+        public Point() {
+            this(0, 0);
+        }
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public void display() {
+            System.out.println("Point (" + x + ", " + y + ")");
+        }
+
+        public static void main(String[] args) {
+            Point point = new Point(5, 10);
+            point.display();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Point (5, 10)'
+      correct: true
+    - text: 'Point (0, 0)'
+      correct: false
+    - text: 'Point (10, 5)'
+      correct: false
+    - text: 'Point (0, 5)'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The parameterized constructor initializes the x and y fields with the provided values 5 and 10.'
+
+- difficulty: 4
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Employee {
+        String name;
+        int id;
+
+        public Employee() {
+            this("Unknown", -1);
+        }
+
+        public Employee(String name, int id) {
+            this.name = name;
+            this.id = id;
+        }
+
+        public void display() {
+            System.out.println("Employee: " + name + ", ID: " + id);
+        }
+
+        public static void main(String[] args) {
+            Employee emp = new Employee();
+            emp.display();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Employee: Unknown, ID: -1'
+      correct: true
+    - text: 'Employee: null, ID: 0'
+      correct: false
+    - text: 'Employee: , ID: 0'
+      correct: false
+    - text: 'Employee: Unknown, ID: 0'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The no-argument constructor calls the parameterized constructor with "Unknown" and -1 as the arguments.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Box {
+        int width;
+        int height;
+
+        public Box() {
+            this(5);
+        }
+
+        public Box(int side) {
+            this(side, side);
+        }
+
+        public Box(int width, int height) {
+            this.width = width;
+            this.height = height;
+        }
+
+        public void displayDimensions() {
+            System.out.println("Width: " + width + ", Height: " + height);
+        }
+
+        public static void main(String[] args) {
+            Box box = new Box();
+            box.displayDimensions();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Width: 5, Height: 5'
+      correct: true
+    - text: 'Width: 0, Height: 0'
+      correct: false
+    - text: 'Width: 5, Height: 0'
+      correct: false
+    - text: 'Width: 0, Height: 5'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The no-argument constructor calls the single-argument constructor with the value 5, which in turn calls the two-argument constructor with the same value for both width and height.'
+
+- difficulty: 4
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Main {
+        public Main() {
+            this(10);
+            System.out.println("Default constructor");
+        }
+
+        public Main(int x) {
+            System.out.println("Parameterized constructor with value: " + x);
+        }
+
+        public static void main(String[] args) {
+            Main obj = new Main();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'Parameterized constructor with value: 10\nDefault constructor'
+      correct: true
+    - text: 'Default constructor\nParameterized constructor with value: 10'
+      correct: false
+    - text: 'Parameterized constructor with value: 10'
+      correct: false
+    - text: 'Default constructor'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The no-argument constructor calls the parameterized constructor with the value 10, followed by the print statement in the no-argument constructor.'
+
+- difficulty: 2
+  text: 'Which of the following statements is true about constructors in Java?'
+  type: 'conceptual'
+  content: ''
+  language: 'java'
+  answers:
+    - text: 'Constructors do not have a return type.'
+      correct: true
+    - text: 'Constructors can be abstract.'
+      correct: false
+    - text: 'Constructors can be static.'
+      correct: false
+    - text: 'Constructors can be final.'
+      correct: false
+    - text: 'Constructors can return a value.'
+      correct: false
+  explanation: 'Constructors in Java do not have a return type, and they cannot be abstract, static, or final.'
+
+- difficulty: 3
+  text: 'What will be the output of the following Java code snippet?'
+  type: 'code'
+  content: |
+    public class Student {
+        String name;
+        int grade;
+
+        public Student() {
+            this("John Doe", 10);
+        }
+
+        public Student(String name, int grade) {
+            this.name = name;
+            this.grade = grade;
+        }
+
+        public void display() {
+            System.out.println(name + " is in grade " + grade);
+        }
+
+        public static void main(String[] args) {
+            Student student = new Student();
+            student.display();
+        }
+    }
+  language: 'java'
+  answers:
+    - text: 'John Doe is in grade 10'
+      correct: true
+    - text: 'John Doe is in grade 0'
+      correct: false
+    - text: ' is in grade 10'
+      correct: false
+    - text: 'null is in grade 0'
+      correct: false
+    - text: 'Compilation error'
+      correct: false
+  explanation: 'The no-argument constructor calls the parameterized constructor with "John Doe" and 10 as the arguments.'
