@@ -3,10 +3,11 @@ import styles from './StartButton.module.scss'
 import { ProgressContext } from '@/app/lib/QuestionProvider'
 import { useContext } from 'react'
 
-export function StartButton({ children, examName }) {
+export function StartButton({ children, examName, startFn }) {
     let { setExamInProgress, setIsTaken } = useContext(ProgressContext)
 
     function handleStart() {
+        startFn();
         setExamInProgress(examName)
         // This is set so that the proper initialization after Done button behaves as intended
         setIsTaken(false)
