@@ -29,6 +29,7 @@ export function searchMatchingIds(examQuestions, randomizedQtns) {
     randomizedQtns.forEach((id) => {
         examQuestions.forEach((el) => {
             if (el.id === id) {
+                el.answers = shuffle(el.answers);
                 result.push(el)
             }
         })
