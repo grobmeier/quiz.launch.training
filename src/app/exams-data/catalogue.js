@@ -42,4 +42,14 @@ export const catalogue = [
         fullDescription: `Datatypes are a core concept in Java, essential for any developer to understand. This exam will cover various aspects of datatypes, including primitives (such as int and boolean), wrapper classes (like Integer and Boolean), and the concepts of autoboxing and unboxing. Additionally, it will touch upon string manipulations and operations.`,    
         maxQuestions: 5,
     },
+    {
+        exam: 'sql-basics',
+        title: 'SQL - Basics',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Practice the foundational concepts of SQL.`,
+        fullDescription: `SQL is essential for interacting with relational databases. This exam covers the foundational concepts of SQL, such as SELECT, INSERT, UPDATE, and DELETE.`,
+        maxQuestions: 5,
+    },
 ]
