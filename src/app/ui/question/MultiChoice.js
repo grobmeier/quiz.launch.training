@@ -62,7 +62,7 @@ export function MultiChoice({ answers, options, id }) {
 
     return (
         <>
-            <span>You may pick {maxSelects} answers</span>
+            <span>{maxSelects} answers are correct.</span>
             {answers.map((item, index) => (
                 <button
                     key={index}
