@@ -427,42 +427,11 @@ const exam = [
             },
             {
                 "text": "SELECT planets.name, COUNT(moons.id) as moon_count FROM planets JOIN moons ON planets.id = moons.planet_id GROUP BY planets.name;",
-                "correct": true
+                "correct": false
             }
         ],
-        "correctAnswers": 3,
+        "correctAnswers": 2,
         "explanation": "LEFT JOIN is used to include all planets, and COUNT along with GROUP BY is used to count the number of moons per planet."
-    },
-    {
-        "id": "15",
-        "difficulty": 4,
-        "text": "Which SQL query will select the name of planets that have the same number of moons as Mars in the \"planets\" and \"moons\" tables using INNER JOIN?",
-        "type": "conceptual",
-        "language": "sql",
-        "answers": [
-            {
-                "text": "SELECT p1.name FROM planets p1 INNER JOIN moons m1 ON p1.id = m1.planet_id WHERE (SELECT COUNT(*) FROM moons WHERE planet_id = p1.id) = (SELECT COUNT(*) FROM moons WHERE planet_id = (SELECT id FROM planets WHERE name = \"Mars\"));",
-                "correct": true
-            },
-            {
-                "text": "SELECT p1.name FROM planets p1 INNER JOIN moons m1 ON p1.id = m1.planet_id GROUP BY p1.name HAVING COUNT(m1.id) = (SELECT COUNT(*) FROM moons WHERE planet_id = (SELECT id FROM planets WHERE name = \"Mars\"));",
-                "correct": true
-            },
-            {
-                "text": "SELECT name FROM planets WHERE id IN (SELECT planet_id FROM moons GROUP BY planet_id HAVING COUNT(*) = (SELECT COUNT(*) FROM moons WHERE planet_id = (SELECT id FROM planets WHERE name = \"Mars\")));",
-                "correct": true
-            },
-            {
-                "text": "SELECT p1.name FROM planets p1 INNER JOIN moons m1 ON p1.id = m1.planet_id WHERE COUNT(m1.id) = (SELECT COUNT(*) FROM moons WHERE planet_id = (SELECT id FROM planets WHERE name = \"Mars\"));",
-                "correct": false
-            },
-            {
-                "text": "SELECT p1.name FROM planets p1 INNER JOIN moons m1 ON p1.id = m1.planet_id WHERE COUNT(p1.id) = (SELECT COUNT(*) FROM moons WHERE planet_id = (SELECT id FROM planets WHERE name = \"Mars\"));",
-                "correct": false
-            }
-        ],
-        "correctAnswers": 3,
-        "explanation": "These queries use subqueries to find the count of moons for Mars and compare it with the count for other planets using INNER JOIN and GROUP BY."
     }
 ];
 
