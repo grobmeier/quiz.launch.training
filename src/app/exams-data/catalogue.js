@@ -53,6 +53,16 @@ export const catalogue = [
         maxQuestions: 5,
     },
     {
+        exam: 'java-jdbc',
+        title: 'Java - JDBC Basics',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Understanding JDBC is essential for database operations in Java.`,
+        fullDescription: `JDBC is a crucial part of Java for interacting with relational databases. This exam covers the basics of JDBC, including how to use ResultSet, Statement, PreparedStatement, and handle auto-generated keys. You'll also learn about establishing connections, performing CRUD operations, handling SQL exceptions, and best practices.`,
+        maxQuestions: 5,
+    },
+    {
         exam: 'sql-basics',
         title: 'SQL - Basics',
         rating: '4.3',
