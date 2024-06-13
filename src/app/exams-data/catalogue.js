@@ -43,6 +43,16 @@ export const catalogue = [
         maxQuestions: 5,
     },
     {
+        exam: 'java-exceptions',
+        title: 'Java - Exceptions',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Exceptions are an often misunderstood, but important concept in Java.`,
+        fullDescription: `Exceptions are an often misunderstood, but important concept in Java. They come with a bit unusual syntax and require to think differently than usually.`,
+        maxQuestions: 5,
+    },
+    {
         exam: 'sql-basics',
         title: 'SQL - Basics',
         rating: '4.3',
