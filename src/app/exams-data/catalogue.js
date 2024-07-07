@@ -72,4 +72,14 @@ export const catalogue = [
         fullDescription: `SQL is essential for interacting with relational databases. This exam covers the foundational concepts of SQL, such as SELECT, INSERT, UPDATE, and DELETE.`,
         maxQuestions: 5,
     },
+    {
+        exam: 'spring-basics',
+        title: 'Spring - Basics',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Learn the fundamentals of Spring framework.`,
+        fullDescription: `This exam covers the basics of Spring framework, including Spring stereotypes, dependency injection, request mappings, DispatcherServlet, and ApplicationContext. It also includes best practices and common pitfalls to avoid.`,
+        maxQuestions: 5,
+    },
 ]
