@@ -28,7 +28,7 @@ const exam = [
             }
         ],
         "correctAnswers": 1,
-        "explanation": "IOException is a checked exception, while the others are unchecked (runtime) exceptions."
+        "explanation": "SQLException is a checked exception, while the others are unchecked (runtime) exceptions."
     },
     {
         "id": "2",
