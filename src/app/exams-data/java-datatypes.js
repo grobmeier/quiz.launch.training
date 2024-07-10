@@ -275,8 +275,8 @@ const exam = [
                 "correct": false
             },
             {
-                "text": "String planet = \"Mars\";",
-                "correct": true
+                "text": "String planet = \'Mars\';",
+                "correct": false
             }
         ],
         "correctAnswers": 3,
