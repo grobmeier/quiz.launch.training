@@ -83,6 +83,16 @@ export const catalogue = [
         maxQuestions: 5,
     },
     {
+        exam: 'spring-aop',
+        title: 'Spring - AOP',
+        rating: '4.3',
+        level: 'BEGINNER',
+        duration: '20:00',
+        shortDescription: `Learn the fundamentals of Spring AOP integration.`,
+        fullDescription: `This exam covers the basics of Spring AOP.`,
+        maxQuestions: 5,
+    },
+    {
         exam: 'junit',
         title: 'JUnit - Basics',
         rating: '4.3',
