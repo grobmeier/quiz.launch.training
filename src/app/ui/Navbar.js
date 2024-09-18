@@ -1,21 +1,14 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
-import styles from './Navbar.module.scss'
-import React, { useState, useEffect } from 'react'
-import { useContext } from 'react'
-import { ProgressContext } from '@/app/lib/QuestionProvider.js'
-import { useRouter, usePathname } from 'next/navigation'
-import { confirmAlert } from 'react-confirm-alert' // Import
-import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
-
-/**
- * Here the consideration to pick the approach with checking the @examInProgress in state
- * in order to show Confirmation Box to the user is due to the fact that the current navigation
- * on Next doesn't provide a direct way to catch the event of moving to another Route
- * router.events has been replaced in useRouter.
- */
+import Link from 'next/link';
+import Image from 'next/image';
+import styles from './Navbar.module.scss';
+import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import { ProgressContext } from '@/app/lib/QuestionProvider.js';
+import { useRouter, usePathname } from 'next/navigation';
+import { confirmAlert } from 'react-confirm-alert' ;
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 export function Navbar() {
     const [comingFromTest, setComingFromTest] = useState(false)
@@ -63,12 +56,11 @@ export function Navbar() {
         } else {
             setComingFromTest(false)
         }
-        if (
-            pathname === '/' &&
+
+        if (pathname === '/' &&
             localStorage['allExamQtns'] &&
             localStorage['userAnswers'] &&
-            localStorage['allQtns']
-        ) {
+            localStorage['allQtns']) {
             localStorage.removeItem('allExamQtns')
             localStorage.removeItem('userAnswers')
             localStorage.removeItem('allQtns')
@@ -79,7 +71,6 @@ export function Navbar() {
     return (
         <nav className={styles.navbar}>
             <div className={`${styles.navbarContainer} ${styles.container}`}>
-                <input type="checkbox" name="" id="" />
                 <div className={styles.hamburgerLines}>
                     <span className={`${styles.line} ${styles.line1}`}></span>
                     <span className={`${styles.line} ${styles.line2}`}></span>
