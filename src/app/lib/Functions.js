@@ -40,16 +40,17 @@ export function searchMatchingIds(examQuestions, randomizedQtns) {
 /**
  * Gets the randomized Qtns ids for the launched exam
  * @param exam Current Exam, with all the data
- * @param maxQtns Maximum questions per exam
+ * @param maxQuestions Maximum questions per exam, if set
  * @returns {array} allExamQtns ids to be set in state
  */
+export function shuffleQuestions(exam, maxQuestions) {
+    let randomizedQuestions = shuffle(exam)
+    if (maxQuestions === undefined || maxQuestions === 0) {
+        return randomizedQuestions;
+    }
 
-export function shuffleQuestions(exam, maxQtns) {
-    let randomizedExamQtns = shuffle(exam)
-    const maxExamQtns = randomizedExamQtns.slice(0, maxQtns)
-    const allExamQtnsIds = maxExamQtns.map((p) => p.id)
-
-    return allExamQtnsIds
+    const reducedQuestions = randomizedQuestions.slice(0, maxQuestions);
+    return reducedQuestions.map((p) => p.id);
 }
 
 /**
