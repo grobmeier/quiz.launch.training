@@ -43,25 +43,16 @@ export function ExamWrapper() {
     } 
     
     useEffect(() => {
-        
-        const selectQuestionId = (examData) => {
-            const catalogueExam = catalogue.find((item) => item.exam === examName);
-            const maxQuestions = catalogueExam ? catalogueExam.maxQuestions : 0;
-            return shuffleQuestions(examData, maxQuestions);
-        }
-
         const createQuestionsAndResponses = (examData, questionIds) => {
             const { examQuestions, responses } = readQuestionAndResponses(examData, questionIds);
             put(Storage.EXAM_QUESTIONS, examQuestions);
             put(Storage.USER_ANSWERS, responses);
-            // setExamQuestions(examQuestions);
-            // setUserAnswers(responses);
         }
         
         const prepareExam = async () => {
             try {
                 const examModule = await import(`../../exams-data/${examName}.js`);
-                let questionIds = selectQuestionId(examModule.default);
+                let questionIds = shuffleQuestions(examModule.default);
                 createQuestionsAndResponses(examModule.default, questionIds)
                 setExamData(examModule.default);
                 setIsExamLoaded(true);
@@ -78,6 +69,7 @@ export function ExamWrapper() {
     function finishExam() {
         setFinish(true);
     }
+
     function startExam() {
         let startTime = new Date().toISOString();
         put(Storage.START_TIME, {startTime});
