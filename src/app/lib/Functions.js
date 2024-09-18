@@ -23,18 +23,13 @@ export function shuffle(array) {
  * Match the initial IDs (already randomized) and obtain
  * the corresponding data (answers, explanations, etc.) from database: exam file.
  */
-
-export function searchMatchingIds(examQuestions, randomizedQtns) {
-    let result = new Array()
-    randomizedQtns.forEach((id) => {
-        examQuestions.forEach((el) => {
-            if (el.id === id) {
-                el.answers = shuffle(el.answers);
-                result.push(el)
-            }
-        })
-    })
-    return result
+export function shuffleExamAnswers(examQuestions) {
+    let result = new Array();
+    examQuestions.forEach((el) => {
+            el.answers = shuffle(el.answers);
+            result.push(el);
+    });
+    return result;
 }
 
 /**
@@ -54,21 +49,15 @@ export function shuffleQuestions(exam, maxQuestions) {
 }
 
 /**
- * Reduced a list of questions to given ids.
  * Prepares response object that a trainee must populate to complete the exam.
  * 
  * @param {object} exam 
- * @param {int[]} questionIds 
- * 
- * @returns object with examQuestions and responses
+ * @returns response object
  */
-export function readQuestionAndResponses(exam, questionIds) {
-    let examQuestions = searchMatchingIds(exam, questionIds);
-    const responses = questionIds.map((id) => ({
-        id: id,
+export function prepareResponse(exam) {
+    return exam.map((question) => ({
+        id: question.id,
         calculatedPoints: 0,
         answered: [],
     }));
-
-    return { examQuestions, responses };
 }
