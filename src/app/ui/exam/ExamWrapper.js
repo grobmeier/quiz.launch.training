@@ -4,7 +4,7 @@ import styles from './exam.module.scss'
 import { catalogue } from '../../exams-data/catalogue.js'
 import { ExamMainScreen } from '@/app/ui/exam/ExamMainScreen'
 import React, { useState, useEffect, useContext } from 'react'
-import { Question } from '@/app/ui/question/Question.js'
+import { QuestionDeck } from '@/app/ui/question/QuestionDeck.js'
 import { ResultBox } from '@/app/ui/result/ResultBox'
 import { TryAgainButton } from '@/app/ui/TryAgainButton'
 import { DoneButton } from '@/app/ui/DoneButton'
@@ -14,7 +14,7 @@ import { Storage, readJSON, put } from '@/app/lib/Storage.js'
 
 export function ExamWrapper() {
     const pathname = usePathname();
-    const [isClient, setIsClient] = useState(false);
+    let [run, setRun] = useState(false);
     let [finish, setFinish] = useState(false);
     
     let examName = 'java-arrays'
@@ -25,7 +25,8 @@ export function ExamWrapper() {
     
     useEffect(() => {
         const prepareExam = async () => {
-            const examData = await import(`../../exams-data/${examName}.js`).default;
+            const examModule = await import(`../../exams-data/${examName}.js`);
+            const examData = examModule.default;
             const examQuestions = shuffleExamAnswers(examData);
             const responses = prepareResponse(examData);
 
@@ -41,11 +42,6 @@ export function ExamWrapper() {
         setFinish(true);
     }
 
-    function startExam(examName) {
-        let startTime = new Date().toISOString();
-        put(Storage.START_TIME, {startTime}, examName);
-    }
-
     const catalogueExam = catalogue.find((item) => item.exam === examName)
 
     if (readJSON(Storage.START_TIME, examName) === null) {
@@ -55,7 +51,11 @@ export function ExamWrapper() {
                     title={catalogueExam?.title}
                     exam={catalogueExam?.exam}
                     fullDescription={catalogueExam?.fullDescription}
-                    startFn={() => startExam(examName)}
+                    startFn={() => {
+                        let startTime = new Date().toISOString();
+                        put(Storage.START_TIME, {startTime}, examName);
+                        setRun(true); // for regenerating view
+                    }}
                 />
             </>
         )
@@ -74,13 +74,13 @@ export function ExamWrapper() {
             )
         }
 
-        let questions = readJSON(Storage.EXAM_QUESTIONS);
+        let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
         return (
             <main className={styles.main}>
-                {!isClient || questions == null || questions.length === 0 ? (
+                {questions == null || questions.length === 0 ? (
                     <div>Loading ....</div>
                 ) : (
-                    <Question finishExam={finishExam}/>
+                    <QuestionDeck examName={examName} finishExam={finishExam}/>
                 )}
             </main>
         )

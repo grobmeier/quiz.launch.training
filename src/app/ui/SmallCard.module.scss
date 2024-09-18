@@ -37,6 +37,10 @@
     display: none;
 }
 
+.startIndicator {
+    font-weight: bold;
+    margin-right: 1em;
+}
 @media (max-width: 768px) {
     .card {
         margin: 10px 0;

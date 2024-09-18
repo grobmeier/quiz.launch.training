@@ -1,10 +1,34 @@
 'use client'
 
-import styles from './SmallCard.module.scss'
-import { Button } from '@/app/ui/Button'
-import Link from 'next/link'
+import styles from './SmallCard.module.scss';
+import { Button } from '@/app/ui/Button';
+import Link from 'next/link';
+import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
+import {formatDate} from '@/app/lib/Functions.js';
+import { useState, useEffect } from 'react';
 
-export function SmallCard({ link, title, text, rating, duration, level }) {
+export function SmallCard({ examName, link, title, text }) {
+
+    const [startTime, setStartTime] = useState(null);
+
+    const startTimeStorage = readJSON(Storage.START_TIME, examName);
+    useEffect(() => {
+        let startTime = null;
+        if (startTimeStorage !== null) {
+            startTime = formatDate(startTimeStorage.startTime);
+        }
+        setStartTime(startTime);
+    }, [startTimeStorage]);
+    
+    function handleRemove(event, examName) {
+        event.preventDefault();
+        remove(Storage.EXAM_QUESTIONS, examName);
+        remove(Storage.USER_ANSWERS, examName);
+        remove(Storage.CURRENT_INDEX, examName);
+        remove(Storage.START_TIME, examName);
+        setStartTime(null);
+    }
+
     return (
         <div className={styles.card}>
             <div className={styles.container}>
@@ -14,7 +38,17 @@ export function SmallCard({ link, title, text, rating, duration, level }) {
                     </Link>
                     <p>{text}</p>
                     <div className={styles.containerBtn}>
-                        <Button link={link}>More</Button>
+                        {startTime !== null &&
+                        <>  
+                            <span className={styles.startIndicator}>Started on {startTime}</span>
+                            <Button onClick={(event) => handleRemove(event, examName)}>Remove</Button>
+                            <Button link={link}>Continue</Button>
+                        </>
+                        }
+
+                        {startTime === null &&
+                            <Button link={link}>More</Button>
+                        }
                     </div>
                 </div>
             </div>

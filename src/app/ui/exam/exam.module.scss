@@ -3,9 +3,8 @@
 .main {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     align-items: center;
-    padding: 6rem;
+    margin-top: 10vh;
     min-height: 100vh;
     gap: 20px;
 }
@@ -47,7 +46,6 @@
     gap: 14px;
 }
 
-/* tablet breakpoint */
 @media (max-width: 768px) {
     .grid {
         display: block;

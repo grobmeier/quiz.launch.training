@@ -1,16 +1,14 @@
 import styles from './Topbar.module.scss'
 import { useRouter } from 'next/navigation'
-import { CountdownWrapper } from '@/app/ui/question/CountdownWrapper'
-import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
+import { Storage, readJSON } from '@/app/lib/Storage.js';
 
-export function Topbar() {
+export function Topbar({examName}) {
     const router = useRouter()
 
-    let currentIndex = readJSON(Storage.CURRENT_INDEX);
-    let totalQuestions = readJSON(Storage.USER_ANSWERS).length;
+    let currentIndex = readJSON(Storage.CURRENT_INDEX, examName);
+    let totalQuestions = readJSON(Storage.USER_ANSWERS, examName).length;
 
     function handleCancel() {
-        localStorage.clear();
         router.push('/');
     }
 

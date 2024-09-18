@@ -12,11 +12,9 @@ export default function Page() {
                 {catalogue.map((item) => (
                     <SmallCard
                         key={item.exam}
+                        examName={item.exam}
                         link={`exams/${item.exam}`}
                         title={item.title}
-                        rating={item.rating}
-                        level={item.level}
-                        duration={item.duration}
                         text={item.shortDescription}
                     />
                 ))}
