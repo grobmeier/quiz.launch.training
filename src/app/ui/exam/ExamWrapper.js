@@ -28,16 +28,16 @@ export function ExamWrapper() {
             if (readJSON(Storage.START_TIME, examName) === null) {
                 let startTime = new Date().toISOString();
                 put(Storage.START_TIME, {startTime}, examName);
-            }
-            
-            const examModule = await import(`../../exams-data/${examName}.js`);
-            const examData = examModule.default;
-            const examQuestions = shuffleExamAnswers(examData);
-            const responses = prepareResponse(examData);
 
-            put(Storage.EXAM_QUESTIONS, examQuestions, examName);
-            put(Storage.USER_ANSWERS, responses, examName);
-            put(Storage.CURRENT_INDEX, 0, examName);
+                const examModule = await import(`../../exams-data/${examName}.js`);
+                const examData = examModule.default;
+                const examQuestions = shuffleExamAnswers(examData);
+                const responses = prepareResponse(examData);
+
+                put(Storage.EXAM_QUESTIONS, examQuestions, examName);
+                put(Storage.USER_ANSWERS, responses, examName);
+                put(Storage.CURRENT_INDEX, 0, examName);
+            }
 
             setRun(true);
         }
