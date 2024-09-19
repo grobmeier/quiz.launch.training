@@ -49,8 +49,6 @@ export function ExamWrapper() {
         setFinish(true);
     }
 
-    const catalogueExam = catalogue.find((item) => item.exam === examName)
-
     // Finished deck
     if (finish && readJSON(Storage.EXAM_TAKEN)) {
         return (
