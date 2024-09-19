@@ -69,7 +69,7 @@ export function ExamWrapper() {
     return (
         <main className={styles.main}>
             {questions == null || questions.length === 0 ? (
-                <div>Loading ....</div>
+                <div>Loading...</div>
             ) : (
                 <QuestionDeck examName={examName} finishExam={finishExam}/>
             )}
