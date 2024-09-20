@@ -37,11 +37,10 @@ export function ExamWrapper() {
                 put(Storage.EXAM_QUESTIONS, examQuestions, examName);
                 put(Storage.USER_ANSWERS, responses, examName);
                 put(Storage.CURRENT_INDEX, 0, examName);
+                setRun(!run);
             }
-
-            setRun(true);
         }
-
+ 
         prepareExam();
     }, [examName]);
 
