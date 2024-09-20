@@ -8,7 +8,7 @@ export default function Page() {
     return (
         <main className={styles.main}>
             <h1>Exams Page</h1>
-            <div className={styles.grid}>
+            <div>
                 {catalogue.map((item) => (
                     <SmallCard
                         key={item.exam}

@@ -17,10 +17,10 @@ export default function RootLayout({ children }) {
                 <script defer data-domain="launch.training" src="https://analytics.grobmeier.de/js/plausible.js"></script>
             </head>
             <body className={inter.className}>
-                <QuestionProvider>
+                
                     <Navbar />
                     {children}
-                </QuestionProvider>
+                
             </body>
         </html>
     )
