@@ -7,28 +7,33 @@ import { MultiChoice } from '@/app/ui/question/MultiChoice';
 import { CodeBlock, dracula } from 'react-code-blocks';
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
+import { Storage, read, put, remove, readJSON, removeQuestionDeck } from '@/app/lib/Storage.js';
+import { ResultBox } from '@/app/ui/result/ResultBox'
+import { DoneButton } from '@/app/ui/DoneButton'
 
-export function QuestionDeck({ examName, finishExam }) {
-    
+export function QuestionDeck({ examName }) {
     let [question, setQuestion] = useState(null);
     let [answer, setAnswer] = useState(null);
-
-    const loadQuestion = useCallback((examName) => {
-        let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
-        let currentIndex = readJSON(Storage.CURRENT_INDEX, examName);
-        const question = questions[currentIndex];
-        setQuestion(question);
-        readAnswer(question.id, examName);
-    }, []);
-
-    function handlePrevious(examName) {
-        let currentIndex = readJSON(Storage.CURRENT_INDEX, examName);
-        if (currentIndex === 0) {
+    let [stateIndex, setStateIndex] = useState(readJSON(Storage.CURRENT_INDEX, examName, 0));
+    let totalQuestions = readJSON(Storage.USER_ANSWERS, examName).length;
+    
+    useEffect(() => {
+        if (isAfterLastQuestion()) {
             return;
         }
-        put(Storage.CURRENT_INDEX, currentIndex - 1, examName);
-        loadQuestion(examName);
+        let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
+        let newQuestion = questions[stateIndex];
+        setQuestion(newQuestion);
+        readAnswer(newQuestion.id, examName);
+    }, [stateIndex]);
+
+    function handlePrevious(examName) {
+        if (stateIndex === 0) {
+            return;
+        }
+        let newIndex = stateIndex - 1;
+        put(Storage.CURRENT_INDEX, newIndex, examName);
+        setStateIndex(newIndex);
     }
 
     function handleResponse(questionId, examName) {
@@ -56,30 +61,45 @@ export function QuestionDeck({ examName, finishExam }) {
         setAnswer(userAnswer);
     }
 
+    function isAfterLastQuestion() {
+        return ((stateIndex + 1) > totalQuestions);
+    }
+
     function handleNext(examName) {
-        let currentIndex = readJSON(Storage.CURRENT_INDEX, examName);
-
-        currentIndex = currentIndex + 1;
-
-        if (currentIndex < totalQuestions) {
-            put(Storage.CURRENT_INDEX, currentIndex, examName);
-        } else {
+        let newIndex = stateIndex + 1;
+        if (newIndex < totalQuestions) {
+            put(Storage.CURRENT_INDEX, newIndex, examName);
+            setStateIndex(newIndex);
+        } else if (newIndex === totalQuestions) {
             put(Storage.EXAM_TAKEN, true, examName);
-            put(Storage.CURRENT_INDEX, 0, examName);
-            remove(Storage.END_DATE, examName);
-            finishExam();
+            put(Storage.CURRENT_INDEX, newIndex, examName);
+            setStateIndex(newIndex);
+        } else if (newIndex > totalQuestions) {
+            put(Storage.CURRENT_INDEX, totalQuestions, examName);
         }
-        
-        loadQuestion(examName);
     }
 
-    useEffect(() => loadQuestion(examName), [loadQuestion, examName]);
-
-    if (!question || !answer) {
-        return <p>Loading...</p>;
+    // Finished deck
+    if (isAfterLastQuestion()) {
+        return (<main className={styles.main}>
+                <h3>Congratulations</h3>
+                <ResultBox examName={examName} />
+                <div className={styles.btnsArea}>
+                    <button
+                        className={styles.prevBtn}
+                        onClick={() => handlePrevious(examName)}
+                        disabled={stateIndex === 0 ? true : false}>
+                        Previous
+                    </button>
+                    <DoneButton />
+                </div>
+            </main>);
     }
 
-    let totalQuestions = readJSON(Storage.USER_ANSWERS, examName).length;
+    if (question === null ) {
+        return <div>Loading...</div>;
+    }
+
     const { id, content, language, text, answers, type, correctAnswers } = question;
     
     return (

@@ -16,7 +16,7 @@ function prefixKey(key, examName) {
 
 export function read(key, examName, dflt) {
     key = prefixKey(key, examName);
-    let value = localStorage.getItem(key);
+    let value = typeof window !== "undefined" && localStorage.getItem(key);
     if (value === null && dflt !== undefined) {
         return dflt;
     }

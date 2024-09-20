@@ -3,9 +3,6 @@
 import styles from './exam.module.scss'
 import React, { useState, useEffect, useContext } from 'react'
 import { QuestionDeck } from '@/app/ui/question/QuestionDeck.js'
-import { ResultBox } from '@/app/ui/result/ResultBox'
-import { TryAgainButton } from '@/app/ui/TryAgainButton'
-import { DoneButton } from '@/app/ui/DoneButton'
 import { usePathname } from 'next/navigation'
 import { shuffleExamAnswers, prepareResponse } from '@/app/lib/Functions.js'
 import { Storage, readJSON, read, put } from '@/app/lib/Storage.js'
@@ -19,8 +16,6 @@ export function ExamWrapper() {
     if (match) {
         examName = match[1];
     } 
-    
-    let [finish, setFinish] = useState(read(Storage.EXAM_TAKEN, examName, false));
     
     useEffect(() => {
         const prepareExam = async () => {
@@ -44,33 +39,12 @@ export function ExamWrapper() {
         prepareExam();
     }, [examName]);
 
-    function finishExam() {
-        setFinish(true);
-    }
-
-    // Finished deck
-    if (finish) {
-        return (
-            <main className={styles.main}>
-                <h3>Congratulations</h3>
-                
-                <ResultBox examName={examName} />
-                <div className={styles.btnsArea}>
-                    <TryAgainButton />
-                    <DoneButton />
-                </div>
-            </main>
-        )
-    }
-
     // Restarting deck or starting
     let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
     return (
         <main className={styles.main}>
-            {questions == null || questions.length === 0 ? (
-                <div>Loading...</div>
-            ) : (
-                <QuestionDeck examName={examName} finishExam={finishExam}/>
+            {questions == null || questions.length === 0 ? (<div>Loading...</div>) : (
+                <QuestionDeck examName={examName} />
             )}
         </main>
     )
