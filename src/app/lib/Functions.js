@@ -23,55 +23,54 @@ export function shuffle(array) {
  * Match the initial IDs (already randomized) and obtain
  * the corresponding data (answers, explanations, etc.) from database: exam file.
  */
-
-export function searchMatchingIds(examQuestions, randomizedQtns) {
-    let result = new Array()
-    randomizedQtns.forEach((id) => {
-        examQuestions.forEach((el) => {
-            if (el.id === id) {
-                el.answers = shuffle(el.answers);
-                result.push(el)
-            }
-        })
-    })
-    return result
+export function shuffleExamAnswers(examQuestions) {
+    let result = new Array();
+    examQuestions.forEach((el) => {
+            el.answers = shuffle(el.answers);
+            result.push(el);
+    });
+    return result;
 }
 
 /**
  * Gets the randomized Qtns ids for the launched exam
  * @param exam Current Exam, with all the data
- * @param maxQtns Maximum questions per exam
+ * @param maxQuestions Maximum questions per exam, if set
  * @returns {array} allExamQtns ids to be set in state
  */
+export function shuffleQuestions(exam, maxQuestions) {
+    let randomizedQuestions = shuffle(exam)
+    if (maxQuestions === undefined || maxQuestions === 0) {
+        return randomizedQuestions;
+    }
 
-export function shuffleQuestions(exam, maxQtns) {
-    let randomizedExamQtns = shuffle(exam)
-    const maxExamQtns = randomizedExamQtns.slice(0, maxQtns)
-    const allExamQtnsIds = maxExamQtns.map((p) => p.id)
-
-    return allExamQtnsIds
+    const reducedQuestions = randomizedQuestions.slice(0, maxQuestions);
+    return reducedQuestions.map((p) => p.id);
 }
 
 /**
- * Sets the localstorage - allExamQtns, userAnswers and allQtns, based
- * on the randomized IDs of the questions and allQtns, coming from state
- * @param exam Current Exam, with all the data
- * @param questionIds Randomized IDs of the current exam, from state
- * @returns tmpAllExamQtns and userTmpAnswers to be set in state
+ * Prepares response object that a trainee must populate to complete the exam.
+ * 
+ * @param {object} exam 
+ * @returns response object
  */
-
-export function readQuestionAndResponses(exam, questionIds) {
-    let examQuestions = searchMatchingIds(exam, questionIds);
-    
-    const responses = questionIds.map((id) => ({
-        id: id,
+export function prepareResponse(exam) {
+    return exam.map((question) => ({
+        id: question.id,
         calculatedPoints: 0,
         answered: [],
+        completed: false
     }));
-    // let jsonResponses = JSON.stringify(responses);
-    
-    // localStorage.setItem('userAnswers', jsonResponses);
-    // localStorage.setItem('allQtns', JSON.stringify(questionIds));
+}
 
-    return { examQuestions, responses };
+export function formatDate(jsonDate) {
+    const date = new Date(jsonDate);
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
 }

@@ -1,11 +1,30 @@
 'use client'
 
-import styles from './SmallCard.module.scss'
-import { Rating } from '@smastrom/react-rating'
-import { Button } from '@/app/ui/Button'
-import Link from 'next/link'
+import styles from './SmallCard.module.scss';
+import { Button } from '@/app/ui/Button';
+import Link from 'next/link';
+import { Storage, read, put, remove, readJSON, removeQuestionDeck } from '@/app/lib/Storage.js';
+import {formatDate} from '@/app/lib/Functions.js';
+import { useState, useEffect } from 'react';
 
-export function SmallCard({ link, title, text, rating, duration, level }) {
+export function SmallCard({ examName, link, title, text }) {
+
+    const [startTime, setStartTime] = useState(null);
+
+    const startTimeStorage = readJSON(Storage.START_TIME, examName);
+    useEffect(() => {
+        let startTime = null;
+        if (startTimeStorage !== null) {
+            startTime = formatDate(startTimeStorage.startTime);
+        }
+        setStartTime(startTime);
+    }, [startTimeStorage]);
+    
+    function handleRemove(event, examName) {
+        removeQuestionDeck(examName);
+        setStartTime(null);
+    }
+
     return (
         <div className={styles.card}>
             <div className={styles.container}>
@@ -13,27 +32,19 @@ export function SmallCard({ link, title, text, rating, duration, level }) {
                     <Link href={link}>
                         <h4>{title}</h4>
                     </Link>
-
-                    {/*
-                    <Rating
-                        style={{ maxWidth: 100 }}
-                        className={styles.stars}
-                        value={rating}
-                        readOnly
-                    />
-                    */}
-                    {/* <Link href={link}>
-                        <span>{duration}m</span>
-                    </Link> */}
-                    {/*
-                    <Link href={link}>
-                        <span className={styles.level}>{level}</span>
-                    </Link>
-                    */}
-
                     <p>{text}</p>
                     <div className={styles.containerBtn}>
-                        <Button link={link}>More</Button>
+                        {startTime !== null &&
+                        <>  
+                            <span className={styles.startIndicator}>Started on {startTime}</span>
+                            <Button onClick={(event) => handleRemove(event, examName)}>Remove</Button>
+                            <Button link={link}>Continue</Button>
+                        </>
+                        }
+
+                        {startTime === null &&
+                            <Button link={link}>Start</Button>
+                        }
                     </div>
                 </div>
             </div>

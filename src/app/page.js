@@ -8,15 +8,13 @@ export default function Page() {
     return (
         <main className={styles.main}>
             <h1>Exams Page</h1>
-            <div className={styles.grid}>
+            <div>
                 {catalogue.map((item) => (
                     <SmallCard
                         key={item.exam}
+                        examName={item.exam}
                         link={`exams/${item.exam}`}
                         title={item.title}
-                        rating={item.rating}
-                        level={item.level}
-                        duration={item.duration}
                         text={item.shortDescription}
                     />
                 ))}

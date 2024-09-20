@@ -6,6 +6,7 @@
     border-radius: $standardRadius;
     background: white;
     padding: 12px 10px;
+    margin-bottom: 2em;
 }
 
 .card:hover {
@@ -29,30 +30,25 @@
     }
 }
 
-.stars {
-    padding-bottom: 12px;
-}
-
 .containerBtn {
-    float: right;
+    text-align: right;
 }
 
 .level {
     display: none;
 }
 
+.startIndicator {
+    font-weight: bold;
+    margin-right: 1em;
+}
 @media (max-width: 768px) {
     .card {
         margin: 10px 0;
         width: 100vw;
     }
-    .containerBtn {
-        display: none;
-    }
+
     .container p {
-        display: none;
-    }
-    .stars {
         display: none;
     }
     .level {

@@ -2,7 +2,7 @@
 
 .container {
     display: flex;
-    width: $questionElement;
+    width: 100%;
     padding: 16px 32px;
     justify-content: space-between;
     align-items: center;
@@ -18,10 +18,4 @@
     cursor: pointer;
     color: white;
     background: rgb(169, 18, 18);
-}
-
-@media (max-width: 768px) {
-    .container {
-        width: 90vw;
-    }
 }

@@ -1,24 +1,18 @@
-'use client'
-import styles from './result/Result.module.scss'
-import { useRouter } from 'next/navigation'
-import { ProgressContext } from '@/app/lib/QuestionProvider'
-import { useContext } from 'react'
+'use client';
+import styles from './result/Result.module.scss';
+import { useRouter } from 'next/navigation';
+import { removeQuestionDeck } from '@/app/lib/Storage';
 
-export function DoneButton() {
-    const router = useRouter()
-    let { setCurrentIndex, setExamInProgress, setSeenQtns } =
-        useContext(ProgressContext)
+export function DoneButton({examName}) {
+    const router = useRouter();
 
     function handleDone() {
-        setCurrentIndex(0)
-        setSeenQtns(0)
-        setExamInProgress('')
-        localStorage.clear()
-        router.push('/')
+        removeQuestionDeck(examName);
+        router.push('/');
     }
     return (
         <button className={styles.doneBtn} type="button" onClick={handleDone}>
-            Done
+            Reset quiz
         </button>
     )
 }

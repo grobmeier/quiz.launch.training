@@ -1,4 +1,10 @@
-# QUiz
+# Quiz
+
+## Install
+
+```bash
+npm install
+```
 
 ## Generate questions
 

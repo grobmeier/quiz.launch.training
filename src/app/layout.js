@@ -1,8 +1,6 @@
 import { Inter } from 'next/font/google'
 import './globals.scss'
-import '@smastrom/react-rating/style.css'
 import { Navbar } from '@/app/ui/Navbar'
-import { QuestionProvider } from '@/app/lib/QuestionProvider.js'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,10 +16,10 @@ export default function RootLayout({ children }) {
                 <script defer data-domain="launch.training" src="https://analytics.grobmeier.de/js/plausible.js"></script>
             </head>
             <body className={inter.className}>
-                <QuestionProvider>
+                
                     <Navbar />
                     {children}
-                </QuestionProvider>
+                
             </body>
         </html>
     )
