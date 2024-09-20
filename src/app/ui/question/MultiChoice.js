@@ -64,9 +64,8 @@ export function MultiChoice({ examName, completed, answers, options, id }) {
         <>
             <span>{maxSelects} answers are correct.</span>
             {answers.map((item, index) => (
-                <div className={styles.answerContainer} >
+                <div key={index} className={styles.answerContainer} >
                     <button
-                        key={index}
                         onClick={(event) => handleClick(event, item)}
                         type="button"
                         className={`${styles.container} ${
