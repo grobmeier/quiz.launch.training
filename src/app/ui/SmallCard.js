@@ -3,7 +3,7 @@
 import styles from './SmallCard.module.scss';
 import { Button } from '@/app/ui/Button';
 import Link from 'next/link';
-import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
+import { Storage, read, put, remove, readJSON, removeQuestionDeck } from '@/app/lib/Storage.js';
 import {formatDate} from '@/app/lib/Functions.js';
 import { useState, useEffect } from 'react';
 
@@ -21,11 +21,7 @@ export function SmallCard({ examName, link, title, text }) {
     }, [startTimeStorage]);
     
     function handleRemove(event, examName) {
-        event.preventDefault();
-        remove(Storage.EXAM_QUESTIONS, examName);
-        remove(Storage.USER_ANSWERS, examName);
-        remove(Storage.CURRENT_INDEX, examName);
-        remove(Storage.START_TIME, examName);
+        removeQuestionDeck(examName);
         setStartTime(null);
     }
 

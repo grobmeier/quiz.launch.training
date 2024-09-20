@@ -14,9 +14,13 @@ function prefixKey(key, examName) {
     return key;
 }
 
-export function read(key, examName) {
+export function read(key, examName, dflt) {
     key = prefixKey(key, examName);
-    return typeof window !== "undefined" && localStorage.getItem(key);
+    let value = localStorage.getItem(key);
+    if (value === null && dflt !== undefined) {
+        return dflt;
+    }
+    return value;
 }
 
 export function readJSON(key, examName) {
@@ -33,4 +37,11 @@ export function put(key, value, examName) {
 export function remove(key, examName) {
     key = prefixKey(key, examName);
     return typeof window !== "undefined" && localStorage.removeItem(key);
+}
+
+export function removeQuestionDeck(examName) {
+    remove(Storage.EXAM_QUESTIONS, examName);
+    remove(Storage.USER_ANSWERS, examName);
+    remove(Storage.CURRENT_INDEX, examName);
+    remove(Storage.START_TIME, examName);
 }
