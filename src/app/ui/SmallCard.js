@@ -43,7 +43,7 @@ export function SmallCard({ examName, link, title, text }) {
                         }
 
                         {startTime === null &&
-                            <Button link={link}>More</Button>
+                            <Button link={link}>Start</Button>
                         }
                     </div>
                 </div>
