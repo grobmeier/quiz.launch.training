@@ -17,7 +17,7 @@ export function MultiChoice({ examName, completed, answers, options, id }) {
         if (userAnswers[currentIndex].answered) {
             setCurrentSelected(userAnswers[currentIndex].answered)
         }
-    }, [currentIndex, clicked]);
+    }, [examName, currentIndex, clicked]);
 
     function handleClick(event, item) {
         event.preventDefault();

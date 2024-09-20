@@ -37,7 +37,7 @@ export function ExamWrapper() {
         }
  
         prepareExam();
-    }, [examName]);
+    }, []);
 
     // Restarting deck or starting
     let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
