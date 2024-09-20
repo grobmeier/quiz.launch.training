@@ -64,7 +64,7 @@ export function QuestionDeck({ examName, finishExam }) {
         if (currentIndex < totalQuestions) {
             put(Storage.CURRENT_INDEX, currentIndex, examName);
         } else {
-            put(Storage.EXAM_TAKEN, 1, examName);
+            put(Storage.EXAM_TAKEN, true, examName);
             put(Storage.CURRENT_INDEX, 0, examName);
             remove(Storage.END_DATE, examName);
             finishExam();
