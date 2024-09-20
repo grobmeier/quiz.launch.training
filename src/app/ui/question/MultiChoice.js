@@ -1,19 +1,19 @@
 import styles from './MultiChoice.module.scss'
 import { useState, useEffect } from 'react'
 import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
-import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js'
+import { Storage, put, readJSON } from '@/app/lib/Storage.js'
 
-export function MultiChoice({ answers, options, id }) {
-    const [currentSelected, setCurrentSelected] = useState([])
-    const [clicked, setClicked] = useState(false)
+export function MultiChoice({ examName, answers, options, id }) {
+    const [currentSelected, setCurrentSelected] = useState([]);
+    const [clicked, setClicked] = useState(false);
 
-    const maxSelects = options
-    const calculateAnswerWeight = (1 / options).toFixed(2)
+    const maxSelects = options;
+    const calculateAnswerWeight = (1 / options).toFixed(2);
 
-    let currentIndex = readJSON(Storage.CURRENT_INDEX);
+    let currentIndex = readJSON(Storage.CURRENT_INDEX, examName);
     
     useEffect(() => {
-        const userAnswers = readJSON(Storage.USER_ANSWERS);
+        const userAnswers = readJSON(Storage.USER_ANSWERS, examName);
         if (userAnswers[currentIndex].answered) {
             setCurrentSelected(userAnswers[currentIndex].answered)
         }
@@ -21,7 +21,7 @@ export function MultiChoice({ answers, options, id }) {
 
     function handleClick(event, item) {
         event.preventDefault();
-        const userAnswers = readJSON(Storage.USER_ANSWERS);
+        const userAnswers = readJSON(Storage.USER_ANSWERS, examName);
         if (currentSelected.length >= maxSelects && !currentSelected.includes(item.text)) {
             alert('You reached maximum allowed answers');
             return;
@@ -56,7 +56,7 @@ export function MultiChoice({ answers, options, id }) {
                   } : { ...item }
         );
 
-        put(Storage.USER_ANSWERS, temp);
+        put(Storage.USER_ANSWERS, temp, examName);
         setClicked(!clicked);
     }
 

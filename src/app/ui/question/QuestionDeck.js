@@ -113,7 +113,7 @@ export function QuestionDeck({ examName, finishExam }) {
                 <SingleOptionQuestion examName={examName} completed={answer.completed} answers={answers} id={id} />}
             {correctAnswers > 1 && (
                 <MultiChoice
-                    completed={completed}
+                    completed={answer.completed}
                     examName={examName}
                     options={correctAnswers}
                     answers={answers}
