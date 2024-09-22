@@ -25,7 +25,7 @@ export function QuestionDeck({ examName }) {
         let newQuestion = questions[stateIndex];
         setQuestion(newQuestion);
         readAnswer(newQuestion.id, examName);
-    }, [examName, stateIndex, isAfterLastQuestion]);
+    }, [examName, stateIndex]);
 
     function handlePrevious(examName) {
         if (stateIndex === 0) {
