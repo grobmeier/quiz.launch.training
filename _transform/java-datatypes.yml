@@ -403,9 +403,9 @@
   language: 'java'
   answers:
     - text: 'Saturns rings are Beautiful'
-      correct: true
-    - text: 'Saturns rings are BEAUTIFUL'
       correct: false
+    - text: 'Saturns rings are BEAUTIFUL'
+      correct: true
     - text: 'Saturns rings are'
       correct: false
     - text: 'Compilation error'
