@@ -37,7 +37,7 @@ export function SmallCard({ examName, link, title, text }) {
                         {startTime !== null &&
                         <>  
                             <span className={styles.startIndicator}>Started on {startTime}</span>
-                            <Button onClick={(event) => handleRemove(event, examName)}>Remove</Button>
+                            <Button onClick={(event) => handleRemove(event, examName)}>Restart</Button>
                             <Button link={link}>Continue</Button>
                         </>
                         }
