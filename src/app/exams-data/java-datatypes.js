@@ -192,19 +192,19 @@ const exam = [
         "difficulty": 1,
         "text": "What will be the output of the following code snippet about Earth?",
         "type": "code",
-        "content": "int earthPopulation = 7800000000;\nSystem.out.println(\"The population of Earth is \" + earthPopulation + \" people.\");\n",
+        "content": "int earthPopulation = 2000000000;\nSystem.out.println(\"The population of Earth is \" + earthPopulation + \" people.\");\n",
         "language": "java",
         "answers": [
             {
-                "text": "The population of Earth is 7800000000 people.",
+                "text": "The population of Earth is 2000000000 people.",
                 "correct": true
             },
             {
-                "text": "The population of Earth is 7,800,000,000 people.",
+                "text": "The population of Earth is 2,000,000,000 people.",
                 "correct": false
             },
             {
-                "text": "The population of Earth is seven billion eight hundred million people.",
+                "text": "The population of Earth is two billionscd _transform node transform.js java-constructor.yml people.",
                 "correct": false
             },
             {
@@ -275,11 +275,11 @@ const exam = [
                 "correct": false
             },
             {
-                "text": "String planet = \'Mars\';",
-                "correct": false
+                "text": "String planet = \"Mars\";",
+                "correct": true
             }
         ],
-        "correctAnswers": 2,
+        "correctAnswers": 3,
         "explanation": "Strings in Java can be initialized using double quotes directly or by creating a new String object."
     },
     {
@@ -607,11 +607,11 @@ const exam = [
         "answers": [
             {
                 "text": "Saturns rings are Beautiful",
-                "correct": true
+                "correct": false
             },
             {
                 "text": "Saturns rings are BEAUTIFUL",
-                "correct": false
+                "correct": true
             },
             {
                 "text": "Saturns rings are",
