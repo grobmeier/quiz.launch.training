@@ -125,15 +125,15 @@
   text: 'What will be the output of the following code snippet about Earth?'
   type: 'code'
   content: |
-    int earthPopulation = 7800000000;
+    int earthPopulation = 2000000000;
     System.out.println("The population of Earth is " + earthPopulation + " people.");
   language: 'java'
   answers:
-    - text: 'The population of Earth is 7800000000 people.'
+    - text: 'The population of Earth is 2000000000 people.'
       correct: true
-    - text: 'The population of Earth is 7,800,000,000 people.'
+    - text: 'The population of Earth is 2,000,000,000 people.'
       correct: false
-    - text: 'The population of Earth is seven billion eight hundred million people.'
+    - text: 'The population of Earth is two billionscd _transform node transform.js java-constructor.yml people.'
       correct: false
     - text: 'Compilation error'
       correct: false
