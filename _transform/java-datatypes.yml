@@ -133,7 +133,7 @@
       correct: true
     - text: 'The population of Earth is 2,000,000,000 people.'
       correct: false
-    - text: 'The population of Earth is two billionscd _transform node transform.js java-constructor.yml people.'
+    - text: 'The population of Earth is two billion people.'
       correct: false
     - text: 'Compilation error'
       correct: false

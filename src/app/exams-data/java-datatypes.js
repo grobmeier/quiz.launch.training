@@ -204,7 +204,7 @@ const exam = [
                 "correct": false
             },
             {
-                "text": "The population of Earth is two billionscd _transform node transform.js java-constructor.yml people.",
+                "text": "The population of Earth is two billion people.",
                 "correct": false
             },
             {
