@@ -275,11 +275,11 @@ const exam = [
                 "correct": false
             },
             {
-                "text": "String planet = \"Mars\";",
-                "correct": true
+                "text": "new String planet = \"Mars\";",
+                "correct": false
             }
         ],
-        "correctAnswers": 3,
+        "correctAnswers": 2,
         "explanation": "Strings in Java can be initialized using double quotes directly or by creating a new String object."
     },
     {
