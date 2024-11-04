@@ -188,6 +188,7 @@
   correctAnswers: 2
   explanation: 'INNER JOIN returns rows when there is a match in both tables based on the specified condition.'
 
+## Double check
 - id: '11'
   difficulty: 3
   text: 'Which SQL query will select all planets with more than 1 moon from the "planets" and "moons" tables using LEFT JOIN?'
@@ -226,6 +227,7 @@
   correctAnswers: 2
   explanation: 'The ORDER BY clause with ASC sorts the results by the specified column in ascending order. ASC is the default sort order.'
 
+## double check
 - id: '13'
   difficulty: 4
   text: 'Which SQL query will select the name and distance from the sun for planets that are either closer than 100 million km or farther than 500 million km?'
