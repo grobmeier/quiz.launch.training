@@ -38,11 +38,11 @@ export function StationBody({ station, print = false }) {
     <p className={styles.eyebrow}>Station {station.number} of 3 · {station.minutes} minutes · {station.mapping}</p>
     {print ? <h2>{station.title}</h2> : <h1>{station.title}</h1>}
     <p className={styles.lead}>{station.objective}</p><p>{station.story}</p>
-    <figure className={styles.topology}><div role="img" aria-label={station.topologyDescription}>{station.topology.map((node, i) => <span key={node}>{i > 0 && <b aria-hidden="true">→</b>}<span>{node}</span></span>)}</div><figcaption>{station.topologyDescription}</figcaption></figure>
+    <figure className={styles.topology}><div role="img" aria-label={station.topologyDescription}>{station.topology.map((node, i) => <span key={node}>{i > 0 && <b aria-hidden="true">{station.id === 'publish-subscribe' ? '↳' : '→'}</b>}<span>{node}</span></span>)}</div><figcaption>{station.topologyDescription}</figcaption></figure>
     <p>Prerequisites: Java foundations and the <Link href="/labs/artemis-messaging/#setup">common setup</Link>, with Terminal 1 showing <code>BROKER_READY</code>. Use your own local broker. Keep a fresh namespace consistent across cooperating clients.</p>
     <section className={styles.prediction}><h2>1. Predict</h2><p>{station.prediction}</p><p>Write your prediction in the worksheet before commands, hints or AI. Keep the sent and received business-ID sets as evidence.</p>{print && <p className={styles.response}>My prediction: ____________________________________________________</p>}</section>
     {['Run', 'Break'].map((phase, i) => <section key={phase}><h2>{i + 2}. {phase}</h2>{station.steps.filter((s) => s.phase === phase).map((step) => <CommandStep key={step.id} step={step} />)}{print && <p className={styles.response}>My evidence / ID sets: ____________________________________________</p>}</section>)}
-    <section><h2>4. Explain</h2><ul>{station.explain.map((p) => <li key={p}>{p}</li>)}</ul><h3>Staged hints</h3><p>Use one hint at a time after recording your prediction.</p>{station.hints.map((hint, i) => <details key={hint}><summary>Hint {i + 1}</summary><p>{hint}</p></details>)}
+    <section><h2>4. Explain</h2><ul>{station.explain.map((p) => <li key={p}>{p}</li>)}</ul><h3>Staged hints</h3><p>Use one hint at a time after recording your prediction.</p>{station.hints.map((hint, i) => <details key={hint} open={print}><summary>Hint {i + 1}</summary><p>{hint}</p></details>)}
       <h3>Check your understanding</h3><p>Choose an answer, then check it for feedback. These questions do not affect quiz exam scoring.</p>
       {station.checks.map((q, i) => print ? <div className={styles.check} key={q.id}><p><strong>{i + 1}. {q.text}</strong></p><ul>{q.answers.map((a) => <li key={a.text}>{a.text}</li>)}</ul><p>My answer and reason: ______________________________________</p></div> : <SelfCheck key={q.id} question={q} />)}
     </section>
@@ -52,10 +52,10 @@ export function StationBody({ station, print = false }) {
     <section><h2>Clean up this station</h2>{station.cleanup.map((step) => <CommandStep key={step.id} step={step} />)}</section>
   </>;
 }
-export function FinalCleanup() {
+export function FinalCleanup({ print = false }) {
   return <section id="recap"><h2>Debrief and finish</h2><p>Show a partner or trainer one changed condition. Explain where work waited, who received a copy, and what was confirmed before failure. Support your explanation with business IDs and queue state.</p><p>{lab.cleanup}</p>
     <CommandStep step={{ id: 'stop-broker', terminal: 'Terminal 4 — control', title: 'Stop your local broker', instruction: 'All workers must already be stopped. After this command, wait for Terminal 1 to exit.', commands: lab.shutdown, evidence: 'Graceful stop completes; broker process exits.' }} />
-    <details><summary>Optional full local reset</summary><CommandStep step={{ id: 'reset-broker', terminal: 'Terminal 4 — control', title: 'Reset only your stopped, owned local broker', instruction: 'Only if every client and broker process has exited, and you intentionally want to remove this local broker dataset. Do not edit ownership markers to bypass a refusal.', commands: lab.reset, evidence: 'Owned broker data deleted; H2 ledger preserved. Use fresh namespaces for later runs.' }} /></details>
+    <details open={print}><summary>Optional full local reset</summary><CommandStep step={{ id: 'reset-broker', terminal: 'Terminal 4 — control', title: 'Reset only your stopped, owned local broker', instruction: 'Only if every client and broker process has exited, and you intentionally want to remove this local broker dataset. Do not edit ownership markers to bypass a refusal.', commands: lab.reset, evidence: 'Owned broker data deleted; H2 ledger preserved. Use fresh namespaces for later runs.' }} /></details>
     <p>Optional next steps in the private repository: S04 durable subscriptions; S09 idempotency for one local DB effect; selectors and other scenarios. A first pilot with two trainees will help refine timing and clarity.</p>
   </section>;
 }
