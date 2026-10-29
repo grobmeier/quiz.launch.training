@@ -42,7 +42,7 @@ export function ExamWrapper() {
     // Restarting deck or starting
     let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
     return (
-        <main className={styles.main}>
+        <main id="main-content" className={styles.main}>
             {questions == null || questions.length === 0 ? (<div>Loading...</div>) : (
                 <QuestionDeck examName={examName} />
             )}

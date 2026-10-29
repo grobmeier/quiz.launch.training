@@ -1,4 +1,4 @@
-import styles from './SingleOptionQuestion.module.scss'
+import { AnswerOptions } from './AnswerOptions'
 import { useEffect, useState } from 'react'
 import { INDEX_TO_CHARACTER } from '@/app/lib/Constants'
 import { Storage, read, put, remove, readJSON } from '@/app/lib/Storage.js';
@@ -43,23 +43,6 @@ export function SingleOptionQuestion({ examName, completed, answers, id }) {
         setClicked(!clicked);
     }
 
-    return (
-        <>
-            {answers.map((item, index) => (
-                <div className={styles.answerContainer} key={index}>
-                    <button
-                        onClick={(event) => handleClick(event, item, examName)}
-                        disabled={completed}
-                        type="button"
-                        className={`${styles.container} ${currentSelected.includes(item.text) ? styles.selectedBtn : ''}`}>
-                        <span>{INDEX_TO_CHARACTER[index]}</span>
-                        <span>{item.text}</span>
-                
-                    </button>
-                    {completed && item.correct && 
-                        <span className={styles.correctIndicator}>&#x2B05;</span> }
-                </div>
-            ))}
-        </>
-    )
+    return <AnswerOptions answers={answers} selected={currentSelected} completed={completed}
+        onSelect={(event, index) => handleClick(event, answers[index], examName)} />;
 }
