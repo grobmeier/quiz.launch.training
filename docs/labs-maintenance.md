@@ -37,4 +37,6 @@ A real session with two trainees remains a manual pilot, including actual compan
 
 ## Publication boundary
 
-Review the preview and the pull request before production publication. The independent verification workflow does not gate the pre-existing main deployment workflow. Obtain explicit owner approval before connecting verified build artifacts to production deployment, including the existing S3 synchronization/deletion and CloudFront invalidation steps. No deployment or remote broker change was performed during implementation.
+The owner approved connecting verification to deployment on 30 October 2026. The main-branch workflow calls the reusable verification workflow first. Only after that job succeeds does its dependent deployment job download the same run's static-site artifact, verify a non-empty index and static assets, load AWS credentials, synchronize the existing bucket and invalidate the existing CloudFront distribution. It does not rebuild after verification. Failed/skipped verification prevents publication, and concurrent production runs are serialized.
+
+Branch pushes, pull requests and manual verification do not publish. Review the preview and print pagination before approving the website PR's merge: a push to main still triggers production publication automatically. The workflow change is prepared on the feature branch; no production publication or remote broker change was performed.

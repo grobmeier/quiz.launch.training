@@ -1,27 +1,35 @@
+name: Verify and deploy static site to S3
 on:
   push:
-    branches: [ main ]
-name: Build docker image and deploy to S3
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: production-static-site
+  cancel-in-progress: false
 jobs:
-  build:
-    name: Build image
+  verify:
+    uses: ./.github/workflows/verify.yml
+  deploy:
+    name: Deploy verified export
+    needs: verify
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@v1
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
-            aws-region: eu-west-1          
-        - name: Build, tag, and push image to Github Packages
-          id: build-image-production
-          env:
-            IMAGE_TAG: ${{ github.sha }}
-            REPOSITORY: ${{ github.repository }}
-            IMAGE_NAME: ${{ github.repository }}:${{ github.sha }}
-            TARGET_IMAGE_NAME: grobmeier_de:${{ github.sha }}
-          run: |
-            docker build -t $IMAGE_NAME -f Dockerfile .
-            docker run -e AWS_REGION=eu-west-1 -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY }} -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_KEY }} $IMAGE_NAME
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          name: static-site
+          path: out
+      - name: Check deployment payload
+        run: |
+          test -s out/index.html
+          test -d out/_next/static
+      - uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: eu-west-1
+      - name: Publish the verified static files
+        run: aws s3 sync out/ s3://quiz.launch.training --delete --region eu-west-1 --cache-control "max-age=60"
+      - name: Invalidate the existing CloudFront distribution
+        run: aws cloudfront create-invalidation --distribution-id E3L1GO5KCNCT7W --paths '/*'

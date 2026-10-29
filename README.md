@@ -34,7 +34,9 @@ Station self-checks reuse the existing answer presentation and question data sha
 
 **Verify static site** runs on pushes, pull requests and manual dispatch. It installs locked dependencies with Node 24, audits production dependencies, checks the worksheet, runs content tests, builds the static site and checks route coverage/public output boundaries. The verified `static-site` artifact is retained for seven days. It has no private-repository credentials and no deployment permissions.
 
-The existing `main.yml` deployment publishes pushes to `main` to the established S3/CloudFront site. Its production behavior is unchanged. A feature-branch push or this new verification workflow does not deploy the site. Review the local/staging preview before approving publication. Integrating verification as a prerequisite of production deployment needs a separately approved deployment-workflow change; do not assume the independent verification workflow already gates the legacy deployment.
+The `main.yml` workflow publishes pushes to `main` to the established S3/CloudFront site only after its reusable verification job succeeds. Deployment downloads the `static-site` artifact from that same workflow run and checks the payload before loading AWS credentials. It publishes those exact verified files without rebuilding. A failed or skipped verification job prevents deployment. Production runs are serialized without cancelling an in-progress publication.
+
+Feature-branch pushes, pull requests and manual verification runs perform checks only; they do not deploy or load AWS credentials. Review the local/staging preview before approving a merge to `main`, which publishes automatically. The existing bucket, distribution, cache policy and credentials remain in use. No production publication was performed while preparing this change.
 
 ## Generate existing quiz questions
 
