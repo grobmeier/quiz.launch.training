@@ -7,7 +7,8 @@ export async function generateStaticParams() {
     }));
 }
 
-export default function Page() {
-    return <ExamWrapper />
+export default async function Page({ params }) {
+    const { examName } = await params;
+    return <ExamWrapper key={examName} examName={examName} />
 }
 
