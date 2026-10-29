@@ -1,8 +1,6 @@
-import { Inter } from 'next/font/google'
 import './globals.scss'
 import { Navbar } from '@/app/ui/Navbar'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
     title: 'Quiz Launch Training',
@@ -15,7 +13,7 @@ export default function RootLayout({ children }) {
             <head>
                 <script defer data-domain="launch.training" src="https://analytics.grobmeier.de/js/plausible.js"></script>
             </head>
-            <body className={inter.className}>
+            <body>
                 
                     <Navbar />
                     {children}

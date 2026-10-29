@@ -1,4 +1,4 @@
-FROM node:alpine3.18 as dependencies
+FROM node:24-alpine as dependencies
 
 RUN apk --no-cache add aws-cli
 
@@ -6,7 +6,7 @@ WORKDIR /root/build
 
 COPY . .
 
-RUN npm install
+RUN npm ci
 
 ARG ARG_AWS_ACCESS_KEY
 ARG ARG_AWS_SECRET_ACCESS_KEY
