@@ -16,7 +16,7 @@ npm run build
 npm run check:export
 ```
 
-The worksheet contains commands for both platforms, core tasks, spaces for local responses, content version and the private reference revision. The printable route contains all stations and expands hints/reset guidance. A print/save-to-PDF action uses the learner's local browser; it does not upload their worksheet.
+The worksheet contains commands for both platforms, core tasks, spaces for local responses, content version and the private reference revision. The printable route contains all stations and expands hints/reset guidance. The in-app browser exposes the print action but its native print dialog could not be inspected by automation. Review print pagination in a normal browser before publication. A print/save-to-PDF action uses the learner's local browser; it does not upload their worksheet.
 
 ## Reference revision and private access
 
@@ -37,4 +37,4 @@ A real session with two trainees remains a manual pilot, including actual compan
 
 ## Publication boundary
 
-Review the preview and the pull request before production publication. The independent verification workflow does not gate the pre-existing main deployment workflow. Connecting verified build artifacts to deployment was blocked by automatic approval review because it changes production S3 deletion/CloudFront invalidation behavior; obtain explicit approval before that production-workflow change. No deployment or remote broker change was performed during implementation.
+Review the preview and the pull request before production publication. The independent verification workflow does not gate the pre-existing main deployment workflow. Obtain explicit owner approval before connecting verified build artifacts to production deployment, including the existing S3 synchronization/deletion and CloudFront invalidation steps. No deployment or remote broker change was performed during implementation.
