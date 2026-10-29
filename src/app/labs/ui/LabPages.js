@@ -20,7 +20,7 @@ export function Intro({ print = false }) {
     <section><h2>Prepare your environment</h2><ul>{lab.prerequisites.map((p) => <li key={p}>{p}</li>)}</ul>
       <p>{lab.offline}</p>
       <p>Repository access does not follow from visiting these public pages. Invited collaborators can see the sample solutions and other branches. On GitHub, download an artifact from a successful Actions run for the agreed revision, extract its runtime ZIP, and read RUN.md. Private artifacts expire after seven days; your trainer should prepare them before the session.</p>
-      <p>English reference revision: <a href={`${lab.repository}/commit/${lab.referenceRevision}`}><code>{lab.referenceRevision}</code></a>. Private source and complete worked solutions require repository access.</p>
+      <p>English reference revision: <a href={`${lab.repository}/commit/${lab.referenceRevision}`}><code>{lab.referenceRevision.slice(0, 7)}</code></a>. <a href={lab.referenceRun}>Verified Windows/Linux run and private artifacts</a>. Private source and complete worked solutions require repository access.</p>
     </section>
     <section><h2>How you will learn</h2><p className={styles.method}>{lab.method.join(' → ')}</p><p>{lab.roles}</p><p>{lab.ai}</p>
       <p>Use the worksheet or local notes for predictions and evidence. These pages do not execute commands or collect your answers. The checklist is your own self-assessment.</p>

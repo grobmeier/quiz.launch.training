@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "worksheet": "node scripts/generate-worksheet.mjs",
+    "check:content": "node scripts/generate-worksheet.mjs --check",
+    "test": "node --test tests/*.test.mjs",
+    "check:export": "node scripts/check-export.mjs"
   },
   "dependencies": {
     "fs": "^0.0.1-security",
@@ -27,6 +31,6 @@
     "prismjs": "1.30.0"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": "^22.13.0 || >=24.0.0"
   }
 }

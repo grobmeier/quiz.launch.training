@@ -68,7 +68,7 @@ export function SelfCheck({ question }) {
     </fieldset>
     {!answered && <button type="submit" disabled={selected === null}>Check answer</button>}
     <div role="status">{answered && <p className={styles.evidence}>
-      <strong>{question.answers[selected].correct ? 'Correct. ' : 'Try the explanation. '}</strong>{question.explanation}
+      <strong>{question.answers[selected].correct ? 'Correct. ' : 'Not quite. '}</strong>{question.explanation}
     </p>}</div>
     {answered && <button type="button" onClick={() => { setSelected(null); setAnswered(false); }}>Try again</button>}
   </form>;

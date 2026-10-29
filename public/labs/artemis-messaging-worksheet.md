@@ -1,6 +1,6 @@
 # Messaging with Apache Artemis — worksheet
 
-Content version: 1.0.0 | Private reference: 71fc36e
+Content version: 1.0.0 | Private reference: 71fc36ed1f39422a058d35598922599e2004cf0e
 
 https://github.com/grobmeier/artemis-java-jumpstart
 
@@ -34,14 +34,14 @@ Verify java -version and javac -version use the supplied JDK 21. Set JAVA_HOME t
 
 Parent directory for your training checkout
 
-Accept your personal GitHub invitation first. Replace YOUR_GITHUB_NAME with your own username in the branch name. These commands need Git and initial download access. After cd, run subsequent steps from this repository root.
+Accept your personal GitHub invitation first. Replace YOUR_GITHUB_NAME with your own username in the branch name. The branch starts at the verified English revision below, even while main changes. These commands need Git and initial download access. After cd, run subsequent steps from this repository root.
 
 **Windows cmd.exe**
 
 ```bat
 git clone https://github.com/grobmeier/artemis-java-jumpstart.git
 cd artemis-java-jumpstart
-git switch -c feature/YOUR_GITHUB_NAME-labs
+git switch -c feature/YOUR_GITHUB_NAME-labs 71fc36ed1f39422a058d35598922599e2004cf0e
 .\mvnw.cmd -Ptraining clean verify
 ```
 
@@ -50,7 +50,7 @@ git switch -c feature/YOUR_GITHUB_NAME-labs
 ```sh
 git clone https://github.com/grobmeier/artemis-java-jumpstart.git
 cd artemis-java-jumpstart
-git switch -c feature/YOUR_GITHUB_NAME-labs
+git switch -c feature/YOUR_GITHUB_NAME-labs 71fc36ed1f39422a058d35598922599e2004cf0e
 ./mvnw -Ptraining clean verify
 ```
 
