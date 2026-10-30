@@ -1,42 +1,15 @@
 'use client';
-
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import styles from './Navbar.module.scss';
-
 export function Navbar() {
-    return (
-        <nav className={styles.navbar}>
-            <div className={`${styles.navbarContainer} ${styles.container}`}>
-                <div className={styles.hamburgerLines}>
-                    <span className={`${styles.line} ${styles.line1}`}></span>
-                    <span className={`${styles.line} ${styles.line2}`}></span>
-                    <span className={`${styles.line} ${styles.line3}`}></span>
-                </div>
-                <ul className={styles.menuItems}>
-                    <li className={styles.backLinkMobile}>
-                        <a href="https://www.launch.training/">
-                            Back To Main Site
-                        </a>
-                    </li>
-                </ul>
-                <div className={styles.logo}>
-                        <Link href="/">
-                            <Image
-                                src="/icons/launch-training-logo.svg"
-                                alt="Launch Training Logo"
-                                width={188}
-                                height={48}
-                                priority
-                            />
-                        </Link>
-                        <li className={styles.backLinkDesktop}>
-                            <a href="https://www.launch.training/">
-                                Back To Main Site
-                            </a>
-                        </li>
-                </div>
-            </div>
-        </nav>
-    )
+  const pathname = usePathname();
+  return <header className={styles.navbar}>
+    <Link href="#main-content" className={styles.skip}>Skip to content</Link>
+    <nav className={styles.container} aria-label="Main navigation">
+      <Link href="/" aria-label="Launch Training home"><Image src="/icons/launch-training-logo.svg" alt="Launch Training" width={188} height={48} priority /></Link>
+      <ul><li><Link href="/" aria-current={!pathname.startsWith('/labs') ? 'page' : undefined}>Quizzes</Link></li><li><Link href="/labs/" aria-current={pathname.startsWith('/labs') ? 'page' : undefined}>Labs</Link></li><li><a href="https://www.launch.training/">Main training site ↗</a></li></ul>
+    </nav>
+  </header>;
 }

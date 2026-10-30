@@ -1,13 +1,15 @@
 // `app/tests-list/page.tsx` is the UI for the `/tests-lists` URL
 
+import Link from 'next/link'
 import styles from './page.module.scss'
 import { SmallCard } from '@/app/ui/SmallCard'
 import { catalogue } from './exams-data/catalogue.js'
 
 export default function Page() {
     return (
-        <main className={styles.main}>
+        <main id="main-content" className={styles.main}>
             <h1>Exams Page</h1>
+            <p>Ready to put Java into practice? <Link href="/labs/" style={{ color: "#006b9e", textDecoration: "underline" }}>Explore the hands-on Labs →</Link></p>
             <div>
                 {catalogue.map((item) => (
                     <SmallCard

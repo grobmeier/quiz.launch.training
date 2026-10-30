@@ -3,20 +3,12 @@
 import styles from './exam.module.scss'
 import React, { useState, useEffect, useContext } from 'react'
 import { QuestionDeck } from '@/app/ui/question/QuestionDeck.js'
-import { usePathname } from 'next/navigation'
 import { shuffleExamAnswers, prepareResponse } from '@/app/lib/Functions.js'
 import { Storage, readJSON, read, put } from '@/app/lib/Storage.js'
 
-export function ExamWrapper() {
-    const pathname = usePathname();
+export function ExamWrapper({ examName }) {
     let [run, setRun] = useState(false);
         
-    let examName = 'java-arrays'
-    const match = pathname.match(/\/([a-zA-Z0-9-]+)\/$/)
-    if (match) {
-        examName = match[1];
-    } 
-    
     useEffect(() => {
         const prepareExam = async () => {
             // New run of the deck
@@ -42,7 +34,7 @@ export function ExamWrapper() {
     // Restarting deck or starting
     let questions = readJSON(Storage.EXAM_QUESTIONS, examName);
     return (
-        <main className={styles.main}>
+        <main id="main-content" className={styles.main}>
             {questions == null || questions.length === 0 ? (<div>Loading...</div>) : (
                 <QuestionDeck examName={examName} />
             )}
