@@ -19,15 +19,15 @@ export function Intro({ print = false }) {
     {!print && <Resources />}
     <section><h2>Prepare your environment</h2><ul>{lab.prerequisites.map((p) => <li key={p}>{p}</li>)}</ul>
       <p>{lab.offline}</p>
-      <p>Repository access does not follow from visiting these public pages. Invited collaborators can see the sample solutions and other branches. On GitHub, download an artifact from a successful Actions run for the agreed revision, extract its runtime ZIP, and read RUN.md. Private artifacts expire after seven days; your trainer should prepare them before the session.</p>
-      <p>English reference revision: <a href={`${lab.repository}/commit/${lab.referenceRevision}`}><code>{lab.referenceRevision.slice(0, 7)}</code></a>. <a href={lab.referenceRun}>Verified Windows/Linux run and private artifacts</a>. Private source and complete worked solutions require repository access.</p>
+      <p>The training repository is public, including exercises and worked solutions. On GitHub, download an artifact from a successful Actions run for the agreed revision, extract its runtime ZIP, and read RUN.md. Build artifacts expire after seven days; your trainer should prepare them before the session.</p>
+      <p>English reference revision: <a href={`${lab.repository}/commit/${lab.referenceRevision}`}><code>{lab.referenceRevision.slice(0, 7)}</code></a>. <a href={lab.referenceRun}>Verified Windows/Linux/macOS run and artifacts</a>. Source and worked solutions are available in the training repository.</p>
     </section>
     <section><h2>How you will learn</h2><p className={styles.method}>{lab.method.join(' → ')}</p><p>{lab.roles}</p><p>{lab.ai}</p>
       <p>Use the worksheet or local notes for predictions and evidence. These pages do not execute commands or collect your answers. The checklist is your own self-assessment.</p>
     </section>
-    <section id="setup"><h2>Set up once, in separate terminals</h2><p>Windows commands are selected initially. {labRoot} Check <code>java -version</code> and <code>javac -version</code>; both should use your supplied JDK 21. Set JAVA_HOME to its root directory if needed. Configure company proxies/certificates through approved IT settings.</p>
+    <section id="setup"><h2>Set up once, in separate terminals</h2><p>Windows commands are selected initially. {labRoot} Check <code>java -version</code> and <code>javac -version</code>; both should use your supplied JDK 21. Set JAVA_HOME to its root directory in every terminal before building or starting scripts. Configure company proxies/certificates through approved IT settings.</p>
       {lab.setup.map((step) => <CommandStep key={step.id} step={step} />)}
-      <p><strong>Choose the right entry point:</strong> <code>lab</code> runs finished demonstrations; <code>exercises</code> runs your editable implementations; <code>solutions</code> runs separate worked examples. Build source changes again with the training profile. Do not mix their messages in an old namespace.</p>
+      <p><strong>Choose the right entry point:</strong> <code>lab</code> runs finished demonstrations; <code>exercises</code> runs your editable implementations; <code>solutions</code> runs separate worked examples. Stop clients and the local broker before rebuilding with the training profile; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and use a fresh namespace. Do not mix their messages in an old namespace.</p>
       <p>No Docker, admin rights, PowerShell policy change or external broker is required. The optional central-broker profile is follow-up material and needs a separate company-network preflight.</p>
     </section>
     {!print && <section><h2>Your learning path</h2><ol className={styles.cards}>{stations.map((s) => <li key={s.id}><Link href={stationUrl(s)}><span className={styles.eyebrow}>Station {s.number} · {s.minutes} minutes</span><h3>{s.title}</h3><p>{s.objective}</p><span className={styles.action}>Start station →</span></Link></li>)}</ol></section>}
@@ -56,7 +56,7 @@ export function FinalCleanup({ print = false }) {
   return <section id="recap"><h2>Debrief and finish</h2><p>Show a partner or trainer one changed condition. Explain where work waited, who received a copy, and what was confirmed before failure. Support your explanation with business IDs and queue state.</p><p>{lab.cleanup}</p>
     <CommandStep step={{ id: 'stop-broker', terminal: 'Terminal 4 — control', title: 'Stop your local broker', instruction: 'All workers must already be stopped. After this command, wait for Terminal 1 to exit.', commands: lab.shutdown, evidence: 'Graceful stop completes; broker process exits.' }} />
     <details open={print}><summary>Optional full local reset</summary><CommandStep step={{ id: 'reset-broker', terminal: 'Terminal 4 — control', title: 'Reset only your stopped, owned local broker', instruction: 'Only if every client and broker process has exited, and you intentionally want to remove this local broker dataset. Do not edit ownership markers to bypass a refusal.', commands: lab.reset, evidence: 'Owned broker data deleted; H2 ledger preserved. Use fresh namespaces for later runs.' }} /></details>
-    <p>Optional next steps in the private repository: S04 durable subscriptions; S09 idempotency for one local DB effect; selectors and other scenarios. A first pilot with two trainees will help refine timing and clarity.</p>
+    <p>Optional next steps in the training repository: S04 durable subscriptions; S09 idempotency for one local DB effect; selectors and other scenarios. A first pilot with two trainees will help refine timing and clarity.</p>
   </section>;
 }
 export function StationNav({ station }) {

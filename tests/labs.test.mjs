@@ -50,8 +50,8 @@ test('worksheet includes exact commands for both platforms and all offline tasks
 
 test('published experiments preserve readiness, attempt counts and failure semantics', () => {
   const pubsub = stations[1];
-  assert.match(pubsub.steps[0].commands[0].args, /--timeout 60000/);
-  assert.match(pubsub.steps[1].commands[0].args, /--timeout 60000/);
+  assert.match(pubsub.steps[0].commands[0].args, /--timeout 300000/);
+  assert.match(pubsub.steps[1].commands[0].args, /--timeout 300000/);
   assert.match(pubsub.steps.find((s) => s.id === 'p-timeout').evidence, /exit code 2/);
   const failure = stations[2];
   assert.match(commandText(failure.steps.find((s) => s.id === 'f-poison')), /consume --count 5/);
@@ -59,4 +59,18 @@ test('published experiments preserve readiness, attempt counts and failure seman
   assert.match(failure.steps.find((s) => s.id === 'f-crash').evidence, /exit 17/);
   assert.match(failure.explain.join(' '), /all messages consumed so far/);
   assert.match(failure.explain.join(' '), /not an end-to-end exactly-once/);
+});
+
+test('source setup keeps the prerequisite check separate from compilation', () => {
+  const source = lab.setup.find((s) => s.id === 'get-source');
+  const preflight = lab.setup.find((s) => s.id === 'check-build');
+  const build = lab.setup.find((s) => s.id === 'build-source');
+  assert.ok(lab.setup.indexOf(preflight) < lab.setup.indexOf(build));
+  for (const platform of ['windows', 'unix']) {
+    assert.ok(commandText(source, platform).includes(lab.referenceRevision));
+    assert.ok(!commandText(source, platform).includes('clean verify'));
+    assert.match(commandText(preflight, platform), /doctor\.(cmd|sh) build$/);
+    assert.equal(commandText(build, platform).split('\n').length, 1);
+    assert.match(commandText(build, platform), /-Ptraining clean verify$/);
+  }
 });

@@ -45,10 +45,6 @@ export default function Page() {
             </Link>
             <span>3h 45m facilitated</span>
           </div>
-          <p className={styles.access}>
-            Public learning pages. Java code and worked solutions require a
-            trainer’s invitation.
-          </p>
         </div>
         <aside className={styles.preparation}>
           <p className={styles.eyebrow}>Before you begin</p>
