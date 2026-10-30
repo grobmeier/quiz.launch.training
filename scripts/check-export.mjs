@@ -3,7 +3,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { stations, lab } from '../src/app/labs/content/index.mjs';
 const root = new URL('../out/', import.meta.url).pathname;
-const paths = ['', 'labs/', 'labs/artemis-messaging/', 'labs/artemis-messaging/print/', ...stations.map((s) => `labs/artemis-messaging/${s.id}/`)];
+const paths = ['', 'quizzes/', 'labs/', 'labs/artemis-messaging/', 'labs/artemis-messaging/print/', ...stations.map((s) => `labs/artemis-messaging/${s.id}/`)];
 const catalogue = readFileSync(new URL('../src/app/exams-data/catalogue.js',import.meta.url),'utf8');
 for (const [,exam] of catalogue.matchAll(/exam:\s*['"]([^'"]+)['"]/g)) paths.push(`exams/${exam}/`);
 assert.equal(paths.filter((p) => p.startsWith('exams/')).length, 10, 'Preserve all ten existing exams');
@@ -17,6 +17,13 @@ for (const path of paths) {
   assert.match(trackers[0], /\bdefer(?:=|\s|>)/);
 
 }
+const home = readFileSync(join(root,'index.html'),'utf8');
+assert.match(home, /Learning hub/);
+assert.match(home, /Featured lab/);
+assert.match(home, /What would you like to practise/);
+assert.equal((home.match(/<article/g) || []).length, 11, 'SSR catalogue includes the lab and ten existing quizzes');
+const quizzes = readFileSync(join(root,'quizzes/index.html'),'utf8');
+assert.equal((quizzes.match(/<article/g) || []).length, 10, 'Quizzes route initially includes the ten quizzes');
 const overview = readFileSync(join(root,'labs/artemis-messaging/index.html'),'utf8');
 assert.ok(overview.includes(lab.accessNote));
 for (const s of stations) {

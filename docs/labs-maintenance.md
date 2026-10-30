@@ -40,3 +40,11 @@ A real session with two trainees remains a manual pilot, including actual compan
 The owner approved connecting verification to deployment on 30 October 2026. The main-branch workflow calls the reusable verification workflow first. Only after that job succeeds does its dependent deployment job download the same run's static-site artifact, verify a non-empty index and static assets, load AWS credentials, synchronize the existing bucket and invalidate the existing CloudFront distribution. It does not rebuild after verification. Failed/skipped verification prevents publication, and concurrent production runs are serialized.
 
 Branch pushes, pull requests and manual verification do not publish. Review the preview and print pagination before approving the website PR's merge: a push to main still triggers production publication automatically. The workflow change is prepared on the feature branch; no production publication or remote broker change was performed.
+
+## Learning hub and quiz catalogue
+
+The root introduces Labs and Quizzes and features the real Artemis pilot. `/quizzes/` is the direct quiz catalogue; `/exams/<exam-name>/` and all existing Labs routes remain stable. The activity model derives quiz metadata from the existing catalogue and lab metadata from the shared lab content. Format and topic filters operate only on that catalogue and never write exam storage.
+
+`QuizActions` reads each quiz's existing start state after hydration and offers Continue/Restart. Only the explicit Restart button clears that quiz through the existing storage helper. Browser regression checks verified returning to question 2 after filtering and restarting only after the explicit action. No lab answers/progress or search terms are sent as analytics events.
+
+The companion business-site training page retains global News/Writing navigation and its homepage's AI focus. Its Quizzes CTA uses `/quizzes/`, so publish this hub before the companion training-page release. The Launch Training redirect stays as configured.
