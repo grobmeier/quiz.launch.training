@@ -1,6 +1,6 @@
 # Launch Training quizzes and labs
 
-A public learning site built with Next.js App Router and exported as static files. Existing quizzes remain at `/exams/<exam-name>/`. The first practical lab is **Messaging with Apache Artemis**, with three stations at `/labs/artemis-messaging/`.
+A public learning site built with Next.js App Router and exported as static files. The root is a learning hub for Labs and Quizzes. The dedicated quiz catalogue is at `/quizzes/`; existing questions remain at `/exams/<exam-name>/`. Format/topic filters do not alter exam progress. Cards retain Continue/Restart for a started quiz. The first practical lab is **Messaging with Apache Artemis**, with three stations at `/labs/artemis-messaging/`.
 
 ## Develop and verify
 
