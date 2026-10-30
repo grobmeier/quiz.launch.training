@@ -10,9 +10,9 @@ export function worksheet() {
     }
     out.push(`Observe: ${s.evidence}`);
   }
-  out.push('## Common setup', 'Verify java -version and javac -version use the supplied JDK 21. Set JAVA_HOME to its root if needed. Use approved company proxy/certificate settings. Runtime-only learners extract the trainer ZIP and begin at broker start; source learners build first.');
+  out.push('## Common setup', 'Verify java -version and javac -version use the supplied JDK 21. Set JAVA_HOME to its root in every terminal before building or running scripts. Use approved company proxy/certificate settings. Runtime-only learners extract the trainer ZIP and begin at broker start; source learners build first.');
   lab.setup.forEach(step);
-  out.push('lab = finished demos; exercises = editable implementations; solutions = separate worked examples in the private repository. Rebuild changed source with -Ptraining. Green reference CI is not automatic grading of your implementation.');
+  out.push('lab = finished demos; exercises = editable implementations; solutions = separate worked examples in the private repository. Stop clients and your broker before rebuilding changed source with -Ptraining; Windows may lock running JARs. Restart the broker after BUILD SUCCESS. Green reference CI is not automatic grading of your implementation.');
   for (const s of stations) {
     out.push(`## Station ${s.number}: ${s.title}`, `${s.minutes} minutes | ${s.mapping}`, s.objective, s.story, `Topology: ${s.topology.join(' → ')}`, s.topologyDescription, '### 1. Predict', s.prediction, 'My prediction:\n\n____________________________________________________________');
     for (const [i,phase] of ['Run','Break'].entries()) {

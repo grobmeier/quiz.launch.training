@@ -1,6 +1,6 @@
 # Messaging with Apache Artemis — worksheet
 
-Content version: 1.0.0 | Private reference: 71fc36ed1f39422a058d35598922599e2004cf0e
+Content version: 1.0.1 | Private reference: 995cc140b618c6a03e436920897dc1b5671e9164
 
 https://github.com/grobmeier/artemis-java-jumpstart
 
@@ -28,21 +28,44 @@ Record predictions, business-ID sets and explanations locally. Nothing is submit
 
 ## Common setup
 
-Verify java -version and javac -version use the supplied JDK 21. Set JAVA_HOME to its root if needed. Use approved company proxy/certificate settings. Runtime-only learners extract the trainer ZIP and begin at broker start; source learners build first.
+Verify java -version and javac -version use the supplied JDK 21. Set JAVA_HOME to its root in every terminal before building or running scripts. Use approved company proxy/certificate settings. Runtime-only learners extract the trainer ZIP and begin at broker start; source learners build first.
 
-### Setup terminal — Get source and build once
+### Every terminal — environment — Check your JDK before cloning or starting scripts
+
+Any directory
+
+Use JDK 21 and set JAVA_HOME to its root directory in every terminal. The Windows examples use Command Prompt (cmd.exe), not PowerShell: type cmd if your terminal starts PowerShell. In cmd.exe use set "JAVA_HOME=C:\path\to\jdk-21"; in a Unix shell use export JAVA_HOME="/path/to/jdk-21". Replace the example with your real JDK path, then add its bin directory to PATH. New terminals do not inherit settings made in another terminal.
+
+**Windows cmd.exe**
+
+```bat
+java -version
+javac -version
+echo %JAVA_HOME%
+```
+
+**Linux/macOS shell**
+
+```sh
+java -version
+javac -version
+printenv JAVA_HOME
+```
+
+Observe: Both version commands report 21. JAVA_HOME names the JDK directory containing bin, not bin itself. Stop here and ask your trainer for the supplied JDK if either command fails.
+
+### Setup terminal — Get the source on a personal branch
 
 Parent directory for your training checkout
 
-Accept your personal GitHub invitation first. Replace YOUR_GITHUB_NAME with your own username in the branch name. The branch starts at the verified English revision below, even while main changes. These commands need Git and initial download access. After cd, run subsequent steps from this repository root.
+Accept your personal GitHub invitation first. Replace YOUR_GITHUB_NAME with your own username in the branch name. The branch starts at the verified revision below, even while main changes. These commands need Git and initial download access. A GitHub Code → Download ZIP download is source and still needs this build; it is different from the prebuilt runtime ZIP containing lib/lab.jar. If you have the runtime ZIP, extract it fully, follow RUN.md, and skip this source-build step. After cd, run subsequent steps from this repository root.
 
 **Windows cmd.exe**
 
 ```bat
 git clone https://github.com/grobmeier/artemis-java-jumpstart.git
 cd artemis-java-jumpstart
-git switch -c feature/YOUR_GITHUB_NAME-labs 71fc36ed1f39422a058d35598922599e2004cf0e
-.\mvnw.cmd -Ptraining clean verify
+git switch -c feature/YOUR_GITHUB_NAME-labs 995cc140b618c6a03e436920897dc1b5671e9164
 ```
 
 **Linux/macOS shell**
@@ -50,11 +73,50 @@ git switch -c feature/YOUR_GITHUB_NAME-labs 71fc36ed1f39422a058d35598922599e2004
 ```sh
 git clone https://github.com/grobmeier/artemis-java-jumpstart.git
 cd artemis-java-jumpstart
-git switch -c feature/YOUR_GITHUB_NAME-labs 71fc36ed1f39422a058d35598922599e2004cf0e
+git switch -c feature/YOUR_GITHUB_NAME-labs 995cc140b618c6a03e436920897dc1b5671e9164
+```
+
+Observe: The source checkout is open on your personal branch at the reference revision. If cloning or switching fails, stop here; do not run later commands in a different directory.
+
+### Setup terminal — source checkout only — Check the unbuilt source
+
+Lab root: the folder containing mvnw.cmd (source) or RUN.md (runtime ZIP).
+
+Run this before compilation. It does not need a lab JAR or a broker. If it fails, fix the reported JDK, JAVA_HOME or incomplete-download problem before continuing. Runtime ZIP users skip this source-only step.
+
+**Windows cmd.exe**
+
+```bat
+.\scripts\doctor.cmd build
+```
+
+**Linux/macOS shell**
+
+```sh
+./scripts/doctor.sh build
+```
+
+Observe: BUILD_READY. The JDK and Maven Wrapper are present. Network/proxy access is checked during the next build.
+
+### Setup terminal — source checkout only — Build and verify before opening broker terminals
+
+Lab root: the folder containing mvnw.cmd (source) or RUN.md (runtime ZIP).
+
+Only continue after the previous check succeeds. The first build downloads dependencies and runs real broker tests, so allow several minutes. Stop and read the build error if it fails. Runtime ZIP users skip this source-only step.
+
+**Windows cmd.exe**
+
+```bat
+.\mvnw.cmd -Ptraining clean verify
+```
+
+**Linux/macOS shell**
+
+```sh
 ./mvnw -Ptraining clean verify
 ```
 
-Observe: The training profile builds editable exercises and separate reference solutions. Its tests verify the reference implementation; green CI does not grade every trainee solution.
+Observe: BUILD SUCCESS. The training profile builds editable exercises and separate reference solutions. Its tests verify the reference implementation; green CI does not grade every trainee solution.
 
 ### Terminal 1 — broker — Start the broker in the foreground
 
@@ -96,7 +158,7 @@ Open a separate terminal in the same lab root. All station commands below use ex
 
 Observe: TCP and authentication successful. The broker remains running in Terminal 1.
 
-lab = finished demos; exercises = editable implementations; solutions = separate worked examples in the private repository. Rebuild changed source with -Ptraining. Green reference CI is not automatic grading of your implementation.
+lab = finished demos; exercises = editable implementations; solutions = separate worked examples in the private repository. Stop clients and your broker before rebuilding changed source with -Ptraining; Windows may lock running JARs. Restart the broker after BUILD SUCCESS. Green reference CI is not automatic grading of your implementation.
 
 ## Station 1: Queues and competing consumers
 
@@ -332,7 +394,7 @@ My answer and reason: ________________________________________
 
 ### 5. Adapt
 
-Complete or extend AExercise.java in the private exercises module. Implement the producer and transacted consumer using direct Jakarta Messaging calls. Change batch size and processing delay, predict the new result, then compare the ID sets. Use a fresh namespace in every exercise client; A uses S02 destinations. Rebuild with -Ptraining. Worked solutions remain in the separate private solutions module.
+Complete or extend AExercise.java in the private exercises module. Implement the producer and transacted consumer using direct Jakarta Messaging calls. Change batch size and processing delay, predict the new result, then compare the ID sets. Use a fresh namespace in every exercise client; A uses S02 destinations. Before rebuilding with -Ptraining, stop all clients and your local broker; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and repeat with a fresh namespace. Worked solutions remain in the separate private solutions module.
 
 My changed condition, prediction and result:
 
@@ -420,18 +482,18 @@ ____________________________________________________________
 
 Lab root: the folder containing mvnw.cmd (source) or RUN.md (runtime ZIP).
 
-Terminal 1 remains the local broker. Billing and shipping use independent non-durable consumers, each with its own connection. Start the other subscriber and producer within the 60-second receive timeout; if you time out before publishing, restart both in a fresh namespace.
+Terminal 1 remains the local broker. Billing and shipping use independent non-durable consumers, each with its own connection. Start the other subscriber and producer within the five-minute receive timeout; if you time out before publishing, restart both in a fresh namespace before sending.
 
 **Windows cmd.exe**
 
 ```bat
-.\scripts\lab.cmd s03 subscribe --subscription billing --worker billing --count 3 --timeout 60000 --namespace pilot-events
+.\scripts\lab.cmd s03 subscribe --subscription billing --worker billing --count 3 --timeout 300000 --namespace pilot-events
 ```
 
 **Linux/macOS shell**
 
 ```sh
-./scripts/lab.sh s03 subscribe --subscription billing --worker billing --count 3 --timeout 60000 --namespace pilot-events
+./scripts/lab.sh s03 subscribe --subscription billing --worker billing --count 3 --timeout 300000 --namespace pilot-events
 ```
 
 Observe: READY in Terminal 2, before publishing.
@@ -445,13 +507,13 @@ Use the same topic namespace and a separate process. Do not publish yet.
 **Windows cmd.exe**
 
 ```bat
-.\scripts\lab.cmd s03 subscribe --subscription shipping --worker shipping --count 3 --timeout 60000 --namespace pilot-events
+.\scripts\lab.cmd s03 subscribe --subscription shipping --worker shipping --count 3 --timeout 300000 --namespace pilot-events
 ```
 
 **Linux/macOS shell**
 
 ```sh
-./scripts/lab.sh s03 subscribe --subscription shipping --worker shipping --count 3 --timeout 60000 --namespace pilot-events
+./scripts/lab.sh s03 subscribe --subscription shipping --worker shipping --count 3 --timeout 300000 --namespace pilot-events
 ```
 
 Observe: READY in Terminal 3. Both subscribers must now be ready.
@@ -485,13 +547,13 @@ The initial billing process has exited. This new non-durable subscriber is creat
 **Windows cmd.exe**
 
 ```bat
-.\scripts\lab.cmd s03 subscribe --subscription late --worker late --count 2 --timeout 60000 --namespace pilot-events
+.\scripts\lab.cmd s03 subscribe --subscription late --worker late --count 2 --timeout 300000 --namespace pilot-events
 ```
 
 **Linux/macOS shell**
 
 ```sh
-./scripts/lab.sh s03 subscribe --subscription late --worker late --count 2 --timeout 60000 --namespace pilot-events
+./scripts/lab.sh s03 subscribe --subscription late --worker late --count 2 --timeout 300000 --namespace pilot-events
 ```
 
 Observe: READY for late, with no replay of the earlier three events.
@@ -612,7 +674,7 @@ My answer and reason: ________________________________________
 
 ### 5. Adapt
 
-Complete or extend BExercise.java in the private exercises module. Create a third independent interest (for example, analytics), each on its own connection, using the same topic. Start all three and confirm READY before publishing. Predict which future IDs each receives. Use a fresh exercise namespace; do not replace independent subscriptions with consumers sharing one queue. Rebuild with -Ptraining.
+Complete or extend BExercise.java in the private exercises module. Create a third independent interest (for example, analytics), each on its own connection, using the same topic. Start all three and confirm READY before publishing. Predict which future IDs each receives. Use a fresh exercise namespace; do not replace independent subscriptions with consumers sharing one queue. Before rebuilding with -Ptraining, stop all clients and your local broker; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and repeat with a fresh namespace.
 
 My changed condition, prediction and result:
 
@@ -944,7 +1006,7 @@ My answer and reason: ________________________________________
 
 ### 5. Adapt
 
-In private DExercise.java, implement the invalid-data failure branch: rollback when priorityClass=invalid, otherwise commit after successful work. Identify receive/work/commit in the code, rebuild with -Ptraining, then repeat in a fresh namespace and predict the five-delivery result. If time remains, implement inspection and repaired replay yourself; the full exercise can continue after the pilot. Keep complete worked solutions in the private solutions module.
+In private DExercise.java, implement the invalid-data failure branch: rollback when priorityClass=invalid, otherwise commit after successful work. Identify receive/work/commit in the code, stop clients and the broker before rebuilding with -Ptraining, then restart the broker and repeat in a fresh namespace and predict the five-delivery result. If time remains, implement inspection and repaired replay yourself; the full exercise can continue after the pilot. Keep complete worked solutions in the private solutions module.
 
 My changed condition, prediction and result:
 
