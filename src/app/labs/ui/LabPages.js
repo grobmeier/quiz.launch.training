@@ -19,8 +19,8 @@ export function Intro({ print = false }) {
     {!print && <Resources />}
     <section><h2>Prepare your environment</h2><ul>{lab.prerequisites.map((p) => <li key={p}>{p}</li>)}</ul>
       <p>{lab.offline}</p>
-      <p>Repository access does not follow from visiting these public pages. Invited collaborators can see the sample solutions and other branches. On GitHub, download an artifact from a successful Actions run for the agreed revision, extract its runtime ZIP, and read RUN.md. Private artifacts expire after seven days; your trainer should prepare them before the session.</p>
-      <p>English reference revision: <a href={`${lab.repository}/commit/${lab.referenceRevision}`}><code>{lab.referenceRevision.slice(0, 7)}</code></a>. <a href={lab.referenceRun}>Verified Windows/Linux/macOS run and private artifacts</a>. Private source and complete worked solutions require repository access.</p>
+      <p>The training repository is public, including exercises and worked solutions. On GitHub, download an artifact from a successful Actions run for the agreed revision, extract its runtime ZIP, and read RUN.md. Build artifacts expire after seven days; your trainer should prepare them before the session.</p>
+      <p>English reference revision: <a href={`${lab.repository}/commit/${lab.referenceRevision}`}><code>{lab.referenceRevision.slice(0, 7)}</code></a>. <a href={lab.referenceRun}>Verified Windows/Linux/macOS run and artifacts</a>. Source and worked solutions are available in the training repository.</p>
     </section>
     <section><h2>How you will learn</h2><p className={styles.method}>{lab.method.join(' → ')}</p><p>{lab.roles}</p><p>{lab.ai}</p>
       <p>Use the worksheet or local notes for predictions and evidence. These pages do not execute commands or collect your answers. The checklist is your own self-assessment.</p>
@@ -56,7 +56,7 @@ export function FinalCleanup({ print = false }) {
   return <section id="recap"><h2>Debrief and finish</h2><p>Show a partner or trainer one changed condition. Explain where work waited, who received a copy, and what was confirmed before failure. Support your explanation with business IDs and queue state.</p><p>{lab.cleanup}</p>
     <CommandStep step={{ id: 'stop-broker', terminal: 'Terminal 4 — control', title: 'Stop your local broker', instruction: 'All workers must already be stopped. After this command, wait for Terminal 1 to exit.', commands: lab.shutdown, evidence: 'Graceful stop completes; broker process exits.' }} />
     <details open={print}><summary>Optional full local reset</summary><CommandStep step={{ id: 'reset-broker', terminal: 'Terminal 4 — control', title: 'Reset only your stopped, owned local broker', instruction: 'Only if every client and broker process has exited, and you intentionally want to remove this local broker dataset. Do not edit ownership markers to bypass a refusal.', commands: lab.reset, evidence: 'Owned broker data deleted; H2 ledger preserved. Use fresh namespaces for later runs.' }} /></details>
-    <p>Optional next steps in the private repository: S04 durable subscriptions; S09 idempotency for one local DB effect; selectors and other scenarios. A first pilot with two trainees will help refine timing and clarity.</p>
+    <p>Optional next steps in the training repository: S04 durable subscriptions; S09 idempotency for one local DB effect; selectors and other scenarios. A first pilot with two trainees will help refine timing and clarity.</p>
   </section>;
 }
 export function StationNav({ station }) {

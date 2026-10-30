@@ -39,10 +39,10 @@ function audit(dir) {
   for (const name of readdirSync(dir)) {
     const path = join(dir,name);
     if (statSync(path).isDirectory()) { assert.ok(!['solutions','runtime','process-logs'].includes(name)); audit(path); continue; }
-    assert.ok(!/\.(?:java|jar|zip|p12|jks|pem|key|log)$/.test(name), `Private artifact in public export: ${name}`);
+    assert.ok(!/\.(?:java|jar|zip|p12|jks|pem|key|log)$/.test(name), `Java/runtime artifact in static export: ${name}`);
     if (/\.(?:html|js|json|txt|md)$/.test(name)) {
       const text=readFileSync(path,'utf8');
-      assert.ok(!text.includes('package de.jumpstart;'), `Private Java source in ${name}`);
+      assert.ok(!text.includes('package de.jumpstart;'), `Java source in static export: ${name}`);
       assert.ok(!/class [A-F]Solution\b/.test(text), `Worked solution in ${name}`);
       assert.ok(!/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(text), `Private key in ${name}`);
     }

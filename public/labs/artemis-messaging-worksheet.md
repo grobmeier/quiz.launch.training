@@ -1,10 +1,10 @@
 # Messaging with Apache Artemis — worksheet
 
-Content version: 1.0.1 | Private reference: 995cc140b618c6a03e436920897dc1b5671e9164
+Content version: 1.0.1 | Reference revision: b71a2e92f276ff3b07c7801b0dde604b52f11b68
 
 https://github.com/grobmeier/artemis-java-jumpstart
 
-Repository access requires an invitation from your trainer.
+Source, exercises and worked solutions are available on GitHub.
 
 An online shop accepts orders while billing and shipping work independently. Follow an order through queues, events and a controlled failure, using evidence from your own local broker.
 
@@ -14,7 +14,7 @@ An online shop accepts orders while billing and shipping work independently. Fol
 
 - A supplied JDK 21 and four separate cmd.exe terminals on Windows, or shells on Linux/macOS.
 
-- An invitation to the private training repository for editable source, or the trainer’s verified runtime ZIP for demonstrations.
+- A checkout of the public training repository for editable source, or the trainer’s verified runtime ZIP for demonstrations.
 
 - Your own local broker. Docker, administrator rights and a remote broker are not required.
 
@@ -58,14 +58,14 @@ Observe: Both version commands report 21. JAVA_HOME names the JDK directory cont
 
 Parent directory for your training checkout
 
-Accept your personal GitHub invitation first. Replace YOUR_GITHUB_NAME with your own username in the branch name. The branch starts at the verified revision below, even while main changes. These commands need Git and initial download access. A GitHub Code → Download ZIP download is source and still needs this build; it is different from the prebuilt runtime ZIP containing lib/lab.jar. If you have the runtime ZIP, extract it fully, follow RUN.md, and skip this source-build step. After cd, run subsequent steps from this repository root.
+Clone the public training repository. Replace YOUR_GITHUB_NAME with your username or another personal branch label. The branch starts at the verified revision below, even while main changes. These commands need Git and initial download access. A GitHub Code → Download ZIP download is source and still needs this build; it is different from the prebuilt runtime ZIP containing lib/lab.jar. If you have the runtime ZIP, extract it fully, follow RUN.md, and skip this source-build step. After cd, run subsequent steps from this repository root.
 
 **Windows cmd.exe**
 
 ```bat
 git clone https://github.com/grobmeier/artemis-java-jumpstart.git
 cd artemis-java-jumpstart
-git switch -c feature/YOUR_GITHUB_NAME-labs 995cc140b618c6a03e436920897dc1b5671e9164
+git switch -c feature/YOUR_GITHUB_NAME-labs b71a2e92f276ff3b07c7801b0dde604b52f11b68
 ```
 
 **Linux/macOS shell**
@@ -73,7 +73,7 @@ git switch -c feature/YOUR_GITHUB_NAME-labs 995cc140b618c6a03e436920897dc1b5671e
 ```sh
 git clone https://github.com/grobmeier/artemis-java-jumpstart.git
 cd artemis-java-jumpstart
-git switch -c feature/YOUR_GITHUB_NAME-labs 995cc140b618c6a03e436920897dc1b5671e9164
+git switch -c feature/YOUR_GITHUB_NAME-labs b71a2e92f276ff3b07c7801b0dde604b52f11b68
 ```
 
 Observe: The source checkout is open on your personal branch at the reference revision. If cloning or switching fails, stop here; do not run later commands in a different directory.
@@ -158,7 +158,7 @@ Open a separate terminal in the same lab root. All station commands below use ex
 
 Observe: TCP and authentication successful. The broker remains running in Terminal 1.
 
-lab = finished demos; exercises = editable implementations; solutions = separate worked examples in the private repository. Stop clients and your broker before rebuilding changed source with -Ptraining; Windows may lock running JARs. Restart the broker after BUILD SUCCESS. Green reference CI is not automatic grading of your implementation.
+lab = finished demos; exercises = editable implementations; solutions = separate worked examples in the training repository. Stop clients and your broker before rebuilding changed source with -Ptraining; Windows may lock running JARs. Restart the broker after BUILD SUCCESS. Green reference CI is not automatic grading of your implementation.
 
 ## Station 1: Queues and competing consumers
 
@@ -352,7 +352,7 @@ ____________________________________________________________
 
 - Show the sent and committed ID sets. Why do ten total commits not imply ten at each worker?
 
-- Find receive, business work and session.commit() in the private code. How does a missing commit change the conclusion?
+- Find receive, business work and session.commit() in the Java code. How does a missing commit change the conclusion?
 
 My explanation:
 
@@ -394,7 +394,7 @@ My answer and reason: ________________________________________
 
 ### 5. Adapt
 
-Complete or extend AExercise.java in the private exercises module. Implement the producer and transacted consumer using direct Jakarta Messaging calls. Change batch size and processing delay, predict the new result, then compare the ID sets. Use a fresh namespace in every exercise client; A uses S02 destinations. Before rebuilding with -Ptraining, stop all clients and your local broker; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and repeat with a fresh namespace. Worked solutions remain in the separate private solutions module.
+Complete or extend AExercise.java in the exercises module. Implement the producer and transacted consumer using direct Jakarta Messaging calls. Change batch size and processing delay, predict the new result, then compare the ID sets. Use a fresh namespace in every exercise client; A uses S02 destinations. Before rebuilding with -Ptraining, stop all clients and your local broker; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and repeat with a fresh namespace. Worked solutions remain in the separate solutions module.
 
 My changed condition, prediction and result:
 
@@ -674,7 +674,7 @@ My answer and reason: ________________________________________
 
 ### 5. Adapt
 
-Complete or extend BExercise.java in the private exercises module. Create a third independent interest (for example, analytics), each on its own connection, using the same topic. Start all three and confirm READY before publishing. Predict which future IDs each receives. Use a fresh exercise namespace; do not replace independent subscriptions with consumers sharing one queue. Before rebuilding with -Ptraining, stop all clients and your local broker; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and repeat with a fresh namespace.
+Complete or extend BExercise.java in the exercises module. Create a third independent interest (for example, analytics), each on its own connection, using the same topic. Start all three and confirm READY before publishing. Predict which future IDs each receives. Use a fresh exercise namespace; do not replace independent subscriptions with consumers sharing one queue. Before rebuilding with -Ptraining, stop all clients and your local broker; Windows may lock running JARs. After BUILD SUCCESS, restart the broker and repeat with a fresh namespace.
 
 My changed condition, prediction and result:
 
@@ -958,7 +958,7 @@ ____________________________________________________________
 
 ### 4. Explain
 
-- In a transacted session, commit confirms receives and publishes sends against the same broker; rollback reverses both. Find these calls in the private Java code.
+- In a transacted session, commit confirms receives and publishes sends against the same broker; rollback reverses both. Find these calls in the Java code.
 
 - AUTO_ACKNOWLEDGE confirms a synchronous delivery when receive returns successfully, or a listener delivery after onMessage returns successfully. Later business failure is not automatically protected.
 
@@ -1006,7 +1006,7 @@ My answer and reason: ________________________________________
 
 ### 5. Adapt
 
-In private DExercise.java, implement the invalid-data failure branch: rollback when priorityClass=invalid, otherwise commit after successful work. Identify receive/work/commit in the code, stop clients and the broker before rebuilding with -Ptraining, then restart the broker and repeat in a fresh namespace and predict the five-delivery result. If time remains, implement inspection and repaired replay yourself; the full exercise can continue after the pilot. Keep complete worked solutions in the private solutions module.
+In DExercise.java, implement the invalid-data failure branch: rollback when priorityClass=invalid, otherwise commit after successful work. Identify receive/work/commit in the code, stop clients and the broker before rebuilding with -Ptraining, then restart the broker and repeat in a fresh namespace and predict the five-delivery result. If time remains, implement inspection and repaired replay yourself; the full exercise can continue after the pilot. Keep complete worked solutions in the separate solutions module.
 
 My changed condition, prediction and result:
 
@@ -1118,4 +1118,4 @@ Only for your stopped, exclusively owned local broker dataset. Never a shared re
 
 Observe: Owned broker data deleted; H2 ledger preserved.
 
-Optional private-repository extensions: S04 durable subscriptions, S09 atomic local idempotency, selectors and other scenarios. No exactly-once end-to-end guarantee follows from these demonstrations.
+Optional training-repository extensions: S04 durable subscriptions, S09 atomic local idempotency, selectors and other scenarios. No exactly-once end-to-end guarantee follows from these demonstrations.

@@ -1,18 +1,18 @@
-const referenceRevision = '995cc140b618c6a03e436920897dc1b5671e9164';
+const referenceRevision = 'b71a2e92f276ff3b07c7801b0dde604b52f11b68';
 
 export const lab = {
   id: 'artemis-messaging', version: '1.0.1', title: 'Messaging with Apache Artemis',
   level: 'Java foundations', duration: '3 hours 45 minutes',
   repository: 'https://github.com/grobmeier/artemis-java-jumpstart',
   referenceRevision,
-  referenceRun: 'https://github.com/grobmeier/artemis-java-jumpstart/actions/runs/41068165582',
-  accessNote: 'Repository access requires an invitation from your trainer.',
+  referenceRun: 'https://github.com/grobmeier/artemis-java-jumpstart/actions/runs/41070047281',
+  accessNote: 'Source, exercises and worked solutions are available on GitHub.',
   story: 'An online shop accepts orders while billing and shipping work independently. Follow an order through queues, events and a controlled failure, using evidence from your own local broker.',
   method: ['Predict', 'Run', 'Break', 'Explain', 'Adapt'],
   prerequisites: [
     'Java classes, loops, exceptions and basic Maven usage. No messaging experience required.',
     'A supplied JDK 21 and four separate cmd.exe terminals on Windows, or shells on Linux/macOS.',
-    'An invitation to the private training repository for editable source, or the trainer’s verified runtime ZIP for demonstrations.',
+    'A checkout of the public training repository for editable source, or the trainer’s verified runtime ZIP for demonstrations.',
     'Your own local broker. Docker, administrator rights and a remote broker are not required.',
   ],
   setup: [
@@ -23,7 +23,7 @@ export const lab = {
       evidence: 'Both version commands report 21. JAVA_HOME names the JDK directory containing bin, not bin itself. Stop here and ask your trainer for the supplied JDK if either command fails.' },
     { id: 'get-source', terminal: 'Setup terminal', title: 'Get the source on a personal branch',
       directory: 'Parent directory for your training checkout',
-      instruction: 'Accept your personal GitHub invitation first. Replace YOUR_GITHUB_NAME with your own username in the branch name. The branch starts at the verified revision below, even while main changes. These commands need Git and initial download access. A GitHub Code → Download ZIP download is source and still needs this build; it is different from the prebuilt runtime ZIP containing lib/lab.jar. If you have the runtime ZIP, extract it fully, follow RUN.md, and skip this source-build step. After cd, run subsequent steps from this repository root.',
+      instruction: 'Clone the public training repository. Replace YOUR_GITHUB_NAME with your username or another personal branch label. The branch starts at the verified revision below, even while main changes. These commands need Git and initial download access. A GitHub Code → Download ZIP download is source and still needs this build; it is different from the prebuilt runtime ZIP containing lib/lab.jar. If you have the runtime ZIP, extract it fully, follow RUN.md, and skip this source-build step. After cd, run subsequent steps from this repository root.',
       raw: { windows: ['git clone https://github.com/grobmeier/artemis-java-jumpstart.git', 'cd artemis-java-jumpstart', `git switch -c feature/YOUR_GITHUB_NAME-labs ${referenceRevision}`],
         unix: ['git clone https://github.com/grobmeier/artemis-java-jumpstart.git', 'cd artemis-java-jumpstart', `git switch -c feature/YOUR_GITHUB_NAME-labs ${referenceRevision}`] },
       evidence: 'The source checkout is open on your personal branch at the reference revision. If cloning or switching fails, stop here; do not run later commands in a different directory.' },
