@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
-                <script defer data-domain="launch.training" src="https://analytics.grobmeier.de/js/plausible.js"></script>
+                <script defer data-domain="grobmeier.solutions" src="https://analytics.grobmeier.de/js/plausible.js"></script>
             </head>
             <body>
                 

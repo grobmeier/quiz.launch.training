@@ -28,7 +28,7 @@ Only deliberately authored learning instructions, commands, hints and self-check
 
 Structured lab content lives in `src/app/labs/content/`. The same content drives the learning pages, printable view and Markdown worksheet. After editing it, run `npm run worksheet` and commit the regenerated `public/labs/artemis-messaging-worksheet.md`. CI fails if the download differs from the source. See [maintenance and validation](docs/labs-maintenance.md).
 
-Station self-checks reuse the existing answer presentation and question data shape. They keep state in memory and do not read or write exam scoring/storage. Only the selected command platform is saved in sessionStorage; no personal learning progress or answers are sent to a server. Existing site analytics remain page-level; no lab answer events were added.
+Station self-checks reuse the existing answer presentation and question data shape. They keep state in memory and do not read or write exam scoring/storage. Only the selected command platform is saved in sessionStorage; no personal learning progress or answers are sent to a server. Quizzes and Labs use the same self-hosted Plausible snippet as Grobmeier Solutions: https://analytics.grobmeier.de/js/plausible.js with data-domain="grobmeier.solutions". Analytics remain page-level; no lab answer events were added. The export check requires exactly one matching tracker on each learning and exam page. Plausible supports one root-domain site ID across its subdomains; the existing pushState integration handles page navigation without a second pageview hook.
 
 ## GitHub Actions
 
