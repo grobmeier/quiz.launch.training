@@ -11,6 +11,11 @@ for (const path of paths) {
   const html = readFileSync(join(root,path,'index.html'),'utf8');
   assert.match(html, /<html lang="en"/);
   assert.match(html, /Main navigation/);
+  const trackers = html.match(/<script\b[^>]*src="https:\/\/analytics\.grobmeier\.de\/js\/plausible\.js"[^>]*>/g) || [];
+  assert.equal(trackers.length, 1, `Exactly one shared Plausible tracker on ${path || '/'}`);
+  assert.match(trackers[0], /data-domain="grobmeier\.solutions"/, `Shared analytics site ID on ${path || '/'}`);
+  assert.match(trackers[0], /\bdefer(?:=|\s|>)/);
+
 }
 const overview = readFileSync(join(root,'labs/artemis-messaging/index.html'),'utf8');
 assert.ok(overview.includes(lab.accessNote));
